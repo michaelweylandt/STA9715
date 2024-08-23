@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "STA 9715"
+  description:
+    Applied Probability
+  site-url: "https://michael-weylandt.com/STA9715/"
+  navbar:
+    background: primary
+    search: false
+    right:
+      - text: "Syllabus"
+        href: "./syllabus.html"
+      - text: "Handouts and Additional Notes"
+        href: "./notes.html"
+      - text: "Additional Resources"
+        href: "./resources.html"
+
+format:
+  html:
+    theme:
+      - sandstone
+    toc: true
