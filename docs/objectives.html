@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STA 9715 - Notes – STA 9715</title>
+<title>STA 9715 - Course Learning Objectives – STA 9715</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,6 +67,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -114,15 +143,28 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#official-course-description" id="toc-official-course-description" class="nav-link active" data-scroll-target="#official-course-description">Official Course Description</a></li>
+  <li><a href="#course-learning-objectives" id="toc-course-learning-objectives" class="nav-link" data-scroll-target="#course-learning-objectives">Course Learning Objectives</a></li>
+  <li><a href="#program-learning-goals" id="toc-program-learning-goals" class="nav-link" data-scroll-target="#program-learning-goals">Program Learning Goals</a>
+  <ul class="collapse">
+  <li><a href="#ms-in-business-analytics" id="toc-ms-in-business-analytics" class="nav-link" data-scroll-target="#ms-in-business-analytics">MS in Business Analytics</a></li>
+  <li><a href="#ms-in-quantitative-methods-modeling" id="toc-ms-in-quantitative-methods-modeling" class="nav-link" data-scroll-target="#ms-in-quantitative-methods-modeling">MS in Quantitative Methods &amp; Modeling</a></li>
+  <li><a href="#ms-in-statistics" id="toc-ms-in-statistics" class="nav-link" data-scroll-target="#ms-in-statistics">MS in Statistics</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">STA 9715 - Notes</h1>
+<h1 class="title">STA 9715 - Course Learning Objectives</h1>
 </div>
 
 
@@ -139,9 +181,276 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Supplemental course notes will be posted here.</p>
+<section id="official-course-description" class="level2">
+<h2 class="anchored" data-anchor-id="official-course-description">Official Course Description</h2>
+<p>This course provides a comprehensive introduction to applied probability and probability distributions. Students will learn probability with an understanding of its applications in statistical inference. Topics include discrete and continuous random variables and distributions, such as the binomial, negative binomial, Poisson, geometric, uniform, normal, exponential, gamma (<span class="math inline">\(\Gamma\)</span>), beta (<span class="math inline">\(B\)</span>), chi-square (<span class="math inline">\(\chi^2\)</span>), <span class="math inline">\(t\)</span>, and <span class="math inline">\(F\)</span> distributions. This course thoroughly develops topics as transformation of variables, joint distributions, bivariate normal, expectations, conditional distributions and expectations, moment-generating functions, distribution of sums of random variables, means and variances of sums, ratios of independent variables, and central limit theorem. Students will acquire an excellent background to proceed to statistical inference.</p>
+</section>
+<section id="course-learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="course-learning-objectives">Course Learning Objectives</h2>
+<p>Students successfully completing STA 9715 will:</p>
+<ol type="1">
+<li>Define and manipulate probability mass and density, expectation, and variance for discrete and continuous random variables.</li>
+<li>Define and manipulate <em>conditional</em> probability, expectation, and variance.</li>
+<li>Define and manipulate important named probability distributions including, but not limited to, the normal distribution, uniform distribution, and <span class="math inline">\(t\)</span>-distribution.</li>
+<li>Manipulate collections of random variables, characterizing them in terms of covariance and correlation, and establishing properties of their limits and sums.</li>
+<li>Define and manipulate <em>concentration of measure</em> phenomena including the central limit theorem.</li>
+</ol>
+<p>Additionally, STA 9715 will review important mathematical concepts used elsewhere in the statistics curriculum.</p>
+<p>The following course elements contribute to these goals:</p>
+<table class="caption-top table">
+<caption>Contribution of Course Elements to Learning Goals</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Practice Problems</th>
+<th style="text-align: center;">Learning Goal 1</th>
+<th style="text-align: center;">Learning Goal 2</th>
+<th style="text-align: center;">Learning Goal 3</th>
+<th style="text-align: center;">Learning Goal 4</th>
+<th style="text-align: center;">Learning Goal 5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Week 1</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Week 2</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Week 3</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Week 4</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Week 5</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Week 6</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Week 7</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Week 8</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Week 10</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Week 11</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Week 12</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Week 13</td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;"><strong>✓</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="program-learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="program-learning-goals">Program Learning Goals</h2>
+<p>This course contributes to the <a href="https://zicklin.baruch.cuny.edu/faculty-research/faculty-staff/assurance-of-learning/">program learning goals</a> of several MS programs offered by the Zicklin School of Business.</p>
+<section id="ms-in-business-analytics" class="level3">
+<h3 class="anchored" data-anchor-id="ms-in-business-analytics">MS in Business Analytics</h3>
+<p>This course contributes to the following Program Learning Goals for the MS in Business Analytics:</p>
+<table class="caption-top table">
+<caption>MSBA Program Learning Goals</caption>
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">STA 9715 Learning Goal</th>
+<th style="text-align: center;">MSBA Learning Goal</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Data Management</td>
+<td style="text-align: left;">Students will be able to apply methods, tools, and software for acquiring, managing/storing, and accessing structured and unstructured data. Students will also demonstrate knowledge of the strategic uses of data.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;">Foundational Statistical / Quantitative Skills</td>
+<td style="text-align: left;">Students will be able to prepare data for statistical analysis, perform basic exploratory and descriptive analysis as well as employ foundational statistical techniques needed to analyze data.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;">Advanced Statistical/Quantitative Skills</td>
+<td style="text-align: left;">Students will be able to build and interpret advanced predictive models. Students will be able to combine business rules and mathematical models to optimize business decisions from data.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;">Ethical Awareness</td>
+<td style="text-align: left;">Students will be able to articulate an understanding of ethical issues in all phases of business analytics with particular emphasis on the new possibilities afforded by the emergence of big data.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;">Professional Communication</td>
+<td style="text-align: left;">Students will be able to explain complex analytical models and their results orally and in writing to technical and non technical/lay audiences.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Knowledge Integration</td>
+<td style="text-align: left;">Students will be able to apply the three key types of analytics (descriptive, predictive, and prescriptive) in a business domain to add value to business decision-making.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ms-in-quantitative-methods-modeling" class="level3">
+<h3 class="anchored" data-anchor-id="ms-in-quantitative-methods-modeling">MS in Quantitative Methods &amp; Modeling</h3>
+<p>This course contributes to the following Program Learning Goals for the MS in Quantitative Methods &amp; Modeling:</p>
+<table class="caption-top table">
+<caption>MSQMM Program Learning Goals</caption>
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">STA 9715 Learning Goal</th>
+<th style="text-align: center;">MSQMM Learning Goal</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;">Operations Research &amp; Mathematical Modeling</td>
+<td style="text-align: left;">Students will be able to effectively model, evaluate, and solve quantitative (business) problems using quantitative modeling methods (e.g.&nbsp;deterministic and probabilistic operations research techniques).</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;">Statistics</td>
+<td style="text-align: left;">Students will be able to correctly apply appropriate statistical methods when defining, solving, and analyzing problems.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Technology Competency</td>
+<td style="text-align: left;">Students will be able to use current technological tools, including spreadsheets and specialized software, when solving problems.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;">Professional Communication</td>
+<td style="text-align: left;">Students will be able to effectively communicate their problem solving methods and solutions to technical and non-technical audiences.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ms-in-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="ms-in-statistics">MS in Statistics</h3>
+<p>This course contributes to the following Program Learning Goals for the MS in Statistics:</p>
+<table class="caption-top table">
+<caption>MS Statistics Program Learning Goals</caption>
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">STA 9715 Learning Goal</th>
+<th style="text-align: center;">MS Stat Learning Goal</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;">General Statistical Competence</td>
+<td style="text-align: left;">Students will be able to apply appropriate probability models and statistical techniques when analyzing problems frm business and other fields.</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>✓</strong></td>
+<td style="text-align: center;">Statistical Practice</td>
+<td style="text-align: left;">Students will become familiar with the standard tools of statistical practice for multiple regression, along with the tools of a subset of specialized statistical areas such as multivariate analysis, applied sampling, time series analysis, experimental design, data mining, categorical analysis, and/or stochastic processes.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"></td>
+<td style="text-align: center;">Technology Competency</td>
+<td style="text-align: left;">Students will learn to use one or more of the benchmark statistical software platforms, such as SAS or R.</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

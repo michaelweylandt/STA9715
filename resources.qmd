@@ -36,14 +36,15 @@ Piazza login information will be distributed through CUNY Brightspace.
 
 Students are encouraged to make use of any and all external resources, including
 generative AI tools, for at home study and for practice problems. Students are 
-strongly encouraged to collaborate on weekly practice problems.
+strongly encouraged to collaborate on weekly practice problems.  You are ultimately 
+responsible for the correctness of any submitted materials - "the AI told me so" 
+is not a valid defense.
 
 Note that official solutions for many practice problems can be found online on the [BH homepage](https://projects.iq.harvard.edu/sites/projects.iq.harvard.edu/files/stat110/files/selected_solutions_blitzstein_hwang_probability_01.pdf).
 
 The instructor will provide a formula sheet for use during in-class quizzes, tests, and final exam. No alternative resources may be used during these activities.
 
-
-## Academic Integrity Statement
+## Academic Integrity Policy
 
 I fully support CUNY’s [Policy on Academic Integrity](https://studentaffairs.baruch.cuny.edu/wp-content/uploads/sites/6/2024/08/CUNY-Academic-Integrity-Policy-2024.pdf), which states, in part:
 
@@ -62,8 +63,6 @@ an **F in this Course**. A report of suspected academic dishonesty will be sent 
 Students are encouraged to contact the instructor with any questions or concerns
 related to matters of academic integrity.
 
-
-
 ## Course Accomodations
 
 #### Disability Services
@@ -77,6 +76,10 @@ Please note that the instructor cannot provide accommodations unless requested b
 #### Religious Accomodations
 
 It is [CUNY policy](https://www.cuny.edu/about/administration/offices/legal-affairs/policies-resources/reasonable-accommodations-and-academic-adjustments/vi-religious-accommodations/) to provide accommodations for students' sincerely held religious beliefs. If a religious accommodation is requested, please contact the instructor at least two weeks in advance.
+
+#### Unexcused Abscence Policy
+
+Attendance is not required, but lecture recordings will not be provided. Students are responsible for the content of all sessions missed.
 
 ## Personal Resources[^2]
 

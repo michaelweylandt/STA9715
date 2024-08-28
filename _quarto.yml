@@ -17,6 +17,8 @@ website:
         href: "./notes.html"
       - text: "Additional Resources"
         href: "./resources.html"
+      - text: "Learning Objectives"
+        href: "./objectives.html"
 
 format:
   html:
