@@ -1,5 +1,5 @@
 ---
-title: "STA 9715 - Additional Resources"
+title: "STA 9715 - Additional Resources and Course Policies"
 ---
 
 ## Course Resources
@@ -16,6 +16,53 @@ For students wishing to dig deeper or to consult alternative resources, the foll
 - *Statistical Inference* by Casella and Berger (Chapters 1-5)
 - *Probability with Applications in Engineering, Science, and Technology* by Carlton and Devore (Chapters 1-4)
 - [*Fundamentals of Probability: A First Course* by DasGupta (DG)](https://link.springer.com/book/10.1007/978-1-4419-5780-1)[^1]
+
+### Course Discussion Board
+
+STA9715 will use `Piazza` as the course discussion board. Students are encouraged
+to direct all questions about course topics or logistics to Piazza; use of a public
+anonymous discussion board allows students to benefit from the insights of their
+classmates and allows instructors to answer questions publicly to the benefit 
+of all students. 
+
+Students are encouraged to use Piazza's private question feature if they need to
+contact the instructor directly. Please only use private questions for personal
+inquiries: questions about the technical substance of the course can and should
+be asked (pseudonymously) in the public section of Piazza. 
+
+Piazza login information will be distributed through CUNY Brightspace.
+
+### External Resources Use Policy
+
+Students are encouraged to make use of any and all external resources, including
+generative AI tools, for at home study and for practice problems. Students are 
+strongly encouraged to collaborate on weekly practice problems.
+
+Note that official solutions for many practice problems can be found online on the [BH homepage](https://projects.iq.harvard.edu/sites/projects.iq.harvard.edu/files/stat110/files/selected_solutions_blitzstein_hwang_probability_01.pdf).
+
+The instructor will provide a formula sheet for use during in-class quizzes, tests, and final exam. No alternative resources may be used during these activities.
+
+
+## Academic Integrity Statement
+
+I fully support CUNY’s [Policy on Academic Integrity](https://studentaffairs.baruch.cuny.edu/wp-content/uploads/sites/6/2024/08/CUNY-Academic-Integrity-Policy-2024.pdf), which states, in part:
+
+> Academic dishonesty is prohibited in The City University of New York. Penalties for academic dishonesty include academic sanctions, such as failing or otherwise reduced grades, and/or disciplinary sanctions, including suspension or expulsion.
+
+> Academic integrity is at the core of a college or university education. Faculty assign essays, exams, quizzes, projects, and so on both to extend the learning done in the classroom and as a means of assessing that learning. When students violate the academic integrity policy (i.e., "cheat"), they are committing an act of theft that can cause real harm to themselves and others including, but not limited to, their classmates, their faculty, and the caregivers who may be funding their education. Academic dishonesty confers an unfair advantage over others, which undermines educational equity and fairness. Students who cheat place their college’s accreditation and their own future prospects in jeopardy.
+
+In this course, expectations for academic integrity are straightforward: no use
+of unauthorized materials on weekly quizzes, mid-semester tests, or the course
+final exam. Unless explicitly stated otherwise by the instructor *in writing*, 
+the only authorized materials are the instructor-provided formula sheets.
+
+Academic sanctions in this class will range from an **F on the Assignment** to
+an **F in this Course**. A report of suspected academic dishonesty will be sent to the Office of the Dean of Students. 
+
+Students are encouraged to contact the instructor with any questions or concerns
+related to matters of academic integrity.
+
+
 
 ## Course Accomodations
 
