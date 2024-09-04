@@ -3,3 +3,32 @@ title: "STA 9715 - Notes"
 ---
 
 Supplemental course notes will be posted here.
+
+#### Week 1: Foundations of Probability
+
+#### Week 2: Conditionality and Marginality
+
+#### Week 3: Discrete Probability
+
+#### Week 4: From Discrete to Continuous Random Variables
+
+#### Week 5: Heavy Tails
+
+#### Week 6: Random Vectors
+
+#### Week 7: Covariance and Correlation
+
+#### Week 8: The Multivariate Normal Distribution and its Progeny
+
+#### Week 9: Probability, Polling, and Prediction
+
+#### Week 10: Perils and Paradoxes in Expectations
+
+#### Week 11: Probability Inequalities and Limit Theorems
+
+#### Week 12: Distributional Limits and the Central Limit Theorem
+
+#### Week 13: Concentration of Measure: Generalized Limit Theory
+
+#### Week 14: Computing with Randomness
+
