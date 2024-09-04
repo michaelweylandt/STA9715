@@ -1,5 +1,23 @@
 #!/usr/bin/env Rscript
+if(!require("quarto")){
+    install.packages("quarto")
+}
+
 library(quarto)
+
+if(!quarto::quarto_binary_sitrep()){
+    stop("Something is wrong with your quarto installation.")
+}
+
 quarto::quarto_render(".")
+
+## HACK: Remove cloudflare polyfill shim.
+for(f in list.files("docs", pattern="*.html", full.names = TRUE)){
+    content <- readLines(f)
+    content <- content[stringr::str_detect(content, "polyfill", negate = TRUE)]
+    writeLines(content, f)
+}
+
 system("git add docs/*")
-q("no")
+
+if(!any(grepl("rstudio", search()))){q("no")}
