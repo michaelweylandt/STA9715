@@ -6,6 +6,13 @@ Supplemental course notes will be posted here.
 
 #### Week 1: Foundations of Probability
 
+- Quanta Magazine: "[Perplexing the Web, One Probability Puzzle at a Time](https://www.quantamagazine.org/perplexing-the-web-one-probability-puzzle-at-a-time-20240829/)"
+- WIRED Magazine: "[Statistician Answers Stats Questions From Twitter 
+| Tech Support](https://www.youtube.com/watch?v=QW3KRaz4aI4)"
+  - [More Jeff Rosenthal](https://www.youtube.com/watch?v=GNX7cRhWVi0)
+- [Harvard STAT 110 Playlist](https://www.youtube.com/playlist?list=PL2SOU6wwxB0uwwH80KTQ6ht66KWxbzTIo)
+  - This is the course on which our textbook (BH) is based
+
 #### Week 2: Conditionality and Marginality
 
 #### Week 3: Discrete Probability
