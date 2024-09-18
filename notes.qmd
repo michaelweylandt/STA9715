@@ -15,6 +15,12 @@ Supplemental course notes will be posted here.
 
 #### Week 2: Conditionality and Marginality
 
+- The YouTube channel `3blue1brown` makes excellent 'explainers' about a variety
+  of mathematical topics. Check out his videos on Bayes' rule: 
+  - [The Geometry of Changing Beliefs](https://www.youtube.com/watch?v=HZGCoVF3YvM)
+    - See also [A Quick Proof of Bayes Theorem](https://www.youtube.com/watch?v=U_85TaXbeIo)
+  - [The Medical Test Paradox](https://www.youtube.com/watch?v=lG4VkPoG3ko&)
+
 #### Week 3: Discrete Probability
 
 #### Week 4: From Discrete to Continuous Random Variables

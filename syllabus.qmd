@@ -49,9 +49,7 @@ In lieu of homework, I will provide a short list of *practice problems* followin
 
 These in-class weekly quizzes will generate *extra credit* applied to your *final aggregate score*. Each quiz will receive a score out of 3 added directly to your final score. Because the final aggregate score is out of 400, perfect scores on all 12 weekly quizzes can raise your final aggregate score (*pre-curve*) **up to 9%**.
 
-To take part in the weekly quizzes, please come to class with both
-i) a black or blue pen; and ii) a red pen (for peer grading) each
-week. 
+To take part in the weekly quizzes, please come to class with both i) a black or blue pen; and ii) a red pen (for peer grading) each week.
 
 Make-up opportunities for the weekly quizzes will only be allowed in *exceptional* and *unforeseeable* circumstances.
 
@@ -73,7 +71,7 @@ If you feel an assignment has been improperly graded, please contact the instruc
 +---------+---------------------------------------------------+----------------------------------------------------------------------------------+-----------------------------------+----------------------------------+---------------------------------------------------------------------------+------------------------------------+
 | 2       | September 16th, 2024                              | Conditionality and Marginality:                                                  | DFO §6.3                          | BH §2.1-2.9, §4.1-4.6, §A.8-A.10 | BH §2.11: 1, 3, 9, 11, 14, 19, 30, 48, 59                                 |                                    |
 |         |                                                   |                                                                                  |                                   |                                  |                                                                           |                                    |
-|         |                                                   | 1.  Conditional Probabilities                                                    | GS §4.1, 6.1-6.2                  |                                  | §4.12: 2, 6, 12, 14, 34, 55,                                              |                                    |
+|         |                                                   | 1.  Conditional Probabilities                                                    | GS §4.1, 6.1-6.2                  |                                  | §4.12: 2, 6, 12, 14, 34, 35                                               |                                    |
 |         |                                                   | 2.  Expectation                                                                  |                                   |                                  |                                                                           |                                    |
 |         |                                                   | 3.  Variance                                                                     |                                   |                                  |                                                                           |                                    |
 |         |                                                   | 4.  Moments                                                                      |                                   |                                  |                                                                           |                                    |
