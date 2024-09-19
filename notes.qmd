@@ -20,6 +20,7 @@ Supplemental course notes will be posted here.
   - [The Geometry of Changing Beliefs](https://www.youtube.com/watch?v=HZGCoVF3YvM)
     - See also [A Quick Proof of Bayes Theorem](https://www.youtube.com/watch?v=U_85TaXbeIo)
   - [The Medical Test Paradox](https://www.youtube.com/watch?v=lG4VkPoG3ko&)
+- [Conditioning: The Soul of Statistics](https://www.youtube.com/watch?v=dzFf3r1yph8)
 - [Notes on Expectations](./notes/expectations.html)
 
 #### Week 3: Discrete Probability
