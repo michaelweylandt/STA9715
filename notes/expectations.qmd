@@ -1,0 +1,378 @@
+---
+title: "What to Expect when You're Expecting: Notes on Expectations, Variances, and Probabiblities"
+---
+
+$$\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}}$$
+
+In this note, I outline some of the basic properties of expectations and variances of random variables. I also show how many of these properties can be extended to probabilities via the use of *indicator functions*.
+
+## Random Variables
+
+So far, we have mainly focused on probabilities of individual *events* (*e.g.*, the probability of rolling a certain sum from a set of dice). This is useful enough, but somewhat limiting. If we have to start *from scratch* and build probabilities for every possible event from the raw sample space, we will never get anything done. A far more productive approach is to work with *random variables*. Formally, a random variable is a function from the sample space to the set of real numbers. That is, for every $\omega \in \Omega$, we can define a random variable $X$ as $X(\omega) = f(\omega)$. $X$ inherits a probability measure from $\Omega$: $$\P(X = a) = \P(X(\omega) = a) = \P(\{\omega: X(\omega) = a\}).$$ That is, we compute the probability of $X$ taking a value $a$ by looking at the probability of all inputs that could have lead to $a$. (This induced measure is sometimes called the 'push-forward' because we get probabilities on $X$ by pushing 'raw' probabilities on $\Omega$ into $X$-world.) Because $X$ ever only takes one value at at time, the events $\{X = a_1\}, \{X = a_2\}, \dots$ are *disjoint*, which makes it much easier to calculate with $X$ than it is with $\omega$. For example, $$\P(X = a \text{ or } X = b) = \P(X = a) + \P(X = b) - \P(X = a \text{ and } X = b) = \P(X = a) + \P(X = b)$$
+
+This formal definition is great, but we can also just 'start' with $X$ and avoid talking about the sample space $\Omega$ at all. Specifically, let's define a random variable $X$ by a set of probabilities and real values, subject to the constraint that the probabilities add to 1. For example, we may define the random variable $X$ by:
+
+| $a$ | $\P(X = a)$                  |
+|-----|------------------------------|
+| 1   | $\frac{1}{16}$               |
+| 2   | $\frac{4}{16} = \frac{1}{4}$ |
+| 3   | $\frac{6}{16} = \frac{3}{8}$ |
+| 4   | $\frac{4}{16} = \frac{1}{4}$ |
+| 5   | $\frac{1}{16}$               |
+
+: Random Variable $X$
+
+Examining this, we see that the sum $\sum_{a=1}^5 \P(X = a) = 1$ so $X$ here is a valid random variable.
+
+::: {.callout-note title="Random Variables - Working Definition"}
+A random variable $X$ is defined by a set of outcome-probability pairs $X \equiv \{(a_1, p_1), (a_2, p_2), \dots\}$ such that:
+
+1.  The outcomes are all distinct $a_i \neq a_j$ for $i \neq j$;
+2.  The probabilities are non-negative: $p_i \geq 0$ for all $i$; and
+3.  The probabilities sum to $1$: $\sum_i p_i = 1$.
+
+The *probability expression* $\P(X = a)$ is a 'look-up' expression:
+
+$$\P(X = a) = p \text{ if and only if } (a, p) \in X$$
+:::
+
+Comparing this to the "naive" definition of probability (all outcomes equal - events comprised of different numbers of outcomes), you might argue that we haven't actually simplified anything: we've just moved the complexity around. *Technically*, you may be right, but I would argue that working from random variables as our starting point is hugely helpful. We have replaced the tedious and somewhat painful algebra of counting with the simple and easily automated algebra of summing. For instance, if we want to compute the probability that the random variable $X$ we defined above is even, we only need to sum $$\P(X = 2) + \P(X = 4) = \frac{1}{4} + \frac{1}{4} = \frac{1}{2}.$$ No intersections, unions, permutations, or combinations to be seen.
+
+::: {.callout-tip title="A Note on Notation"}
+In this course, we will adopt a nearly universal notational convention: capital letters, *e.g.* $X$, refer to random variables while $x$ refers to fixed deterministic (non-random) quantities. In this convention, a statement like $\P(X = x)$ is asking what is the probability that a random quantity ($X$) takes a certain fixed value. When we have multiple random variables in play ($X, Y$), we can compute $\P(X = Y)$, the chance of a 'tie', but statements like $\P(x = y)$ are essentially meaningless since there's no randomness.
+:::
+
+When the set of outcomes is 'not too infinite', we refer to $X$ is as a *discrete* random variable and require the probabilities to *sum* to one. If $X$ is 'quite infinite', we refer to $X$ as a *continuous* random variable and require probabilities to *integrate* to one instead.[^1] Specifically, if $X$ has:
+
+[^1]: I would encourage you not too focus *too* much on this distinction: the magic of calculus is that integrals are just infinite limits of very finely diced sums and the same principles apply here. The branch of mathematics that formalizes this connection is *measure theory*, but we will just assert that these are fungible constructions in this course.
+
+-   a finite set of outcomes; or
+-   an infinite set of outcomes that can be listed ('countably infinite')
+
+we'll treat it as *discrete*. In this course, the only 'countably infinite' sets we deal with are the integers or subsets thereof (*e.g.* positive integers), so the heuristic of "discrete variables have integer outcomes or only finite numbers of outcomes" will serve you well.
+
+## Transformations of Random Variables
+
+Often, we may have a random variable $X$ and are interested in performing some calculations on an *induced* random variable $f(X)$ for some known function $f$. If $f$ is one-to-one, this is easy:
+
+$$\P(f(X) = a) = \P(X = f^{-1}(a))$$.
+
+For example, using our definition of $X$ above,
+
+$$ \P(X^2 = 25) = \P(X = 5) = \frac{1}{16}.$$
+
+In other contexts, $f$ may not be one-to-one; that is, there may be multiple $x$ such that $f(x) = a$. In this case, we need to interpret $f^{-1}(a)$ as the *set* of all inputs leading to $a$. When we compute $\P(X \in f^{-1}(a))$, we must compute all possibilities for this input: *e.g.*, let's take $f(x) = (x - 3)^2$ and compute $\P(f(X) = 1)$.
+
+$$\P(f(X) = 1) = \P(X \in f^{-1}(1)) = \P(X \in \{2, 4\}) = \P(X = 2) + \P(X = 4) = \frac{1}{2}$$
+
+We have to do a bit more work here to compute $f^{-1}(1)$, but after that, we're just getting the aggregate probability of disjoint events, so addition suffices. Again - no unions or intersections (inclusion-exclusion rules) in sight: random variables are always in *one and only one* of their outcomes.
+
+## Expectations
+
+When faced with a random variable $X$, we may ask (or be asked) "What's going to Happen?" Clearly, because $X$ is *random*, we can't really be certain about what's going to happen, but we can still make a 'best guess'.
+
+### Loss Functions and Best Predictions
+
+Of course, any notion of 'best' is context dependent: in simple problems, we may only care about 'right / wrong' predictions, but in many circumstances, the degree (and direction) of error in our prediction matters. If we are off by 1 degree in a weather prediction, that's not bad, but if we are over by \$1 on The Price is Right, we instantly lose.
+
+In statistics, we often work with a *loss* function, a quantitative measure of the 'pain' we experience when our guess is wrong.[^2] Some examples of loss functions include:
+
+[^2]: This is, up to sign, essentially the same as the economists' notion of utility. You may ponder why statisticians work in terms of 'pain minimization' instead of 'happiness maximization'.
+
+-   Right-or-Bust: $$\ell(\text{guess}, \text{truth}) = \begin{cases} 0 & \text{ if guess $=$ truth} \\ 1,000,000 & \text{ if guess $\neq$ truth}\end{cases}$$
+-   Squared Error: $$\ell(\text{guess}, \text{truth}) = (\text{guess} - \text{truth})^2$$
+-   Absolute Error: $$\ell(\text{guess}, \text{truth}) = |\text{guess} - \text{truth}|$$
+-   Closest without Going Over: $$\ell(\text{guess}, \text{truth}) = \begin{cases} \text{truth} - \text{guess} & \text{ if guess $\leq$ truth} \\ 1,000,000 & \text{ if guess $>$ truth} \end{cases}$$
+
+*(Note that the number* $1,000,000$ here is a stand-in for any large number. It's not special.)
+
+In general, we allow any loss function satisfying $\ell(x, y) \geq 0$ with equality if and only if $x = y$; that is, we want our loss functions to be non-negative for any $(x, y)$ and zero only when we get exactly the right answer.
+
+Once we commit to a loss function, the 'best' prediction is not too hard to figure out:
+
+-   Right-or-Bust gives us the *mode*, *i.e.*, the single most probable value of $X$
+-   Absolute Error gives us the *median*
+-   Squared Error gives us the *mean*
+
+Given the ubiquity of means in statistics, you might expect squared error to be the 'one true loss function'. In practice, very few loss functions are *truly* quadratic. But the general phenomenon of:
+
+i)  symmetric; and
+ii) increasing rate (the incremental pain of being off by 3 vs off by 2 is more than the incremental pain of off by 2 instead of off by 1)
+
+is quite common and squared error is the simplest mathematical model with those two properties. Accordingly, the mean is not the *single best possible* prediction *for all scenarios*, but it's a *very close to optimal* prediction for a wide range of scenarios. Combine that with mathematical convenience and its no surprise that squared error loss and means dominate the field of statistics.
+
+### Expected Values
+
+Ok - that's enough chit chat. Let's just say I want my best possible prediction under a squared error loss. How do I actually compute it?
+
+Let us define the *expectation* of a random variable as follows:
+
+::: {.callout-note title="Expected Value of a Random Variable"}
+Given a random variable $X$, its *expected value* is defined as a probability-weighted average of all outcomes: that is,
+
+$$ \E[X] = \sum_a \P(X = a) * a $$
+
+The expression $\E[X]$ is pronounced "the expectation of $X$".
+:::
+
+Using our running example, we get
+
+$$\E[X] = 1 * \frac{1}{16} + 2 * \frac{4}{16} + 3 * \frac{6}{16} + 4 * \frac{4}{16} + 5 * \frac{1}{16} = 3$$
+
+Note here that the expectation is the _center_ value of $X$. That isn't always
+the case, but it is when $X$ is a _symmetric_ random variable and here $X$ is 
+symmetric around $3$.
+
+There's nothing special about $X$ in expectations: it's very possible to compute expectations of arbitrary random variables, including functions of $X$ itself. For example, let's try $\E[(X - 3)^2 + 5]$.
+
+Being careful, let's define a new random variable $Y = (X-3)^2 + 5$. It's not hard to check that $Y$ is defined by
+
+| y   | $\P(Y = y)$   |
+|-----|---------------|
+| 5   | $\frac{1}{8}$ |
+| 6   | $\frac{1}{2}$ |
+| 9   | $\frac{3}{8}$ |
+
+: Distribution of $Y$
+
+This gives us: 
+
+$$\E[Y] = 5 * \frac{1}{8} + 6 * \frac{1}{2} + 9 * \frac{3}{8} = 7$$
+
+That works, but it's perhaps a little too much work. It turns out that we can
+just compute $\E[(X - 3)^2 + 5]$ directly without mentioning $Y$. 
+
+::: {.callout-note title="Law of the Unconscious Statistician"}
+
+_Law of the Unconscious Statistician_: expectations of functions of
+random variables can be computed by 'naive' substitution into the definition of
+expectation. That is, 
+
+$$\E[f(X)] = \sum f(x) \P(X = x)$$
+
+:::
+
+Here, 
+
+$$\begin{align*}
+\E[f(X)] &= f(1) * \frac{1}{16} + f(2) * \frac{4}{16} + f(3) * \frac{6}{16} + f(4) * \frac{4}{16} + f(5) * \frac{1}{16} \\
+&= 9 * \frac{1}{16} + 6 * \frac{4}{16} + 5 * \frac{6}{16} + 6 * \frac{4}{16} + 9 * \frac{1}{16} \\
+&= 7
+\end{align*}$$
+
+
+### Properties of Expected Values
+
+Expected values satisfy many useful properties. From the "weighted sum"
+definition, it's not hard to show:
+
+- Linearity: $$\E[aX + b] = a\E[X] + b$$
+- Expectation of a Constant: $$\E[c] = c$$
+- Sums of Functions: $$\E[f(X) + g(X)] = \E[f(X)] + \E[g(X)]$$
+- Rough Bounds: $$\min\{X\} \leq \E[X] \leq \max\{X\}$$
+- Interchange with Derivatives: $$\E\left[\frac{df}{dx}(X)\right] = \frac{d}{dx}\E[f(X)]$$
+
+We'll note more interesting properties of expectations in the following sections.
+
+### Indicators and Expectations
+
+A particularly important function class we might consider are _indicator_ functions. For any event $A$, define $1_{A}(X)$ as the function taking $1$ if 
+outcome $X$ is in event $A$ and $0$ otherwise. For example, if $A$ is the set
+of even numbers, $1_A(3) = 0$ while $1_A(2) = 1$. There is a deep connection
+between probabilities and expectations of indicator functions. 
+
+$$\begin{align*}
+\E[1_A(X)] &= 0 * \P(X \notin A) + 1 * \P(X \in A) \\
+&= \P(X \in A) \\
+&= \P(A)
+\end{align*}$$
+
+Because of this, any results we have about expectations can be used to derive
+similar results for probabilities. In particular, we know from statistical
+theory that sample means converge to expectations: this, in turn, implies that
+sample probabilities converge to true probabilities. We'll discuss this below
+after we talk about variances. 
+
+
+### Sums of Expectations
+
+Suppose we have two random variables $(X, Y)$. How can we compute the expectation of their sum? (By linearity above, if we can say something about
+the sum, we'll be able to make similar claims about arbitrary linear
+combinations.)
+
+In brief, the answer is that 
+
+$$\E[X + Y] =\E[X] + \E[Y]$$ 
+
+**without assuming independence.** 
+
+Now let's prove that: Let $Z = (X, Y)$ be the _compound_ random variable. Define
+$f_X(Z) = X$ and $f_Y(Z) = Y$ to be the 'coordinate' functions of $Z$. Then define $f(Z) = f_X(Z) + f_Y(Z) = X + Y$. Now apply LOTUS to $f(Z)$. 
+
+$$\E[(X + Y)] = \E[f(Z)] = \E[f_X(Z) + f_Y(Z)] = \E[f_X(Z)] + \E[f_Y(Z)] = \E[X] + \E[Y]$$
+
+A somewhat remarkable phenomenon is that it is often easier to compute
+_expectations_ of the number of times a complex event occurs than the actual
+probabilities of occurrences. We demonstrate this by the famous "hat problem".
+
+> Suppose $n$ people at a restaurant check their coats. The coat checker is
+> a bit absent-minded and returns the coats to the diners uniformly randomly. 
+> On average, how many people return home with their own coat? 
+
+More mathematically, if we shuffle the sequence $(1, \dots, n)$ to generate $(\sigma_1, \sigma_2, \dots, \sigma_n)$, what can we say about the number of times $\sigma_k = k$? Specifically, let $C$ be the number of values $k$ such
+that $\sigma_k = k$. Computing the distribution of $C$ is somewhat difficult
+(and a good exercise), but computing $\E[C]$ is quite easy!
+
+Let $A_k$ be the event $\sigma_k = k$: that is, diner $k$ leaves with the proper
+coat. Clearly $C = \sum_k 1_{A_k}$, so 
+$$\E[C] = \E\left[\sum_{k=1}^n 1_{A_k}\right] = \sum_{k=1}^n \E[1_{A_k}] = \sum_{k=1}^n P(A_k) = n P(A_1)$$
+Because the probabilities are uniform (by assumption), we can write the last step as $n P(A_1)$. Finally, we note that $P(A_1)$ is just the probability that
+the first person randomly gets the proper coat, which is $1/n$, so we have
+
+$$\E[C] = 1$$
+
+That is, no matter how many coats are checked, on average exactly one person
+gets the right coat at the end of the evening. 
+
+Compare this to the exact distribution of $C$. Even the 'simplest' part - no one
+getting their own coat - has a difficult probability: 
+$$\P(C = 0) = \sum_{j=0}^n \frac{(-1)^j}{j!} \buildrel{n \to \infty}\over\to\frac{1}{e} \approx 36.8\%$$
+And that's just one term of the sum!
+
+## Variances
+
+Now that we have a notion of _expectations_ as best predictions, we might ask
+how wrong our predictions will be 'on average'. Naively, we might try to compute
+$\E[(X - \mu)]$ for some guess $\mu = \E[X]$. Unfortunately, this turns out
+to be a little useless: 
+
+$$\E[(X - \E[X])] = \E[X] - \E[\E[X]] = \E[X] - \E[X] = 0$$
+
+But of course! _On average_, the average isn't too high or too low. It's
+_unbiased_  in statistical speak. But we still don't have an answer to our
+question. Clearly, if we want to know how far off we are, we need to just
+measure (unsigned) loss. For reasons we discussed earlier, let's use the squared
+error loss: 
+
+$$\E[\text{Loss}] = \E[(X - \E[X])^2] = \V[X]$$
+
+This quantity is called the _variance_ of $X$. 
+
+::: {.callout-note title="Variance"}
+
+The _variance_ of a random variable $X$ is given by
+
+$$\V[X] = \E[(X - \E[X])^2] = \E[X^2] - \E[X]^2$$
+
+:::
+
+The latter equality follows from standard algebra: 
+
+$$\begin{align*}
+\V[X] &= \E[(X - \E[X])^2] \\
+      &= \E[X^2 - 2X \E[X] + \E[X]^2] \\
+      &= \E[X^2] - 2\E[X \E[X]] + \E[\E[X]^2] \\
+      &= \E[X^2] - 2\E[X]\E[X] + \E[X]^2 \\
+      &= \E[X^2] - 2\E[X]^2 + \E[X]^2 \\
+      &= \E[X^2] - \E[X]^2
+\end{align*}$$
+
+Reading through this, you might find yourself a bit turned around by all
+of the $\E[\E[X]X]$ trickery. While you can justify each step using our
+properties of expectation listed above, it's often easier to just let $\mu=\E[X]$ to emphasize that, for purposes of a variance calculation, the mean
+is essentially just any old number. Repeating the above: 
+
+
+$$\begin{align*}
+\V[X] &= \E[(X - \mu)^2] \\
+      &= \E[X^2 - 2X \mu + \mu^2] \\
+      &= \E[X^2] - 2\E[X *\mu] + \E[\mu^2] \\
+      &= \E[X^2] - 2\mu\E[X] + \mu^2 \\
+      &= \E[X^2] - 2\mu * \mu + \mu^2 \\
+      &= \E[X^2] - 2\mu^2 + \mu^2\\
+      &= \E[X^2] - \mu^2
+\end{align*}$$
+
+Returning to the definition of $\V$, we recall that it is the expectation
+of a non-negative quantity (a square). Let $E_2 = (X - \E[X])^2$. Then 
+$\V[X] = \E[E_2]$. Since $\min\{E_2\} = 0$, we have $\V[X] \geq 0$. 
+
+This is our first key property fo variances so we should restate it clearly:
+
+- For any random variable $X$, $\V[X] \geq 0$. Furthermore $\V[X] = 0$ only when
+  $X$ is a constant (degenerate) random variable.
+  
+Looking more closely at $\V[X] = \E[E_2]$, we get the basic intepretation of
+mean and variance: 
+
+- $\E[X]$ is our best squared error prediction of $X$ (point prediction)
+- Given that, $\V[X]$ is the error we expect to get from our point prediction
+  
+For our next key property, we'll use the other side of our basic bounds. Suppose
+$X$ is a random variable that is never more than $M$ in absolute value,
+$\max\{|X\} \leq M$. Then $\V[X] \leq M^2$. This is a bit crude, but actually
+surprisingly useful. 
+
+For instance, let $X$ be an _indicator_ function, taking only values $0, 1$; 
+then $\V[X] \leq 1$. Because of this, for any theorem about expectations, we can
+convert it to a probability result setting variance to 1.[^3]
+
+We said earlier that $\E[\cdot]$ behaves nicely under linear operators
+(multiplication and addition): how does $\V[\cdot]$ do? 
+
+$$\begin{align*}
+\V[aX] &= \E[( aX - \E[aX])^2] \\
+       &= \E[(aX)^2 - 2(aX)\E[aX] + \E[aX]^2] \\
+       &= a^2 \left(\E[X^2 - 2X \E[X] + \E[X]^2]\right) \\
+       &= a^2 \V[X]
+\end{align*}$$
+
+**Exercise:**  Using a similar calculation, show $\V[X + b] = \V[X]$. 
+
+Putting these together, we have: 
+
+$$\V[aX + b] = a^2\V[X].$$
+
+So addition does nothing, while scalar multiplication applies _quadratically_.
+We can justify these from first principles as well: 
+
+- If we shift the whole distribution by $b$, our best guess will shift by $b$
+  as well. But the problem isn't any harder, so the variance (expected loss) 
+  doesn't change. 
+- If we change the units by a factor of $a$ (*e.g.*, feet to inches), 
+  our error multiplies by $a$ and so our squared error multiples by $a^2$. 
+  
+Note that the above formula works even if $a < 0$ because $a^2 > 0$. 
+If we didn't square things, we could get a negative variance by accident.[^4]
+
+
+How do variances behave with sums of random variables? *E.g.*,  $\V[X + Y]$.
+Sadly, the answer is far less clear: 
+
+$$\begin{align*}
+\V[X + Y] &= \E[( (X + Y) - \E[X+Y] )^2] \\
+          &= \E[((X - \E[X]) + (Y - \E[Y]))^2] \\
+          &= \E[(X-\E[X])^2] + 2\E[(X - \E[X])(Y - \E[Y])] + \E[(Y - \E[Y])]^2
+          &= \V[X] + \V[Y] + 2\E[(X - \E[X])(Y - \E[Y])]
+\end{align*}$$
+
+Dealing that final term, $2\E[(X - \E[X])(Y - \E[Y])]$, will be the subject
+of our next discussion of covariance and correlation. 
+
+### Infinite Variances
+
+For some distributions, it is possible that $\V[Y]$ is infinite. These
+distributions are sometimes called 'heavy-tailed'. We will discuss these more
+in a future set of notes, but in brief, these are the distributions that 'break'
+standard statistics.
+
+## Conditional Expectations and Variances
+
+See textbook.
+
+
+[^3]: As we will see, this is actually quite loose and we can use $\V[X] \leq \frac{1}{4}$ for indicators, but sometimes $1$ makes the math nicer.
+
+[^4]: We don't really do complex numbers in this course, but strictly speaking,
+we should be multiplying by $a\overline{a}$, which is always positive, even for 
+complex numbers.

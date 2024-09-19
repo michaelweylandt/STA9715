@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>What to Expect when You’re Expecting: Notes on Expectations, Variances, and Probabiblities – STA 9715</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">STA 9715</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href=".././syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././notes.html"> 
+<span class="menu-text">Handouts and Additional Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././resources.html"> 
+<span class="menu-text">Additional Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././objectives.html"> 
+<span class="menu-text">Learning Objectives</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#random-variables" id="toc-random-variables" class="nav-link active" data-scroll-target="#random-variables">Random Variables</a></li>
+  <li><a href="#transformations-of-random-variables" id="toc-transformations-of-random-variables" class="nav-link" data-scroll-target="#transformations-of-random-variables">Transformations of Random Variables</a></li>
+  <li><a href="#expectations" id="toc-expectations" class="nav-link" data-scroll-target="#expectations">Expectations</a>
+  <ul class="collapse">
+  <li><a href="#loss-functions-and-best-predictions" id="toc-loss-functions-and-best-predictions" class="nav-link" data-scroll-target="#loss-functions-and-best-predictions">Loss Functions and Best Predictions</a></li>
+  <li><a href="#expected-values" id="toc-expected-values" class="nav-link" data-scroll-target="#expected-values">Expected Values</a></li>
+  <li><a href="#properties-of-expected-values" id="toc-properties-of-expected-values" class="nav-link" data-scroll-target="#properties-of-expected-values">Properties of Expected Values</a></li>
+  <li><a href="#indicators-and-expectations" id="toc-indicators-and-expectations" class="nav-link" data-scroll-target="#indicators-and-expectations">Indicators and Expectations</a></li>
+  <li><a href="#sums-of-expectations" id="toc-sums-of-expectations" class="nav-link" data-scroll-target="#sums-of-expectations">Sums of Expectations</a></li>
+  </ul></li>
+  <li><a href="#variances" id="toc-variances" class="nav-link" data-scroll-target="#variances">Variances</a>
+  <ul class="collapse">
+  <li><a href="#infinite-variances" id="toc-infinite-variances" class="nav-link" data-scroll-target="#infinite-variances">Infinite Variances</a></li>
+  </ul></li>
+  <li><a href="#conditional-expectations-and-variances" id="toc-conditional-expectations-and-variances" class="nav-link" data-scroll-target="#conditional-expectations-and-variances">Conditional Expectations and Variances</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">What to Expect when You’re Expecting: Notes on Expectations, Variances, and Probabiblities</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><span class="math display">\[\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}}\]</span></p>
+<p>In this note, I outline some of the basic properties of expectations and variances of random variables. I also show how many of these properties can be extended to probabilities via the use of <em>indicator functions</em>.</p>
+<section id="random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="random-variables">Random Variables</h2>
+<p>So far, we have mainly focused on probabilities of individual <em>events</em> (<em>e.g.</em>, the probability of rolling a certain sum from a set of dice). This is useful enough, but somewhat limiting. If we have to start <em>from scratch</em> and build probabilities for every possible event from the raw sample space, we will never get anything done. A far more productive approach is to work with <em>random variables</em>. Formally, a random variable is a function from the sample space to the set of real numbers. That is, for every <span class="math inline">\(\omega \in \Omega\)</span>, we can define a random variable <span class="math inline">\(X\)</span> as <span class="math inline">\(X(\omega) = f(\omega)\)</span>. <span class="math inline">\(X\)</span> inherits a probability measure from <span class="math inline">\(\Omega\)</span>: <span class="math display">\[\P(X = a) = \P(X(\omega) = a) = \P(\{\omega: X(\omega) = a\}).\]</span> That is, we compute the probability of <span class="math inline">\(X\)</span> taking a value <span class="math inline">\(a\)</span> by looking at the probability of all inputs that could have lead to <span class="math inline">\(a\)</span>. (This induced measure is sometimes called the ‘push-forward’ because we get probabilities on <span class="math inline">\(X\)</span> by pushing ‘raw’ probabilities on <span class="math inline">\(\Omega\)</span> into <span class="math inline">\(X\)</span>-world.) Because <span class="math inline">\(X\)</span> ever only takes one value at at time, the events <span class="math inline">\(\{X = a_1\}, \{X = a_2\}, \dots\)</span> are <em>disjoint</em>, which makes it much easier to calculate with <span class="math inline">\(X\)</span> than it is with <span class="math inline">\(\omega\)</span>. For example, <span class="math display">\[\P(X = a \text{ or } X = b) = \P(X = a) + \P(X = b) - \P(X = a \text{ and } X = b) = \P(X = a) + \P(X = b)\]</span></p>
+<p>This formal definition is great, but we can also just ‘start’ with <span class="math inline">\(X\)</span> and avoid talking about the sample space <span class="math inline">\(\Omega\)</span> at all. Specifically, let’s define a random variable <span class="math inline">\(X\)</span> by a set of probabilities and real values, subject to the constraint that the probabilities add to 1. For example, we may define the random variable <span class="math inline">\(X\)</span> by:</p>
+<table class="caption-top table">
+<caption>Random Variable <span class="math inline">\(X\)</span></caption>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(a\)</span></th>
+<th><span class="math inline">\(\P(X = a)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><span class="math inline">\(\frac{1}{16}\)</span></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><span class="math inline">\(\frac{4}{16} = \frac{1}{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><span class="math inline">\(\frac{6}{16} = \frac{3}{8}\)</span></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><span class="math inline">\(\frac{4}{16} = \frac{1}{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><span class="math inline">\(\frac{1}{16}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Examining this, we see that the sum <span class="math inline">\(\sum_{a=1}^5 \P(X = a) = 1\)</span> so <span class="math inline">\(X\)</span> here is a valid random variable.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Random Variables - Working Definition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Random Variables - Working Definition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A random variable <span class="math inline">\(X\)</span> is defined by a set of outcome-probability pairs <span class="math inline">\(X \equiv \{(a_1, p_1), (a_2, p_2), \dots\}\)</span> such that:</p>
+<ol type="1">
+<li>The outcomes are all distinct <span class="math inline">\(a_i \neq a_j\)</span> for <span class="math inline">\(i \neq j\)</span>;</li>
+<li>The probabilities are non-negative: <span class="math inline">\(p_i \geq 0\)</span> for all <span class="math inline">\(i\)</span>; and</li>
+<li>The probabilities sum to <span class="math inline">\(1\)</span>: <span class="math inline">\(\sum_i p_i = 1\)</span>.</li>
+</ol>
+<p>The <em>probability expression</em> <span class="math inline">\(\P(X = a)\)</span> is a ‘look-up’ expression:</p>
+<p><span class="math display">\[\P(X = a) = p \text{ if and only if } (a, p) \in X\]</span></p>
+</div>
+</div>
+<p>Comparing this to the “naive” definition of probability (all outcomes equal - events comprised of different numbers of outcomes), you might argue that we haven’t actually simplified anything: we’ve just moved the complexity around. <em>Technically</em>, you may be right, but I would argue that working from random variables as our starting point is hugely helpful. We have replaced the tedious and somewhat painful algebra of counting with the simple and easily automated algebra of summing. For instance, if we want to compute the probability that the random variable <span class="math inline">\(X\)</span> we defined above is even, we only need to sum <span class="math display">\[\P(X = 2) + \P(X = 4) = \frac{1}{4} + \frac{1}{4} = \frac{1}{2}.\]</span> No intersections, unions, permutations, or combinations to be seen.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="A Note on Notation">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A Note on Notation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this course, we will adopt a nearly universal notational convention: capital letters, <em>e.g.</em> <span class="math inline">\(X\)</span>, refer to random variables while <span class="math inline">\(x\)</span> refers to fixed deterministic (non-random) quantities. In this convention, a statement like <span class="math inline">\(\P(X = x)\)</span> is asking what is the probability that a random quantity (<span class="math inline">\(X\)</span>) takes a certain fixed value. When we have multiple random variables in play (<span class="math inline">\(X, Y\)</span>), we can compute <span class="math inline">\(\P(X = Y)\)</span>, the chance of a ‘tie’, but statements like <span class="math inline">\(\P(x = y)\)</span> are essentially meaningless since there’s no randomness.</p>
+</div>
+</div>
+<p>When the set of outcomes is ‘not too infinite’, we refer to <span class="math inline">\(X\)</span> is as a <em>discrete</em> random variable and require the probabilities to <em>sum</em> to one. If <span class="math inline">\(X\)</span> is ‘quite infinite’, we refer to <span class="math inline">\(X\)</span> as a <em>continuous</em> random variable and require probabilities to <em>integrate</em> to one instead.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Specifically, if <span class="math inline">\(X\)</span> has:</p>
+<ul>
+<li>a finite set of outcomes; or</li>
+<li>an infinite set of outcomes that can be listed (‘countably infinite’)</li>
+</ul>
+<p>we’ll treat it as <em>discrete</em>. In this course, the only ‘countably infinite’ sets we deal with are the integers or subsets thereof (<em>e.g.</em> positive integers), so the heuristic of “discrete variables have integer outcomes or only finite numbers of outcomes” will serve you well.</p>
+</section>
+<section id="transformations-of-random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="transformations-of-random-variables">Transformations of Random Variables</h2>
+<p>Often, we may have a random variable <span class="math inline">\(X\)</span> and are interested in performing some calculations on an <em>induced</em> random variable <span class="math inline">\(f(X)\)</span> for some known function <span class="math inline">\(f\)</span>. If <span class="math inline">\(f\)</span> is one-to-one, this is easy:</p>
+<p><span class="math display">\[\P(f(X) = a) = \P(X = f^{-1}(a))\]</span>.</p>
+<p>For example, using our definition of <span class="math inline">\(X\)</span> above,</p>
+<p><span class="math display">\[ \P(X^2 = 25) = \P(X = 5) = \frac{1}{16}.\]</span></p>
+<p>In other contexts, <span class="math inline">\(f\)</span> may not be one-to-one; that is, there may be multiple <span class="math inline">\(x\)</span> such that <span class="math inline">\(f(x) = a\)</span>. In this case, we need to interpret <span class="math inline">\(f^{-1}(a)\)</span> as the <em>set</em> of all inputs leading to <span class="math inline">\(a\)</span>. When we compute <span class="math inline">\(\P(X \in f^{-1}(a))\)</span>, we must compute all possibilities for this input: <em>e.g.</em>, let’s take <span class="math inline">\(f(x) = (x - 3)^2\)</span> and compute <span class="math inline">\(\P(f(X) = 1)\)</span>.</p>
+<p><span class="math display">\[\P(f(X) = 1) = \P(X \in f^{-1}(1)) = \P(X \in \{2, 4\}) = \P(X = 2) + \P(X = 4) = \frac{1}{2}\]</span></p>
+<p>We have to do a bit more work here to compute <span class="math inline">\(f^{-1}(1)\)</span>, but after that, we’re just getting the aggregate probability of disjoint events, so addition suffices. Again - no unions or intersections (inclusion-exclusion rules) in sight: random variables are always in <em>one and only one</em> of their outcomes.</p>
+</section>
+<section id="expectations" class="level2">
+<h2 class="anchored" data-anchor-id="expectations">Expectations</h2>
+<p>When faced with a random variable <span class="math inline">\(X\)</span>, we may ask (or be asked) “What’s going to Happen?” Clearly, because <span class="math inline">\(X\)</span> is <em>random</em>, we can’t really be certain about what’s going to happen, but we can still make a ‘best guess’.</p>
+<section id="loss-functions-and-best-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="loss-functions-and-best-predictions">Loss Functions and Best Predictions</h3>
+<p>Of course, any notion of ‘best’ is context dependent: in simple problems, we may only care about ‘right / wrong’ predictions, but in many circumstances, the degree (and direction) of error in our prediction matters. If we are off by 1 degree in a weather prediction, that’s not bad, but if we are over by $1 on The Price is Right, we instantly lose.</p>
+<p>In statistics, we often work with a <em>loss</em> function, a quantitative measure of the ‘pain’ we experience when our guess is wrong.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Some examples of loss functions include:</p>
+<ul>
+<li>Right-or-Bust: <span class="math display">\[\ell(\text{guess}, \text{truth}) = \begin{cases} 0 &amp; \text{ if guess $=$ truth} \\ 1,000,000 &amp; \text{ if guess $\neq$ truth}\end{cases}\]</span></li>
+<li>Squared Error: <span class="math display">\[\ell(\text{guess}, \text{truth}) = (\text{guess} - \text{truth})^2\]</span></li>
+<li>Absolute Error: <span class="math display">\[\ell(\text{guess}, \text{truth}) = |\text{guess} - \text{truth}|\]</span></li>
+<li>Closest without Going Over: <span class="math display">\[\ell(\text{guess}, \text{truth}) = \begin{cases} \text{truth} - \text{guess} &amp; \text{ if guess $\leq$ truth} \\ 1,000,000 &amp; \text{ if guess $&gt;$ truth} \end{cases}\]</span></li>
+</ul>
+<p><em>(Note that the number</em> <span class="math inline">\(1,000,000\)</span> here is a stand-in for any large number. It’s not special.)</p>
+<p>In general, we allow any loss function satisfying <span class="math inline">\(\ell(x, y) \geq 0\)</span> with equality if and only if <span class="math inline">\(x = y\)</span>; that is, we want our loss functions to be non-negative for any <span class="math inline">\((x, y)\)</span> and zero only when we get exactly the right answer.</p>
+<p>Once we commit to a loss function, the ‘best’ prediction is not too hard to figure out:</p>
+<ul>
+<li>Right-or-Bust gives us the <em>mode</em>, <em>i.e.</em>, the single most probable value of <span class="math inline">\(X\)</span></li>
+<li>Absolute Error gives us the <em>median</em></li>
+<li>Squared Error gives us the <em>mean</em></li>
+</ul>
+<p>Given the ubiquity of means in statistics, you might expect squared error to be the ‘one true loss function’. In practice, very few loss functions are <em>truly</em> quadratic. But the general phenomenon of:</p>
+<ol type="i">
+<li>symmetric; and</li>
+<li>increasing rate (the incremental pain of being off by 3 vs off by 2 is more than the incremental pain of off by 2 instead of off by 1)</li>
+</ol>
+<p>is quite common and squared error is the simplest mathematical model with those two properties. Accordingly, the mean is not the <em>single best possible</em> prediction <em>for all scenarios</em>, but it’s a <em>very close to optimal</em> prediction for a wide range of scenarios. Combine that with mathematical convenience and its no surprise that squared error loss and means dominate the field of statistics.</p>
+</section>
+<section id="expected-values" class="level3">
+<h3 class="anchored" data-anchor-id="expected-values">Expected Values</h3>
+<p>Ok - that’s enough chit chat. Let’s just say I want my best possible prediction under a squared error loss. How do I actually compute it?</p>
+<p>Let us define the <em>expectation</em> of a random variable as follows:</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Expected Value of a Random Variable">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expected Value of a Random Variable
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Given a random variable <span class="math inline">\(X\)</span>, its <em>expected value</em> is defined as a probability-weighted average of all outcomes: that is,</p>
+<p><span class="math display">\[ \E[X] = \sum_a \P(X = a) * a \]</span></p>
+<p>The expression <span class="math inline">\(\E[X]\)</span> is pronounced “the expectation of <span class="math inline">\(X\)</span>”.</p>
+</div>
+</div>
+<p>Using our running example, we get</p>
+<p><span class="math display">\[\E[X] = 1 * \frac{1}{16} + 2 * \frac{4}{16} + 3 * \frac{6}{16} + 4 * \frac{4}{16} + 5 * \frac{1}{16} = 3\]</span></p>
+<p>Note here that the expectation is the <em>center</em> value of <span class="math inline">\(X\)</span>. That isn’t always the case, but it is when <span class="math inline">\(X\)</span> is a <em>symmetric</em> random variable and here <span class="math inline">\(X\)</span> is symmetric around <span class="math inline">\(3\)</span>.</p>
+<p>There’s nothing special about <span class="math inline">\(X\)</span> in expectations: it’s very possible to compute expectations of arbitrary random variables, including functions of <span class="math inline">\(X\)</span> itself. For example, let’s try <span class="math inline">\(\E[(X - 3)^2 + 5]\)</span>.</p>
+<p>Being careful, let’s define a new random variable <span class="math inline">\(Y = (X-3)^2 + 5\)</span>. It’s not hard to check that <span class="math inline">\(Y\)</span> is defined by</p>
+<table class="caption-top table">
+<caption>Distribution of <span class="math inline">\(Y\)</span></caption>
+<thead>
+<tr class="header">
+<th>y</th>
+<th><span class="math inline">\(\P(Y = y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5</td>
+<td><span class="math inline">\(\frac{1}{8}\)</span></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><span class="math inline">\(\frac{1}{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><span class="math inline">\(\frac{3}{8}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>This gives us:</p>
+<p><span class="math display">\[\E[Y] = 5 * \frac{1}{8} + 6 * \frac{1}{2} + 9 * \frac{3}{8} = 7\]</span></p>
+<p>That works, but it’s perhaps a little too much work. It turns out that we can just compute <span class="math inline">\(\E[(X - 3)^2 + 5]\)</span> directly without mentioning <span class="math inline">\(Y\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Law of the Unconscious Statistician">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Law of the Unconscious Statistician
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Law of the Unconscious Statistician</em>: expectations of functions of random variables can be computed by ‘naive’ substitution into the definition of expectation. That is,</p>
+<p><span class="math display">\[\E[f(X)] = \sum f(x) \P(X = x)\]</span></p>
+</div>
+</div>
+<p>Here,</p>
+<p><span class="math display">\[\begin{align*}
+\E[f(X)] &amp;= f(1) * \frac{1}{16} + f(2) * \frac{4}{16} + f(3) * \frac{6}{16} + f(4) * \frac{4}{16} + f(5) * \frac{1}{16} \\
+&amp;= 9 * \frac{1}{16} + 6 * \frac{4}{16} + 5 * \frac{6}{16} + 6 * \frac{4}{16} + 9 * \frac{1}{16} \\
+&amp;= 7
+\end{align*}\]</span></p>
+</section>
+<section id="properties-of-expected-values" class="level3">
+<h3 class="anchored" data-anchor-id="properties-of-expected-values">Properties of Expected Values</h3>
+<p>Expected values satisfy many useful properties. From the “weighted sum” definition, it’s not hard to show:</p>
+<ul>
+<li>Linearity: <span class="math display">\[\E[aX + b] = a\E[X] + b\]</span></li>
+<li>Expectation of a Constant: <span class="math display">\[\E[c] = c\]</span></li>
+<li>Sums of Functions: <span class="math display">\[\E[f(X) + g(X)] = \E[f(X)] + \E[g(X)]\]</span></li>
+<li>Rough Bounds: <span class="math display">\[\min\{X\} \leq \E[X] \leq \max\{X\}\]</span></li>
+<li>Interchange with Derivatives: <span class="math display">\[\E\left[\frac{df}{dx}(X)\right] = \frac{d}{dx}\E[f(X)]\]</span></li>
+</ul>
+<p>We’ll note more interesting properties of expectations in the following sections.</p>
+</section>
+<section id="indicators-and-expectations" class="level3">
+<h3 class="anchored" data-anchor-id="indicators-and-expectations">Indicators and Expectations</h3>
+<p>A particularly important function class we might consider are <em>indicator</em> functions. For any event <span class="math inline">\(A\)</span>, define <span class="math inline">\(1_{A}(X)\)</span> as the function taking <span class="math inline">\(1\)</span> if outcome <span class="math inline">\(X\)</span> is in event <span class="math inline">\(A\)</span> and <span class="math inline">\(0\)</span> otherwise. For example, if <span class="math inline">\(A\)</span> is the set of even numbers, <span class="math inline">\(1_A(3) = 0\)</span> while <span class="math inline">\(1_A(2) = 1\)</span>. There is a deep connection between probabilities and expectations of indicator functions.</p>
+<p><span class="math display">\[\begin{align*}
+\E[1_A(X)] &amp;= 0 * \P(X \notin A) + 1 * \P(X \in A) \\
+&amp;= \P(X \in A) \\
+&amp;= \P(A)
+\end{align*}\]</span></p>
+<p>Because of this, any results we have about expectations can be used to derive similar results for probabilities. In particular, we know from statistical theory that sample means converge to expectations: this, in turn, implies that sample probabilities converge to true probabilities. We’ll discuss this below after we talk about variances.</p>
+</section>
+<section id="sums-of-expectations" class="level3">
+<h3 class="anchored" data-anchor-id="sums-of-expectations">Sums of Expectations</h3>
+<p>Suppose we have two random variables <span class="math inline">\((X, Y)\)</span>. How can we compute the expectation of their sum? (By linearity above, if we can say something about the sum, we’ll be able to make similar claims about arbitrary linear combinations.)</p>
+<p>In brief, the answer is that</p>
+<p><span class="math display">\[\E[X + Y] =\E[X] + \E[Y]\]</span></p>
+<p><strong>without assuming independence.</strong></p>
+<p>Now let’s prove that: Let <span class="math inline">\(Z = (X, Y)\)</span> be the <em>compound</em> random variable. Define <span class="math inline">\(f_X(Z) = X\)</span> and <span class="math inline">\(f_Y(Z) = Y\)</span> to be the ‘coordinate’ functions of <span class="math inline">\(Z\)</span>. Then define <span class="math inline">\(f(Z) = f_X(Z) + f_Y(Z) = X + Y\)</span>. Now apply LOTUS to <span class="math inline">\(f(Z)\)</span>.</p>
+<p><span class="math display">\[\E[(X + Y)] = \E[f(Z)] = \E[f_X(Z) + f_Y(Z)] = \E[f_X(Z)] + \E[f_Y(Z)] = \E[X] + \E[Y]\]</span></p>
+<p>A somewhat remarkable phenomenon is that it is often easier to compute <em>expectations</em> of the number of times a complex event occurs than the actual probabilities of occurrences. We demonstrate this by the famous “hat problem”.</p>
+<blockquote class="blockquote">
+<p>Suppose <span class="math inline">\(n\)</span> people at a restaurant check their coats. The coat checker is a bit absent-minded and returns the coats to the diners uniformly randomly. On average, how many people return home with their own coat?</p>
+</blockquote>
+<p>More mathematically, if we shuffle the sequence <span class="math inline">\((1, \dots, n)\)</span> to generate <span class="math inline">\((\sigma_1, \sigma_2, \dots, \sigma_n)\)</span>, what can we say about the number of times <span class="math inline">\(\sigma_k = k\)</span>? Specifically, let <span class="math inline">\(C\)</span> be the number of values <span class="math inline">\(k\)</span> such that <span class="math inline">\(\sigma_k = k\)</span>. Computing the distribution of <span class="math inline">\(C\)</span> is somewhat difficult (and a good exercise), but computing <span class="math inline">\(\E[C]\)</span> is quite easy!</p>
+<p>Let <span class="math inline">\(A_k\)</span> be the event <span class="math inline">\(\sigma_k = k\)</span>: that is, diner <span class="math inline">\(k\)</span> leaves with the proper coat. Clearly <span class="math inline">\(C = \sum_k 1_{A_k}\)</span>, so <span class="math display">\[\E[C] = \E\left[\sum_{k=1}^n 1_{A_k}\right] = \sum_{k=1}^n \E[1_{A_k}] = \sum_{k=1}^n P(A_k) = n P(A_1)\]</span> Because the probabilities are uniform (by assumption), we can write the last step as <span class="math inline">\(n P(A_1)\)</span>. Finally, we note that <span class="math inline">\(P(A_1)\)</span> is just the probability that the first person randomly gets the proper coat, which is <span class="math inline">\(1/n\)</span>, so we have</p>
+<p><span class="math display">\[\E[C] = 1\]</span></p>
+<p>That is, no matter how many coats are checked, on average exactly one person gets the right coat at the end of the evening.</p>
+<p>Compare this to the exact distribution of <span class="math inline">\(C\)</span>. Even the ‘simplest’ part - no one getting their own coat - has a difficult probability: <span class="math display">\[\P(C = 0) = \sum_{j=0}^n \frac{(-1)^j}{j!} \buildrel{n \to \infty}\over\to\frac{1}{e} \approx 36.8\%\]</span> And that’s just one term of the sum!</p>
+</section>
+</section>
+<section id="variances" class="level2">
+<h2 class="anchored" data-anchor-id="variances">Variances</h2>
+<p>Now that we have a notion of <em>expectations</em> as best predictions, we might ask how wrong our predictions will be ‘on average’. Naively, we might try to compute <span class="math inline">\(\E[(X - \mu)]\)</span> for some guess <span class="math inline">\(\mu = \E[X]\)</span>. Unfortunately, this turns out to be a little useless:</p>
+<p><span class="math display">\[\E[(X - \E[X])] = \E[X] - \E[\E[X]] = \E[X] - \E[X] = 0\]</span></p>
+<p>But of course! <em>On average</em>, the average isn’t too high or too low. It’s <em>unbiased</em> in statistical speak. But we still don’t have an answer to our question. Clearly, if we want to know how far off we are, we need to just measure (unsigned) loss. For reasons we discussed earlier, let’s use the squared error loss:</p>
+<p><span class="math display">\[\E[\text{Loss}] = \E[(X - \E[X])^2] = \V[X]\]</span></p>
+<p>This quantity is called the <em>variance</em> of <span class="math inline">\(X\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Variance">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Variance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <em>variance</em> of a random variable <span class="math inline">\(X\)</span> is given by</p>
+<p><span class="math display">\[\V[X] = \E[(X - \E[X])^2] = \E[X^2] - \E[X]^2\]</span></p>
+</div>
+</div>
+<p>The latter equality follows from standard algebra:</p>
+<p><span class="math display">\[\begin{align*}
+\V[X] &amp;= \E[(X - \E[X])^2] \\
+      &amp;= \E[X^2 - 2X \E[X] + \E[X]^2] \\
+      &amp;= \E[X^2] - 2\E[X \E[X]] + \E[\E[X]^2] \\
+      &amp;= \E[X^2] - 2\E[X]\E[X] + \E[X]^2 \\
+      &amp;= \E[X^2] - 2\E[X]^2 + \E[X]^2 \\
+      &amp;= \E[X^2] - \E[X]^2
+\end{align*}\]</span></p>
+<p>Reading through this, you might find yourself a bit turned around by all of the <span class="math inline">\(\E[\E[X]X]\)</span> trickery. While you can justify each step using our properties of expectation listed above, it’s often easier to just let <span class="math inline">\(\mu=\E[X]\)</span> to emphasize that, for purposes of a variance calculation, the mean is essentially just any old number. Repeating the above:</p>
+<p><span class="math display">\[\begin{align*}
+\V[X] &amp;= \E[(X - \mu)^2] \\
+      &amp;= \E[X^2 - 2X \mu + \mu^2] \\
+      &amp;= \E[X^2] - 2\E[X *\mu] + \E[\mu^2] \\
+      &amp;= \E[X^2] - 2\mu\E[X] + \mu^2 \\
+      &amp;= \E[X^2] - 2\mu * \mu + \mu^2 \\
+      &amp;= \E[X^2] - 2\mu^2 + \mu^2\\
+      &amp;= \E[X^2] - \mu^2
+\end{align*}\]</span></p>
+<p>Returning to the definition of <span class="math inline">\(\V\)</span>, we recall that it is the expectation of a non-negative quantity (a square). Let <span class="math inline">\(E_2 = (X - \E[X])^2\)</span>. Then <span class="math inline">\(\V[X] = \E[E_2]\)</span>. Since <span class="math inline">\(\min\{E_2\} = 0\)</span>, we have <span class="math inline">\(\V[X] \geq 0\)</span>.</p>
+<p>This is our first key property fo variances so we should restate it clearly:</p>
+<ul>
+<li>For any random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(\V[X] \geq 0\)</span>. Furthermore <span class="math inline">\(\V[X] = 0\)</span> only when <span class="math inline">\(X\)</span> is a constant (degenerate) random variable.</li>
+</ul>
+<p>Looking more closely at <span class="math inline">\(\V[X] = \E[E_2]\)</span>, we get the basic intepretation of mean and variance:</p>
+<ul>
+<li><span class="math inline">\(\E[X]\)</span> is our best squared error prediction of <span class="math inline">\(X\)</span> (point prediction)</li>
+<li>Given that, <span class="math inline">\(\V[X]\)</span> is the error we expect to get from our point prediction</li>
+</ul>
+<p>For our next key property, we’ll use the other side of our basic bounds. Suppose <span class="math inline">\(X\)</span> is a random variable that is never more than <span class="math inline">\(M\)</span> in absolute value, <span class="math inline">\(\max\{|X\} \leq M\)</span>. Then <span class="math inline">\(\V[X] \leq M^2\)</span>. This is a bit crude, but actually surprisingly useful.</p>
+<p>For instance, let <span class="math inline">\(X\)</span> be an <em>indicator</em> function, taking only values <span class="math inline">\(0, 1\)</span>; then <span class="math inline">\(\V[X] \leq 1\)</span>. Because of this, for any theorem about expectations, we can convert it to a probability result setting variance to 1.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>We said earlier that <span class="math inline">\(\E[\cdot]\)</span> behaves nicely under linear operators (multiplication and addition): how does <span class="math inline">\(\V[\cdot]\)</span> do?</p>
+<p><span class="math display">\[\begin{align*}
+\V[aX] &amp;= \E[( aX - \E[aX])^2] \\
+       &amp;= \E[(aX)^2 - 2(aX)\E[aX] + \E[aX]^2] \\
+       &amp;= a^2 \left(\E[X^2 - 2X \E[X] + \E[X]^2]\right) \\
+       &amp;= a^2 \V[X]
+\end{align*}\]</span></p>
+<p><strong>Exercise:</strong> Using a similar calculation, show <span class="math inline">\(\V[X + b] = \V[X]\)</span>.</p>
+<p>Putting these together, we have:</p>
+<p><span class="math display">\[\V[aX + b] = a^2\V[X].\]</span></p>
+<p>So addition does nothing, while scalar multiplication applies <em>quadratically</em>. We can justify these from first principles as well:</p>
+<ul>
+<li>If we shift the whole distribution by <span class="math inline">\(b\)</span>, our best guess will shift by <span class="math inline">\(b\)</span> as well. But the problem isn’t any harder, so the variance (expected loss) doesn’t change.</li>
+<li>If we change the units by a factor of <span class="math inline">\(a\)</span> (<em>e.g.</em>, feet to inches), our error multiplies by <span class="math inline">\(a\)</span> and so our squared error multiples by <span class="math inline">\(a^2\)</span>.</li>
+</ul>
+<p>Note that the above formula works even if <span class="math inline">\(a &lt; 0\)</span> because <span class="math inline">\(a^2 &gt; 0\)</span>. If we didn’t square things, we could get a negative variance by accident.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>How do variances behave with sums of random variables? <em>E.g.</em>, <span class="math inline">\(\V[X + Y]\)</span>. Sadly, the answer is far less clear:</p>
+<p><span class="math display">\[\begin{align*}
+\V[X + Y] &amp;= \E[( (X + Y) - \E[X+Y] )^2] \\
+          &amp;= \E[((X - \E[X]) + (Y - \E[Y]))^2] \\
+          &amp;= \E[(X-\E[X])^2] + 2\E[(X - \E[X])(Y - \E[Y])] + \E[(Y - \E[Y])]^2
+          &amp;= \V[X] + \V[Y] + 2\E[(X - \E[X])(Y - \E[Y])]
+\end{align*}\]</span></p>
+<p>Dealing that final term, <span class="math inline">\(2\E[(X - \E[X])(Y - \E[Y])]\)</span>, will be the subject of our next discussion of covariance and correlation.</p>
+<section id="infinite-variances" class="level3">
+<h3 class="anchored" data-anchor-id="infinite-variances">Infinite Variances</h3>
+<p>For some distributions, it is possible that <span class="math inline">\(\V[Y]\)</span> is infinite. These distributions are sometimes called ‘heavy-tailed’. We will discuss these more in a future set of notes, but in brief, these are the distributions that ‘break’ standard statistics.</p>
+</section>
+</section>
+<section id="conditional-expectations-and-variances" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-expectations-and-variances">Conditional Expectations and Variances</h2>
+<p>See textbook.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>I would encourage you not too focus <em>too</em> much on this distinction: the magic of calculus is that integrals are just infinite limits of very finely diced sums and the same principles apply here. The branch of mathematics that formalizes this connection is <em>measure theory</em>, but we will just assert that these are fungible constructions in this course.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is, up to sign, essentially the same as the economists’ notion of utility. You may ponder why statisticians work in terms of ‘pain minimization’ instead of ‘happiness maximization’.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>As we will see, this is actually quite loose and we can use <span class="math inline">\(\V[X] \leq \frac{1}{4}\)</span> for indicators, but sometimes <span class="math inline">\(1\)</span> makes the math nicer.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>We don’t really do complex numbers in this course, but strictly speaking, we should be multiplying by <span class="math inline">\(a\overline{a}\)</span>, which is always positive, even for complex numbers.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/michael-weylandt\.com\/STA9715\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
