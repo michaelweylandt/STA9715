@@ -367,6 +367,60 @@ This is at stark odds with our intuition about gambling - if something hasn't
 happened for a while, it's _bound_ to happen. If the events are truly
 IID, this simply isn't the case.
 
+Memorylessness is a bit magic: the geometric distribution (and its close kin)
+is actually the only discrete distribution with this property. The other
+famous distribution with this property is the (continuous) exponential
+distribution, which has the same negative exponential structure. For this
+reason, the geometric distribution is sometimes called the discrete
+exponential distribution, though that name has mainly fallen out of paper.
+
+To show memorylessness, we can use some of our basic principles of conditional
+PMFs. Before doing so, let's define some useful alternative formulations
+of the PMF. 
+
+- The CDF - cumulative distribution function - is 
+  $$F(x) = \P(X \leq x) = \sum_{i=1}^{x} \P(X = x)$$
+- The CCDF - _complementary CDF_ - is 
+  $$\overline{F}(x) = \P(X > x) = \sum_{x+1}^{\infty} \P(X = x)$$
+  
+Clearly, $F(x) + \overline{F}(x) = 1$ for all $x$. With these in hand, it's 
+easy to state the manipulation formulas for "self-conditioned" random variables.
+
+- $\P(X = x | X \leq x) = \P(X = x) / F(x)$
+- $\P(X = x | X > x) = \P(X = x) / \overline{F}(x)$
+
+We will use the latter form for showing memorylessness of the geometric. 
+
+First, note that
+
+$$\begin{align*}
+F(x) &= \sum_{i=1}^x p(1-p)^{i-1}  \\
+     &= p \sum_{j=0}^{x-1} (1-p)^j \\
+     &= p * \frac{1-(1-p)^{x}}{1-(1-p)} \\
+     &= p * \frac{1 - (1-p)^x}{p}\\
+     &= 1 - (1-p)^x
+\end{align*}$$
+
+using the formula for a finite geometric series. From this, we have $\overline{F}(x) = (1-p)^x$. At this point, you should be realizing that
+things are likely to work out very nicely when dividing $\P(X = x)$ and $\overline{F}(x)$. 
+
+Hence, 
+$$\begin{align*}
+\P(X = x + y | X > y) &= \frac{\P(X = x + y) }{\overline{F}(y)} \\
+                      &= \frac{p(1-p)^{x+y-1}}{(1-p)^x} \\
+                      &= p(1-p)^{y-1} \\
+                      &= P(Y = y)
+\end{align*}$$
+where $Y$ is a "new" (restarted) random variable. 
+
+
+## Negative Binomial 
+
+TODO
+
+## Hypergeometric
+
+TODO
 
 [^1]: Recall that we sometimes consider constants, $a$, as "degenerate" random
 variables satisfying $P(X = a) = 1$ to make the statements of our theorems easier.

@@ -154,6 +154,8 @@ window.Quarto = {
   <li><a href="#binomial" id="toc-binomial" class="nav-link" data-scroll-target="#binomial">Binomial</a></li>
   <li><a href="#poisson" id="toc-poisson" class="nav-link" data-scroll-target="#poisson">Poisson</a></li>
   <li><a href="#geometric" id="toc-geometric" class="nav-link" data-scroll-target="#geometric">Geometric</a></li>
+  <li><a href="#negative-binomial" id="toc-negative-binomial" class="nav-link" data-scroll-target="#negative-binomial">Negative Binomial</a></li>
+  <li><a href="#hypergeometric" id="toc-hypergeometric" class="nav-link" data-scroll-target="#hypergeometric">Hypergeometric</a></li>
   </ul>
 </nav>
     </div>
@@ -383,6 +385,41 @@ Tip
 <p>where we used our first differentiated formula. This fits our intuition: if something happens <span class="math inline">\(p\)</span> times, we need <span class="math inline">\(1/p\)</span> tries for it to happen on average.</p>
 <p>Similarly, the second differentiated formula can be used to compute <span class="math inline">\(\E[X(X-1)] = \E[X^2] - \E[X]\)</span> and from there, <span class="math inline">\(\V[X]\)</span> = $. Again, comparing against intuition, variance is highest for small <span class="math inline">\(p\)</span> - if something is very rare, it’s very hard to say how long until it happens.</p>
 <p>The geometric distribution has a remarkable property called <em>memorylessness</em>: <span class="math inline">\(P(X &gt; m + n | X &gt; n) = P(X &gt; m)\)</span>. This says that, if you have already tried <span class="math inline">\(n\)</span> times, the probability of taking <span class="math inline">\(m + n\)</span> tries is the same as <span class="math inline">\(m\)</span> tries if starting afresh. The coin flip process is “memoryless” in that it doesn’t remember or depend upon what came before. Because of the memorylessness property, we can never say a success is “due up” in a geometric process. This is at stark odds with our intuition about gambling - if something hasn’t happened for a while, it’s <em>bound</em> to happen. If the events are truly IID, this simply isn’t the case.</p>
+<p>Memorylessness is a bit magic: the geometric distribution (and its close kin) is actually the only discrete distribution with this property. The other famous distribution with this property is the (continuous) exponential distribution, which has the same negative exponential structure. For this reason, the geometric distribution is sometimes called the discrete exponential distribution, though that name has mainly fallen out of paper.</p>
+<p>To show memorylessness, we can use some of our basic principles of conditional PMFs. Before doing so, let’s define some useful alternative formulations of the PMF.</p>
+<ul>
+<li>The CDF - cumulative distribution function - is <span class="math display">\[F(x) = \P(X \leq x) = \sum_{i=1}^{x} \P(X = x)\]</span></li>
+<li>The CCDF - <em>complementary CDF</em> - is <span class="math display">\[\overline{F}(x) = \P(X &gt; x) = \sum_{x+1}^{\infty} \P(X = x)\]</span></li>
+</ul>
+<p>Clearly, <span class="math inline">\(F(x) + \overline{F}(x) = 1\)</span> for all <span class="math inline">\(x\)</span>. With these in hand, it’s easy to state the manipulation formulas for “self-conditioned” random variables.</p>
+<ul>
+<li><span class="math inline">\(\P(X = x | X \leq x) = \P(X = x) / F(x)\)</span></li>
+<li><span class="math inline">\(\P(X = x | X &gt; x) = \P(X = x) / \overline{F}(x)\)</span></li>
+</ul>
+<p>We will use the latter form for showing memorylessness of the geometric.</p>
+<p>First, note that</p>
+<p><span class="math display">\[\begin{align*}
+F(x) &amp;= \sum_{i=1}^x p(1-p)^{i-1}  \\
+     &amp;= p \sum_{j=0}^{x-1} (1-p)^j \\
+     &amp;= p * \frac{1-(1-p)^{x}}{1-(1-p)} \\
+     &amp;= p * \frac{1 - (1-p)^x}{p}\\
+     &amp;= 1 - (1-p)^x
+\end{align*}\]</span></p>
+<p>using the formula for a finite geometric series. From this, we have <span class="math inline">\(\overline{F}(x) = (1-p)^x\)</span>. At this point, you should be realizing that things are likely to work out very nicely when dividing <span class="math inline">\(\P(X = x)\)</span> and <span class="math inline">\(\overline{F}(x)\)</span>.</p>
+<p>Hence, <span class="math display">\[\begin{align*}
+\P(X = x + y | X &gt; y) &amp;= \frac{\P(X = x + y) }{\overline{F}(y)} \\
+                      &amp;= \frac{p(1-p)^{x+y-1}}{(1-p)^x} \\
+                      &amp;= p(1-p)^{y-1} \\
+                      &amp;= P(Y = y)
+\end{align*}\]</span> where <span class="math inline">\(Y\)</span> is a “new” (restarted) random variable.</p>
+</section>
+<section id="negative-binomial" class="level2">
+<h2 class="anchored" data-anchor-id="negative-binomial">Negative Binomial</h2>
+<p>TODO</p>
+</section>
+<section id="hypergeometric" class="level2">
+<h2 class="anchored" data-anchor-id="hypergeometric">Hypergeometric</h2>
+<p>TODO</p>
 
 
 </section>
