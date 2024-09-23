@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Key Discrete Distributions – STA 9715</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">STA 9715</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href=".././syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././notes.html"> 
+<span class="menu-text">Handouts and Additional Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././resources.html"> 
+<span class="menu-text">Additional Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././objectives.html"> 
+<span class="menu-text">Learning Objectives</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review-random-variables-mean-and-variance" id="toc-review-random-variables-mean-and-variance" class="nav-link active" data-scroll-target="#review-random-variables-mean-and-variance">Review: Random Variables, Mean, and Variance</a></li>
+  <li><a href="#bernoulli" id="toc-bernoulli" class="nav-link" data-scroll-target="#bernoulli">Bernoulli</a></li>
+  <li><a href="#rademacher" id="toc-rademacher" class="nav-link" data-scroll-target="#rademacher">Rademacher</a></li>
+  <li><a href="#binomial" id="toc-binomial" class="nav-link" data-scroll-target="#binomial">Binomial</a></li>
+  <li><a href="#poisson" id="toc-poisson" class="nav-link" data-scroll-target="#poisson">Poisson</a></li>
+  <li><a href="#geometric" id="toc-geometric" class="nav-link" data-scroll-target="#geometric">Geometric</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Key Discrete Distributions</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><span class="math display">\[\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}}\]</span></p>
+<p>In this set of notes, we introduce the key <em>discrete</em> distributions:</p>
+<ul>
+<li>Bernoulli</li>
+<li>Rademacher</li>
+<li>Binomial</li>
+<li>Negative Binomial</li>
+<li>Geometric</li>
+<li>Hypergeometric</li>
+<li>Poisson</li>
+</ul>
+<p>Our focus in this set of notes is defining the formal properties of each distribution. Our discussion in class will focus more on the “when and why?” questions dictating when we should use a particular distribution.</p>
+<section id="review-random-variables-mean-and-variance" class="level2">
+<h2 class="anchored" data-anchor-id="review-random-variables-mean-and-variance">Review: Random Variables, Mean, and Variance</h2>
+<p>Recall that a <em>random variable</em>, <span class="math inline">\(X\)</span>, is functionally specified by two components:</p>
+<ul>
+<li>The <em>support</em> of <span class="math inline">\(X\)</span> is the set of values <span class="math inline">\(X\)</span> can take, encoded as real numbers. In the <em>discrete</em> random variable context, the support of <span class="math inline">\(X\)</span> is typically integral: <span class="math inline">\(\textsf{supp}(X) \subseteq \mathbb{Z}\)</span></li>
+<li>The <em>probability mass function</em> (PMF) of <span class="math inline">\(X\)</span> which is a mapping from <span class="math inline">\(\textsf{supp}(X)\)</span> to <span class="math inline">\([0, 1]\)</span> satisfying: <span class="math display">\[ \sum_{x \in \textsf{supp}(X)} \P(X = x) = 1\]</span></li>
+</ul>
+<p>Alongside these two <em>defining</em> quantities, we often report the <em>mean</em> (or expected value) and <em>variance</em> of a random variable:</p>
+<p><span class="math display">\[\begin{align*}
+\E[X] &amp;= \sum_{x \in \textsf{supp}(X)} x\, \P(X = x) \\
+\V[X] &amp;= \E[(X - \E[X])^2] \\
+      &amp;= \sum_{x \in \textsf{supp}(X)} (x - \E[X])^, \P(X = x) \\
+      &amp;= \left(\sum_{x \in \textsf{supp}(X)} x^2\, \P(X = x)\right) - \E[X]^2 \\
+      &amp;= \E[X^2] - \E[X]^2
+\end{align*}\]</span></p>
+<p>Recall that the variance <span class="math inline">\(\V[X]\)</span> is always non-negative and is strictly positive if <span class="math inline">\(|\textsf{supp}(X)| \geq 2\)</span> - that is, if <span class="math inline">\(X\)</span> is “truly” random in the sense of possibly taking more than one value.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</section>
+<section id="bernoulli" class="level2">
+<h2 class="anchored" data-anchor-id="bernoulli">Bernoulli</h2>
+<p>Our simplest distribution is the <a href="https://en.wikipedia.org/wiki/Bernoulli_distribution"><em>Bernoulli</em> distribution</a>, named after the great Swiss mathematician <a href="https://en.wikipedia.org/wiki/Jacob_Bernoulli">Jacob Bernoulli</a>. The Bernoulli distribution models a single “coin flip”-type event: that is, an event with two possible outcomes conventionally called “success” and “failure”. To make this a random variable, we associate “success” with the value <span class="math inline">\(1\)</span> and “failure” with the value <span class="math inline">\(0\)</span>.</p>
+<p>Note that, even though we called these two outcomes “success” and “failure”, we can use a Bernoulli distribution for <em>anything</em> with two outcomes: left vs.&nbsp;right, up vs.&nbsp;down, right vs.&nbsp;wrong, or happened vs didn’t happen. These last two pairings are incredibly important. Whenever we make a binary prediction, it is either correct or incorrect - a Bernoulli outcome. Because of this, Bernoulli random variables are commonly used to study the predictive accuracy of classification systems, an incredibly important topic in Machine Learning. Bernoulli distributions are also “the most extreme” version of <em>bounded</em> random variables (putting all of the probability on two endpoints) so we can often bound the performance of any predictive model for bounded outcomes using Bernoulli variables.</p>
+<p>A Bernoulli distributed <span class="math inline">\(X\)</span> is then defined by the PMF:</p>
+<p><span class="math display">\[ P(X = 1) = p \text{ and } P(X = 0) = 1 - P(X \neq 0) = 1 - P(X = 1) = 1 - p = q \]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Make sure you can <em>explicitly</em> justify each step connecting <span class="math inline">\(P(X = 0)\)</span> to <span class="math inline">\(1 - p\)</span>.</p>
+</div>
+</div>
+<p>If we are clever - and recall that <span class="math inline">\(p^0 = 1\)</span> for any <span class="math inline">\(p \neq 0\)</span>-we can write the Bernoulli PMF as</p>
+<p><span class="math display">\[ \P(X = x) = p^x(1-p)^{1-x} = p^xq^{1-x} \text{ for } x \in \{0, 1\}\]</span></p>
+<p>Note that, even though we sometimes write the Bernoulli with two parameters, <span class="math inline">\(p,q\)</span>, it is really a one-parameter distribution since <span class="math inline">\(q = 1 - p\)</span> by construction.</p>
+<p>The mean and variance are quite easy to calculate:</p>
+<p><span class="math display">\[\begin{align*}
+\E[X] &amp;= \sum_{x \in \textsf{supp}(X)} x * \P(X = x) \\
+      &amp;= 0 * \P(X = 0) + 1 * \P(X = 1) \\
+      &amp;= 0 * (1 - p) + 1 * p \\
+      &amp;= p
+\end{align*}\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Why are we not surprised to see “expectation = probability” here? Think about the connection between Bernoulli random variables and indicator functions.</p>
+</div>
+</div>
+<p>While we can compute the variance directly, it’s a bit easier to work from <span class="math inline">\(\V[X] = \E[X^2] - \E[X]^2\)</span> if we note that <span class="math inline">\(X^2 = X\)</span> for a Bernoulli random variable.</p>
+<p><span class="math display">\[\begin{align*}
+\V[X] &amp;= \E[X^2] - \E[X]^2 \\
+      &amp;= \E[X] - \E[X^2] \\
+      &amp;= p - p^2 \\
+      &amp;= p(1 - p) \\
+      &amp;= pq
+\end{align*}\]</span></p>
+<p>From this expression, it’s not hard to see that the variance of a Bernoulli random variable is never more than <span class="math inline">\(0.25\)</span> and that the maximum is obtained when <span class="math inline">\(p = q = 0.5\)</span>: that is, the “50/50” coin-flip is the “most random” coin.</p>
+</section>
+<section id="rademacher" class="level2">
+<h2 class="anchored" data-anchor-id="rademacher">Rademacher</h2>
+<p>A Rademacher variable is a close cousin of the Bernoulli often used to model incremental processes that, at each step, either become “a bit better” or “a bit worse”. Specifically, while a Bernoulli is a 0/1 random variable, Rademachers take values <span class="math inline">\(\pm 1\)</span>.</p>
+<p><span class="math display">\[P(X = x) = \begin{cases} 1 &amp; \text{ with probability } p \\ 0 &amp; \text{ with probability } q = 1 - p \end{cases}\]</span></p>
+<p>While Bernoulli variables come with all sorts of weights, Rademachers are normally symmetric, taking <span class="math inline">\(\pm 1\)</span> with equal 50% probability.</p>
+<p>To get the mean and variance of a Rademacher, let’s use the linearity of expectation. Let <span class="math inline">\(R \sim \text{Rademacher}(p)\)</span>; then <span class="math inline">\(R = 2B - 1\)</span> where <span class="math inline">\(B \sim \text{Bernoulli}(p)\)</span>. Hence,</p>
+<p><span class="math display">\[\begin{align*}
+\E[R] &amp;= \E[2B - 1] \\
+      &amp;= 2\E[B] - 1 \\
+      &amp;= 2p - 1
+\end{align*}\]</span></p>
+<p>Similarly,</p>
+<p><span class="math display">\[\begin{align*}
+\V[R] &amp;= \V[2B - 1] \\
+      &amp;= 2^2 \V[B] \\
+      &amp;= 4 * p * (1-p) \\
+      &amp;= 4pq
+\end{align*}\]</span></p>
+<p>As before, this is “most random” when <span class="math inline">\(p = q = 0.5\)</span>. In this case, however we get a variance of 1 for <span class="math inline">\(R\)</span> instead of <span class="math inline">\(0.25\)</span> for <span class="math inline">\(B\)</span>. Tricks like this make Rademachers very useful in theoretical analyses.</p>
+</section>
+<section id="binomial" class="level2">
+<h2 class="anchored" data-anchor-id="binomial">Binomial</h2>
+<p>The <em>Binomial</em> distribution arises as the sum of a known, fixed number of <span class="math inline">\(n\)</span> <em>identically and independently distributed</em> (IID) Bernoulli random variables. This concept of IID is <em>incredibly</em> important and we will see it many times throughout this course.</p>
+<p>Because a binomial is a sum if IID elements, its mean and variance are relatively simple to compute. Let <span class="math inline">\(X \sim \text{Binomial}(n, p)\)</span> - that is, let <span class="math inline">\(X\)</span> be the sum of <span class="math inline">\(n\)</span> <span class="math inline">\(\text{Bernoulli}(p)\)</span> random variables, <span class="math inline">\(X_1, X_2, \dots, X_n\)</span>. Then</p>
+<p><span class="math display">\[\begin{align*}
+\E[X] &amp;= \E\left[\sum_{i=1}^n X_i\right] \\
+      &amp;= \sum_{i=1}^n \E[X_i] \text{ by linearity of expectation} \\
+      &amp;= \sum_{i=1}^n p \\
+      &amp;= np
+\end{align*}\]</span></p>
+<p>Similarly,</p>
+<p><span class="math display">\[\begin{align*}
+\V[X] &amp;= \V\left[\sum_{i=1}^n X_i\right] \\
+      &amp;= \sum_{i=1}^n \V[X_i] \text{ (Variances add for independent RVs)}\\
+      &amp;= \sum_{i=1}^n p(1-p) \\
+      &amp;= n p(1-p)
+\end{align*}\]</span></p>
+<p>While the mean and variance are quite easy, it’s a bit trickier to derive the PMF from first principles. This is an important element of “probability thinking” - it is often easier to compute <em>aspects</em> of distributions indirectly instead of computing the distribution <em>in toto</em> and then deriving its properties. In particular, when you can break a problem into a set of IID elements - as we have done here - tools like linearity, expectation, and variance make life quite easy.</p>
+<p>Suppose we want to compute <span class="math inline">\(\P(X = x)\)</span>. We know that we must have <span class="math inline">\(x\)</span> successes and <span class="math inline">\(n - x\)</span> failures for a sum of <span class="math inline">\(x\)</span>. The probability of the event</p>
+<p><span class="math display">\[\P\left[(X_1, X_2, \dots, X_n) = (\underbrace{1, 1, \dots, 1}_{\text{$x$ times}}, \underbrace{0, 0, \dots, 0}_{\text{$n-x$ times}})\right]\]</span></p>
+<p>can be computed by independence of the individual Bernoullis:</p>
+<p><span class="math display">\[\begin{align*}
+\P\left[(X_1, X_2, \dots, X_n) = (\underbrace{1, 1, \dots, 1}_{\text{$x$ times}}, \underbrace{0, 0, \dots, 0}_{\text{$n-x$ times}})\right] &amp;= \prod_{i=1}^n P(X_i = x_i) \\
+&amp;= \prod_{i=1}^x \P(X_i = 1) * \prod_{i=x+1}^{n} \P(X_i = 0) \\
+&amp;=  \prod_{i=1}^x p * \prod_{i=x+1}^{n} (1-p) \\
+&amp;= p^x (1-p)^{n-x}
+\end{align*}\]</span></p>
+<p>But <span class="math inline">\(\P(X = x)\)</span> is not just this particular ordering of <span class="math inline">\((X_1, \dots, X_n)\)</span>. For purposes of the Binomial random variable, we don’t really care what order these happened, so we have <span class="math inline">\(\binom{n}{x}\)</span> possible orderings (of <span class="math inline">\(n\)</span> flips, choosing <span class="math inline">\(x\)</span> of them to be 1). Because the set of possible orderings is a <em>disjoint partition</em>, we can get the aggregate probability <span class="math inline">\(\P(X = x)\)</span> by multipling <span class="math inline">\(\binom{n}{x}\)</span> by the probability of each outcome, which we already showed was <span class="math inline">\(p^x(1-p)^{n-x}\)</span>. Taken together, this gives us:</p>
+<p><span class="math display">\[\P(X = x) = \binom{n}{x}p^x(1-p)^x \text{ for } x \in \{0, \dots, n\}\]</span></p>
+<p>We pause here to note that the name <em>binomial</em> distribution comes from the similarity between this PMF and the standard binomial expansion:</p>
+<p><span class="math display">\[(a + b)^n = \sum_{x=0}^n \binom{n}{x} a^xb^{n-x} \]</span></p>
+<p>We get the binomial distribution by setting <span class="math inline">\(a = p, b = 1 - p\)</span>. This lets us easily confirm that the sum of the binomial PMF is indeed 1, as we require: <span class="math display">\[\begin{align*}
+\sum_{x = 0}^n \P(X = x) &amp;= \sum_{x=0}^n \binom{n}{x}p^x(1-p)^x \\
+&amp;= (p + (1-p))^n \\
+&amp;= 1^n \\
+&amp;= 1
+\end{align*}\]</span></p>
+</section>
+<section id="poisson" class="level2">
+<h2 class="anchored" data-anchor-id="poisson">Poisson</h2>
+<p>The Binomial distribution occurs with a fixed number of events <span class="math inline">\(n\)</span> and known probability <span class="math inline">\(p\)</span>. An important ‘limiting’ case is where the number of events is very large and the probability is very small; in this case, the important number is the expected number of successes <span class="math inline">\(\mu = n * p\)</span>. We model this case as a <em>Poisson</em> random variable. Specifically, a <em>Poisson</em> model is a model for count values that are, on average, reasonably small (around <span class="math inline">\(\mu\)</span>) but potentially unbounded.</p>
+<p>The Poisson PMF with mean <span class="math inline">\(\mu\)</span> is given by <span class="math display">\[\P(X = k) \frac{\mu^k e^{-\mu}}{k!} \text{ for } k \in \{0, 1, 2 \dots, \} \]</span></p>
+<p>As we have discussed before, factorials grow even more rapidly than exponentials, so this tends towards zero as <span class="math inline">\(k\)</span> gets large: that is, very large counts become exceedingly unlikely. You can derive the Poisson PMF from the binomial PMF by setting <span class="math inline">\(p = \mu / n\)</span> and taking the <span class="math inline">\(n \to \infty\)</span> limit, but the arithmetic is a bit cumbersome and so we do not pursue it here.</p>
+<p>While we have already called <span class="math inline">\(\mu\)</span>, the Poisson mean, we can show this explicitly:</p>
+<p><span class="math display">\[\begin{align*}
+\E[X] &amp;= \sum_{x=0}^{\infty} x \P(X = x) \\
+      &amp;= \sum_{x=0}^{\infty} x * \frac{\mu^x e^{-\mu}}{x!} \\
+      &amp;= \sum_{x=1}^{\infty} x * \frac{\mu^x e^{-\mu}}{x!} \\
+      &amp;= e^{-\mu} \sum_{x=1}^{\infty} x * \frac{\mu^x}{x!} \\
+      &amp;= e^{-\mu} \mu \sum_{x=1}^{\infty} \frac{\mu^{x-1}}{(x-1)!} \\
+      &amp;= e^{-\mu} \mu \sum_{y=0}^{\infty} \frac{\mu^{y}}{y!} \\
+      &amp;= e^{-\mu} \mu e^{\mu} \\
+      &amp;= \mu
+\end{align*}
+\]</span></p>
+<p>Next, we turn to the variance. As similar argument shows <span class="math inline">\(\E[X^2] = \mu^2 + \mu\)</span>, so we get <span class="math inline">\(\V[X] = \E[X^2] - \E[X]^2 = \mu^2 + \mu - \mu^2 = \mu\)</span>.</p>
+<p>This is a remarkable property: for a Poisson random variable, a single parameter controls both the mean and the variance. Further more, as the expected number of counts becomes larger, so does the variance.</p>
+<p>If we think back to the binomial connection, we can see how this arises: the binomial variance is given by <span class="math inline">\(n p q = np(1-p) = np - np^2\)</span>. We create a Poisson limit by setting <span class="math inline">\(p = \mu / n\)</span> and letting <span class="math inline">\(n \to \infty\)</span>. Here, this yields:</p>
+<p><span class="math display">\[np - np^2 = n * \left(\frac{\mu}{n}\right) - n* \left(\frac{\mu}{n}\right)^2 = \mu - \mu^2 / n\]</span>.</p>
+<p>As <span class="math inline">\(n \to \infty\)</span>, we simply get the variance <span class="math inline">\(\mu\)</span> which matches direct calculation. At a high level, for the Poisson mean to get larger, we need <span class="math inline">\(p\)</span> to get larger, which in turn raises the variance (since we are far below the ‘turning point’ of binomial variance at <span class="math inline">\(p = 0.5\)</span>).</p>
+</section>
+<section id="geometric" class="level2">
+<h2 class="anchored" data-anchor-id="geometric">Geometric</h2>
+<p>So far, we have considered distributions that count the number of times “success” happens out of a fixed number of trials. We now turn to distributions with a fixed number of successes, but a random number of total trials. In these models, the random variable of interest is the total number of trials.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Our basic model is the <em>geometric</em> distribution. The total number of coin flips until we get our first heads (inclusive. If we denote this variable as <span class="math inline">\(X\)</span>, we can easily see that the PMF is given by:</p>
+<p><span class="math display">\[\P(X = x) = p(1-p)^{x-1} \text{ for } x \in \{1, 2, \dots\}\]</span></p>
+<p>This PMF arises because we don’t need to account for order: we know the last flip is a success with probability <span class="math inline">\(p\)</span> and the previous <span class="math inline">\(x-1\)</span> flips are each failures, occurring with probability <span class="math inline">\(q = 1-p\)</span>. By independence, these probabilities can be combined with simple multiplication, giving the resulting PMF.</p>
+<p>Mean and variance can be computed in many ways. Here, we’ll show a general approach that uses differentiation and geometric series creatively to compute several useful quantities in the same manner.</p>
+<p>Recall that a geometric series satisfies:</p>
+<p><span class="math display">\[\sum_{i=0}^{\infty} ar^i = \frac{a}{1-r}\]</span></p>
+<p>We can differentiate both sides of this with respect to <span class="math inline">\(r\)</span> to find:</p>
+<p><span class="math display">\[\begin{align*}
+\sum_{i=0}^{\infty} ar^i &amp;= \frac{a}{1-r} \\
+\frac{\text{d}}{\text{d}r}\sum_{i=0}^{\infty} ar^i &amp;= \frac{\text{d}}{\text{d}r}\frac{a}{1-r} \\
+\sum_{i=0}^{\infty} air^{i-1} &amp;= \frac{a}{(1-r)^2} * (-1) * (-1)\\
+\sum_{i=0}^{\infty} air^{i-1} &amp;= \frac{a}{(1-r)^2}
+\end{align*}\]</span></p>
+<p>where the right hand side picks up two <span class="math inline">\(-1\)</span> terms: one from the exponent on the denominator and one from the minus sign inside the denominator (chain rule).</p>
+<p>We can repeat this trick again:</p>
+<p><span class="math display">\[\begin{align*}
+\sum_{i=0}^{\infty} air^{i-1} &amp;= \frac{a}{(1-r)^2} \\
+\frac{\text{d}}{\text{d}r}\sum_{i=0}^{\infty} air^{i-1} &amp;= \frac{\text{d}}{\text{d}r}\frac{a}{(1-r)^2} \\
+\sum_{i=0}^{\infty} ai(i-1)r^{i-2} &amp;= \frac{2a}{(1-r)^3}
+\end{align*}\]</span></p>
+<p>With these three formulae in hand, we are ready to show the basic properties of a geometric random variable:</p>
+<p><span class="math display">\[\begin{align*}
+\sum_{x=1}^{\infty} \P(X = x) &amp;= \sum_{x=1}^{\infty} p(1-p)^{x-1} \\
+                              &amp;= \sum_{y=0}^{\infty} p(1-p)^y \\
+                              &amp;= \frac{p}{1-(1-p)} \\
+                              &amp;= 1
+\end{align*}\]</span></p>
+<p>where we used only the “basic” geometric series formula here.</p>
+<p>Next, for expectation:</p>
+<p><span class="math display">\[\begin{align*}
+\E[X] &amp;= \sum_{x=1}^{\infty} x \P(X = x) \\
+      &amp;= \sum_{x=1}^{\infty} x p(1-p)^{x-1} \\
+      &amp;= \frac{p}{(1-(1-p))^2} \\
+      &amp;= \frac{p}{p^2} \\
+      &amp;= \frac{1}{p}
+\end{align*}\]</span></p>
+<p>where we used our first differentiated formula. This fits our intuition: if something happens <span class="math inline">\(p\)</span> times, we need <span class="math inline">\(1/p\)</span> tries for it to happen on average.</p>
+<p>Similarly, the second differentiated formula can be used to compute <span class="math inline">\(\E[X(X-1)] = \E[X^2] - \E[X]\)</span> and from there, <span class="math inline">\(\V[X]\)</span> = $. Again, comparing against intuition, variance is highest for small <span class="math inline">\(p\)</span> - if something is very rare, it’s very hard to say how long until it happens.</p>
+<p>The geometric distribution has a remarkable property called <em>memorylessness</em>: <span class="math inline">\(P(X &gt; m + n | X &gt; n) = P(X &gt; m)\)</span>. This says that, if you have already tried <span class="math inline">\(n\)</span> times, the probability of taking <span class="math inline">\(m + n\)</span> tries is the same as <span class="math inline">\(m\)</span> tries if starting afresh. The coin flip process is “memoryless” in that it doesn’t remember or depend upon what came before. Because of the memorylessness property, we can never say a success is “due up” in a geometric process. This is at stark odds with our intuition about gambling - if something hasn’t happened for a while, it’s <em>bound</em> to happen. If the events are truly IID, this simply isn’t the case.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Recall that we sometimes consider constants, <span class="math inline">\(a\)</span>, as “degenerate” random variables satisfying <span class="math inline">\(P(X = a) = 1\)</span> to make the statements of our theorems easier.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Unfortunately, there are two conflicting conventions used for some of these distributions: some count the <em>total</em> number of trials (success + failure) while others count only the number of failures. This is not a hard change - it’s just a simple <span class="math inline">\(+s\)</span> for <span class="math inline">\(s\)</span> successes - but it makes comparing formulae from different references a bit inconvenient.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/michael-weylandt\.com\/STA9715\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

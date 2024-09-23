@@ -25,6 +25,8 @@ Supplemental course notes will be posted here.
 
 #### Week 3: Discrete Probability
 
+- [Notes on Discrete Distributions](./notes/discrete_distributions.html)
+
 #### Week 4: From Discrete to Continuous Random Variables
 
 #### Week 5: Heavy Tails
