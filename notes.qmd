@@ -49,3 +49,7 @@ Supplemental course notes will be posted here.
 
 #### Week 14: Computing with Randomness
 
+#### Formula Sheets
+
+- [Test 1 Formula Sheet](./notes/FormulaSheet_Test1.pdf)
+
