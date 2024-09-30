@@ -29,6 +29,10 @@ Supplemental course notes will be posted here.
 
 #### Week 4: From Discrete to Continuous Random Variables
 
+
+- [Notes on Continuous Random Variables](./notes/continuous_rvs.html)
+
+
 #### Week 5: Heavy Tails
 
 #### Week 6: Random Vectors

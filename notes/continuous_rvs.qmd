@@ -1,0 +1,292 @@
+---
+title: "Continuous Random Variables"
+---
+
+$$\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}}$$
+
+In this set of notes, we introduce the fundamentals of _continuous_
+random variables and their distributions. At a high level, continuous
+RVs are much like their discrete counterparts - we can compute expectations
+and variances, compute probabilities of events, see how they behave under
+transformations. They differ in one key way however: they do not have
+a probability _mass_ function. Continuous RVs are instead characterized by
+a probability _density_ function. If you take an "expectations first" 
+view of probability theory, this is not a ground-shaking change; if you
+instead take a "distributions first" view, the changes are a bit more obvious.
+Regardless, we begin by recalling our discussion of "events" in probability. 
+
+## Events and Sigma Algebras
+
+Recall that in our earlies discussion of probability, we studiously avoided
+asking the probability of an _outcome_; we instead insisted on only assigning
+probabilities to _events_. At the time, I argued that events are easier to
+generalize: it is easier to have one uniform set of rules for events than to
+have two interlocking sets of rules for outcomes and events separately.[^1] 
+This is certainly true, but it's now time to see the other advantage of
+event-thinking. 
+
+Formally, a probability space consists of three things: 
+
+- $\Omega$, a set of possible _outcomes_
+- $\mathcal{E}$, a set of allowed _events_
+- $\P: \mathcal{E} \to [0, 1]$, a _measure_ function that assigns a numerical
+  value to every event $E \in \mathcal{E}$
+  
+The set of events $\mathcal{E}$ is required to have certain properties: 
+
+1. If $E \in \mathcal{E}$, the complement is as well: $E^c \in \mathcal{E}$.
+2. $\emptyset, \Omega \in \mathcal{E}$
+3. If $E_1, E_2, \dots$ are (a countable list of) elements of $\mathcal{E}$,
+   so is their union: $\bigcup_{i=1}^{\infty} E_i \in \mathcal{E}$
+  
+Many - if not all - of the apparent paradoxes of probability theory are resolved
+by the set $\mathcal{E}$. $\mathcal{E}$ essentially defines the set of _allowed_
+questions we can ask of our probability measure. If a set is "too weird", we 
+simply exclude it from $\mathcal{E}$ and the problems go away. (Life is much
+easier in math-land.)
+
+Recalling that $\mathcal{E}$ defines the "allowed questions", let's review our 
+three rules: 
+
+1. If we are allowed to ask the probability of $E$, we must also be allowed
+   to ask the probability of not $E$ ($E^c$). 
+2. We have to be able to ask whether anything happens ($\Omega \in \mathcal{E}$)
+   or whether nothing happens ($\emptyset \in \mathcal{E}$). (Recall that we take
+   $\P(\emptyset) = 0$ and $\P(\Omega) = 1$.)
+3. If we are allowed to ask whether $E_1, E_2, \dots$ happen separately, we
+   are also allowed to ask whether any of them, *i.e.*, their union, happens.
+   
+The fundamental curiosity of _continuous_ random variables is that we take
+out the singleton events $\{X = x\}$ from the set $\mathcal{E}$. That is,
+questions like "what is the probability that $X$ equals 3" are no longer
+valid in the land of continuous random variables. 
+
+## Continuous Random Variables
+
+### Exact Equality is Ill-Posed 
+
+Suppose we seek to develop a probabilistic model for a 'natural' quantity, *e.g.*,
+my height. You might seek to calculate the probability that I am 5'10". But upon
+a bit of reflection, that's actually not a well-posed question. It depends how
+accurately you are measuring: 
+
+- If you are giving an estimated height to a public safety officer, 5'10" might
+  be a very exact measurement.
+- If you are taking my height for my annual physical, 5'10" might seem to be 'correct.'
+- If you pull out a tape measure, I may be closer to 5'10.625". And
+- If you use lab grade equipment to measure me down to the final atom, there's
+  not even a real answer - my hair is constantly moving back and forth.[^0]
+
+With this perspective, let's reconsider the question "What is the probability
+that Michael is _exactly_ 5'10"?". Depending on your philosophical inclinations,
+the answer is either 0 or the question is ill-defined. It is customary to
+introduce continuous random variables from the former view ("probability 0"); I
+prefer the latter ("invalid question"). Regardless, we need a better building block
+for probabilities of 'natural' events. 
+
+### Cumulative Distribution Functions
+
+In our discussion of discrete random variables, we emphasized the role of the
+probability mass function. But there was another, equivalent, function that 
+characterizes a distribution: the _cumulative distribution function_ (CDF). 
+
+$$ F_X(x) = \P(X \leq x) $$
+
+For discrete distributions, we simply defined $F_X(\cdot)$ in terms of the PMF. 
+But we can also take the CDF as our starting point. If we start from a CDF, the 
+PMF of a discrete random variable is given by
+
+$$ P(X = x) = F_X(x) - F_X(x-1) \quad \text{ for discrete } X $$
+
+What does a CDF look like for a continuous random variable? In essence,
+nothing changes! We can still ask the question $\P(X \leq x)$ - formally, the 
+set $(-\infty, x] \in \mathcal{E}$ - regardless of the continuity or discreteness
+of $X$. Given some reference height, we simply ask whether I am taller than it
+or not. We might mutter about needing more precise measuring tools to be sure - 
+such is the concern of experimentalists - but at least the _question_ is well-posed. 
+
+### Continuous Random Variables
+
+We are now ready to define continuous random variables. A random variable $X$ is
+continuous if its CDF $F_X(\cdot)$ satisfies the following: 
+
+- $\lim_{x \to -\infty} F_X(x) = 0$
+- $\lim_{x \to +\infty} F_X(x) = 1$
+- $F_X(\cdot)$ is non-decreasing. ($x \leq y \implies F_X(x)\leq F_X(y)$)
+- $F_X(\cdot)$ is continuous and almost everywhere differentiable.
+
+These rules may be more continuous than what we have seen so far, but they
+are mostly restatements of our basic probability properties. 
+
+- $F(-\infty) = 0$. What is the chance that $X$ is less than $-\infty$? Zero of course!
+- $F(+\infty) = 1$. What is the chance that $X$ is less than $+\infty$? 100%.[^2]
+- $F_X(\cdot)$ is non-decreasing. Of course! Since $\{X \leq x\} \subseteq \{X \leq y\}$, we have to have $\P\{X \leq x\} \leq \P\{X \leq y\} \implies F_X(x)  \leq F_X(y)$.
+
+The final assumption - about continuity and differentiability - is a bit more
+technical, but it lets us avoid weird pathologies. In brief, we're just enforcing
+the rule that there are no "jumps" in $F_X(\cdot)$. Such "jumps" are indicative
+of discrete, not continuous, behavior.[^3]
+
+We now have a cleaner - and perhaps simpler - categorization of random variables. 
+All random variables are defined by their CDF. If the CDF of a random variable
+$X$ is a "step-function", $X$ is a discrete random variable; if the CDF of a random
+variable $X$ is a continuous function, $X$ is a continuous random variable. 
+
+### Probability Densities
+
+Now suppose we are interested in some continuous random variable $X$. Because
+$X$ is continuous, $F_X(\cdot)$ is continuous and has a derivative (almost everywhere). This derivative turns out to be useful enough to get its own name:
+
+$$\frac{\text{d}F_X}{\text{d}x}(x) = F_X'(x) \text { is the \emph{probability density function} of $X$}$$
+
+The probability density function (PDF) is the closest analogue a continuous RV
+has to a PMF. 
+
+Before we dive into the use of PDFs, let's see what properties we can derive. 
+
+1. First, we note that, because $F_X(\cdot)$ is non-decreasing, its derivative $f_X(\cdot)$ is _non-negative_. So both PDFs and PMFs are non-negative. 
+
+2. Next, we apply the fundamental theorem of calculus to $F_X(\cdot)$ and $f_X(\cdot)$. 
+
+   $$ F_X(a) = \int_{-\infty}^a F'_X(x)\,\text{d}x = \int_{-\infty}^a f_X(x)\,\text{d}x = \P(X \leq a)$$
+   
+   That is, we can compute the CDF by _integrating_ the PDF. 
+   
+3. By subtraction, we can also use the PDF to compute probabilities of
+   intervals. 
+   
+$$\begin{align*}
+\P(a \leq X \leq b) &= \P(X \leq b) - \P(X \leq a) \\
+                    &= \int_{-\infty}^b f_X(x)\,\text{d}x - \int_{-\infty}^a f_X(x)\,\text{d}x \\
+                    &= \int_{a}^b f_X(x)\,\text{d}x
+\end{align*}$$
+
+Of course, if we take $a = b$ and attempt to compute $\P(a \leq X \leq a) = \P(X = a)$, we get $\int_a^a f_X(x)\,\text{d}x$. By convention, this is taken to be 0, 
+consistent with our argument that "exact equality" must have probability 0 if we
+insist on putting a probability on it.[^4]
+
+### Expectations and Moments
+
+If you stare at the discussion above for a bit, you might notice an interesting
+way to rewrite our key integrals: 
+
+$$\P(a \leq X \leq b) = \int_a^b f_X(x)\, \text{d}x  = \int_{-\infty}^{\infty} 1_{x \in [a, b]}(x)\, f_X(x)\,\text{d}x$$
+That is, rather than using bounds on our integral, we can use an indicator
+function. Because the indicator function is 0 outside of the range of interest,
+this implicitly focuses the integral only on the interval $[a, b]$ without requiring
+us to keep track of bounds. We also recall that the probability of any event
+can be written as the expectation of the relevant indicator function: 
+
+$$ \E[1_{X \in [a, b]}] = \int_{-\infty}^{\infty} 1_{x \in [a, b]}(x)\,f_X(x)\,\text{d}x$$
+
+From this, it's not too big a leap to argue that expectations _in general_ can
+be written as: 
+
+$$ \E[h(X)] = \int_{-\infty}^{\infty} h(x) f(x)\,\text{d}x $$
+
+Indeed, we take the case of $h(x) = x$ to define the "plain" expectation: 
+
+$$ \E[X] = \int_{-\infty}^{\infty} x\, f(x)\,\text{d}x $$
+
+Stepping back, we see that - as far as expectations are concerned - the only
+shift from discrete to continuous is to replace the sum with an integral. If 
+we recall the standard motivation of the integral as a "infinite sum of infinitely
+small things", this doesn't feel too implausible. 
+
+::: {.callout-tip}
+
+For practice, convince yourself that all our formulas for expectations and 
+variances hold in the continuous case as well.
+
+:::
+
+### Conditional Distributions of Continuous Random Variables
+
+The "conditioning" rules for continuous random variables parallel their
+discrete counterparts: 
+
+$$ f_{Y | X}(y, x) = \frac{f_{Y, X}(y, x)}{f_X(x)} $$
+
+Because of this, the rules of conditional expectations and variances translate
+to the continuous case with only the standard "sum to integral" substitution. 
+
+### Mixture Distributions
+
+A particularly important family of discrete-continuous distributions is the
+set of _mixtures_. Given a Bernoulli RV $Z$ and two continuous RVs $X_1, X_2$, 
+the derived RV 
+
+$$ X = Z X_1 + (1-Z) X_2 $$
+
+can be seen to be continuous as well, despite its 'discrete input' Z. (Why?)
+
+Such distributions arise commonly in the modeling of classification problems. 
+
+We can derive the CDF of $X$ quite easily: 
+
+$$\begin{align*}
+F_X(x) &= \P(X \leq x) \\
+       &= \P(Z X_1 + (1-Z) X_2 \leq x) \\
+       &= \P(Z X_1 + (1-Z) X_2 \leq x | Z = 0)\P(Z = 0) + \P(Z X_1 + (1-Z) X_2 \leq x | Z = 1)\P(Z = 1)\\
+       &= \P(X_2 \leq x)\P(Z = 0) + \P(X_1\leq x)\P(Z = 1)\\
+       &= F_{X_2}(x)(1-p) + F_{X_1}(x)p
+\end{align*}$$
+
+It's not hard to show that this defines a valid CDF. Differentiating with
+respect to $x$, we can also see that the PDF is given by: 
+
+$$ f_X(x) = f_{X_1}(x) * p + f_{X_2}(x) * (1-p) $$
+
+Frequently, we will observe $X$ and want to know whether $Z = 0$ or $Z = 1$? If
+the supports of $X_1, X_2$ are overlapping, we cannot be _certain_, but we can
+use Bayes' rule: 
+
+$$\begin{align*}
+\P(Z = 0 | X = x) &= \frac{\P(X = x | Z = 0)\P(Z = 0)}{\P(X = x)}
+\end{align*}$$
+
+Here, we can mix PMFs and PDFs at will within our Bayes' rule calculation.[^5] 
+This gives us: 
+
+$$\begin{align*}
+\P(Z = 0 | X = x) &= \frac{\P(X = x | Z = 0)\P(Z = 0)}{\P(X = x)} \\
+                  &= \frac{f_X(X = x | Z = 0)\P(Z = 0)}{f_X(X = x)} \\
+                  &= \frac{f_{X_1}(x) * p}{f_{X_1}(x) * p + f_{X_2}(x) * (1-p)}
+\end{align*}$$
+
+This type of rule gives rise to a _generative classifier_ in Machine Learning. 
+I have also recently used this type of logic to give probabilities of 
+[certain climate drivers giving observed data](https://michael-weylandt.com/publications/wentland_attribution.html).
+
+
+[^0]: You might recognize this discussion as having a "[how many angels can dance
+on the head of a pin?](https://youtu.be/L6vwD9NWOiI?si=atsEFAXbr9-SExqR&t=205)"
+flavor. You would not be wrong to note such a similarity.
+
+[^1]: We let ourselves be a bit sloppier and talk about outcomes for random
+variables, $\P(X = x)$. If we had been properly rigorous throughout, we should
+have spoken only of the "atomic" event $\P(\{X = x\})$, but it's customary to
+equate a single outcome with the event containing only that outcome. 
+
+[^2]: In this course, we take random variables to be _real_-valued and disallow
+$\pm\infty$ as valid values. It's not _too much_ harder to allow _extended_
+real-valued variables, but it's generally not worth the effort. 
+
+[^3]: It is of course possible to have mixed discrete-continuous random variables.
+These are most commonly needed in survival analysis. Consider, *e.g.*, how long
+a patient survives in a medical trial of 5 years. All amounts between 0 and 5 
+are valid (continuous) but there's also a "chunk" of probability at "5 or more".
+Here the underlying measurement (future lifetime) is arguably continuous, but our
+_observations_ thereof have a mixed discrete-continuous flavor. In this course, 
+we'll mainly stay away from this sort of mixed discrete-continuous structure.
+
+[^4]: This is perhaps as good a place to note that we essentially always choose
+$\mathcal{E}$ to contain all intervals of the form $(-\infty, x]$ so that
+$F_X(\cdot)$ can always be computed. The smallest $\mathcal{E}$ that allows this
+is the so-called "Borel $\sigma$-algebra on $\mathbb{R}$ and it is the nigh-universal
+default in the study of random variables. Now that you have read this footnote, 
+you can immediately forget it, because you will never encounter a fundamentally
+different choice of $\mathcal{E}$ in this course.
+
+[^5]: It's actually a bit hard to show that this works formally, but we don't 
+worry about such things in this course. 
