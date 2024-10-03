@@ -157,7 +157,11 @@ window.Quarto = {
   <li><a href="#probability-densities" id="toc-probability-densities" class="nav-link" data-scroll-target="#probability-densities">Probability Densities</a></li>
   <li><a href="#expectations-and-moments" id="toc-expectations-and-moments" class="nav-link" data-scroll-target="#expectations-and-moments">Expectations and Moments</a></li>
   <li><a href="#conditional-distributions-of-continuous-random-variables" id="toc-conditional-distributions-of-continuous-random-variables" class="nav-link" data-scroll-target="#conditional-distributions-of-continuous-random-variables">Conditional Distributions of Continuous Random Variables</a></li>
-  <li><a href="#mixture-distributions" id="toc-mixture-distributions" class="nav-link" data-scroll-target="#mixture-distributions">Mixture Distributions</a></li>
+  <li><a href="#mixture-distributions-and-classification" id="toc-mixture-distributions-and-classification" class="nav-link" data-scroll-target="#mixture-distributions-and-classification">Mixture Distributions and Classification</a></li>
+  </ul></li>
+  <li><a href="#important-continuous-distributions" id="toc-important-continuous-distributions" class="nav-link" data-scroll-target="#important-continuous-distributions">Important Continuous Distributions</a>
+  <ul class="collapse">
+  <li><a href="#continuous-uniform-distribution" id="toc-continuous-uniform-distribution" class="nav-link" data-scroll-target="#continuous-uniform-distribution">Continuous Uniform Distribution</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -299,8 +303,8 @@ Tip
 <p><span class="math display">\[ f_{Y | X}(y, x) = \frac{f_{Y, X}(y, x)}{f_X(x)} \]</span></p>
 <p>Because of this, the rules of conditional expectations and variances translate to the continuous case with only the standard “sum to integral” substitution.</p>
 </section>
-<section id="mixture-distributions" class="level3">
-<h3 class="anchored" data-anchor-id="mixture-distributions">Mixture Distributions</h3>
+<section id="mixture-distributions-and-classification" class="level3">
+<h3 class="anchored" data-anchor-id="mixture-distributions-and-classification">Mixture Distributions and Classification</h3>
 <p>A particularly important family of discrete-continuous distributions is the set of <em>mixtures</em>. Given a Bernoulli RV <span class="math inline">\(Z\)</span> and two continuous RVs <span class="math inline">\(X_1, X_2\)</span>, the derived RV</p>
 <p><span class="math display">\[ X = Z X_1 + (1-Z) X_2 \]</span></p>
 <p>can be seen to be continuous as well, despite its ‘discrete input’ Z. (Why?)</p>
@@ -326,6 +330,13 @@ F_X(x) &amp;= \P(X \leq x) \\
                   &amp;= \frac{f_{X_1}(x) * p}{f_{X_1}(x) * p + f_{X_2}(x) * (1-p)}
 \end{align*}\]</span></p>
 <p>This type of rule gives rise to a <em>generative classifier</em> in Machine Learning. I have also recently used this type of logic to give probabilities of <a href="https://michael-weylandt.com/publications/wentland_attribution.html">certain climate drivers giving observed data</a>.</p>
+</section>
+</section>
+<section id="important-continuous-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="important-continuous-distributions">Important Continuous Distributions</h2>
+<p>Unlike discrete random variables - which can mainly be built out of increasingly arcane combinations of Bernoulli random variables -</p>
+<section id="continuous-uniform-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="continuous-uniform-distribution">Continuous Uniform Distribution</h3>
 
 
 </section>

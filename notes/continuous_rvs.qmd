@@ -210,7 +210,7 @@ $$ f_{Y | X}(y, x) = \frac{f_{Y, X}(y, x)}{f_X(x)} $$
 Because of this, the rules of conditional expectations and variances translate
 to the continuous case with only the standard "sum to integral" substitution. 
 
-### Mixture Distributions
+### Mixture Distributions and Classification
 
 A particularly important family of discrete-continuous distributions is the
 set of _mixtures_. Given a Bernoulli RV $Z$ and two continuous RVs $X_1, X_2$, 
@@ -257,6 +257,14 @@ $$\begin{align*}
 This type of rule gives rise to a _generative classifier_ in Machine Learning. 
 I have also recently used this type of logic to give probabilities of 
 [certain climate drivers giving observed data](https://michael-weylandt.com/publications/wentland_attribution.html).
+
+## Important Continuous Distributions
+
+Unlike discrete random variables - which can mainly be built out of increasingly
+arcane combinations of Bernoulli random variables - 
+
+### Continuous Uniform Distribution
+
 
 
 [^0]: You might recognize this discussion as having a "[how many angels can dance
