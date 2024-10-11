@@ -3,7 +3,7 @@ title: "STA 9715: Test 1 (Fall 2024) -- Solutions"
 ---
 
 $$\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}}$$
-The original exam packet can be found [here](./STA9715_Test1.pdf).
+The original exam packet can be found [here](./ExamPacket.pdf).
 
 #### Question 1
 
