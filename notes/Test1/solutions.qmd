@@ -29,6 +29,31 @@ supplied on the [Formula Sheet](./FormulaSheet_Test1.pdf).
 
 We can can simplify this further to: 
 $$ 10p^3(1-p)^2 + 5p^4(1-p) + p^5$$
+after some simplification, this becomes: 
+
+$$ 6p^5 - 15p^4 + 10p^3$$
+
+We can plot this against $p$ to see how the game-win probability
+impacts the series-win probability $p$. 
+
+```{r echo=TRUE}
+p <- seq(0, 1, length.out=101)
+p_calculated <- 6 * p^5 - 15 * p^4 + 10 * p^3
+
+# pbinom gives probability P(X <= x) or P(X > x) so
+# to get P(X >= 3), let's just take P(X > 2.9)
+p_builtin <- pbinom(2.9, 5, p, lower.tail=FALSE)
+
+plot(p, p_calculated, 
+     type="l", col="red4", 
+     xlab="Team A: Game Win Probability", 
+     ylab="Team A: Series Win Probability",
+     main="Impact of Best-of-5 Series Structure")
+lines(p, p_builtin, col="green4")
+abline(a=0, b=1, col="black", lty=2)
+```
+As we see here, the "best of" structure increases the chance that the "better"
+team wins the overall series.
 :::
 
 #### Question 2
