@@ -50,10 +50,40 @@ plot(p, p_calculated,
      ylab="Team A: Series Win Probability",
      main="Impact of Best-of-5 Series Structure")
 lines(p, p_builtin, col="green4")
+legend("topleft", 
+       legend=c("Calculated Probability", 
+                "R pbinom Probability"), 
+       col=c("red4", "green4"), 
+       lwd=2)
 abline(a=0, b=1, col="black", lty=2)
 ```
 As we see here, the "best of" structure increases the chance that the "better"
 team wins the overall series.
+
+We can also see this empirically in simulation. As always with simulation, we
+don't expect _exact_ alignment since simulation still has some randomness and
+we aren't doing an infinite number of repetitions. 
+
+```{r echo=TRUE}
+p <- seq(0, 1, length.out=101)
+p_calculated <- 6 * p^5 - 15 * p^4 + 10 * p^3
+p_empirical <- vapply(p, 
+                      function(p) mean(rbinom(1000, 5, p) >= 3), 
+                      0.0)
+
+plot(p, p_calculated, 
+     type="l", col="red4", 
+     xlab="Team A: Game Win Probability", 
+     ylab="Team A: Series Win Probability",
+     main="Impact of Best-of-5 Series Structure")
+lines(p, p_empirical, col="blue2")
+legend("topleft", 
+       legend=c("Calculated Probability", 
+                "Simulated Probability"), 
+       col=c("red4", "blue2"), 
+       lwd=2)
+abline(a=0, b=1, col="black", lty=2)
+```
 :::
 
 #### Question 2
