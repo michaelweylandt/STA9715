@@ -29,15 +29,16 @@ Supplemental course notes will be posted here.
 
 #### Week 4: From Discrete to Continuous Random Variables
 
-
 - [Notes on Continuous Random Variables](./notes/continuous_rvs.html)
-
 
 #### Week 5: Heavy Tails
 
 - [Notes on Tails of Distributions and Implications for Statistical Inference](./notes/tails.html)
 
 #### Week 6: Random Vectors
+
+- [Notes on Vectors](./notes/random_vectors.html)
+- [Quanta Article on Probability Puzzles](https://www.quantamagazine.org/perplexing-the-web-one-probability-puzzle-at-a-time-20240829/)
 
 #### Week 7: Covariance and Correlation
 
