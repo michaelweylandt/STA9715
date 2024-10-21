@@ -42,6 +42,9 @@ Supplemental course notes will be posted here.
 
 #### Week 7: Covariance and Correlation
 
+- [Notes on Covariance](./notes/covariance.html)
+
+
 #### Week 8: The Multivariate Normal Distribution and its Progeny
 
 #### Week 9: Probability, Polling, and Prediction

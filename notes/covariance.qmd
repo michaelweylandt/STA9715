@@ -1,0 +1,233 @@
+---
+title: "Correlation and Covariance"
+---
+
+$$\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\R}{\mathbb{R}} \newcommand{\bx}{\mathbf{x}} \newcommand{\by}{\mathbf{y}} \newcommand{\bX}{\mathbf{X}} \newcommand{\bY}{\mathbf{Y}} \newcommand{\bZ}{\mathbf{Z}} \newcommand{\C}{\mathbb{C}} \newcommand{\indep}{\,\perp\!\!\!\!\perp\,} $$
+
+Having introduced random vectors last week, we are now ready to introduce the
+fundamental concepts of _covariance_ and _correlation_. To date, we have
+mainly focused on manipulating _independent_ random variables, establishing
+useful results like $n^{-1/2}$ convergence of averages, the law of large numbers,
+and tail bounds derived from Markov and Chebyshev's inequalities. While we
+introduced these in the context of independence for mathematical convenience,
+they thankfully hold in more generality. 
+
+That generality is a very good thing - real data is rarely uncorrelated and
+independent in the ways we've supposed so far. In our "big data" era, we 
+work with data derived from thousands of sensors writing thousands upon thousands
+of records to massive hard drives. But we don't deploy these sensors so easily. 
+When we measure all these quantities, correlation is unavoidable. For example,
+when fleets of sensors are deployed to get high resolution temperature
+measurements all over NYC, these aren't independent! An "above average" hot day
+in the East Village is almost certainly a day that is hot in the West Village 
+as well! It may be slightly less hot out in Queens, but it would be shocking if
+Queens had a blizzard on the same day. This is perhaps the Monkey's Paw of Big
+Data - we have so much more data, but it's not clear whether we have truly gained
+*information*. Concepts of correlation and covariance will let us start untangling
+this thicket. 
+
+## Covariance of Random Variables
+
+### Product Expectation of Independent Variates
+
+Before we take on the general case of vectors, let's first develop the theory
+of covariance for a pair of random variables. 
+
+To date, we have seen that expectations play well with sums: 
+
+$$ \E[X + Y] = \E[X] + \E[Y] $$ 
+
+with no further assumptions on $X, Y$ or the relationship between them. What can
+we say about the relationship between expectations and products? Depending
+on your point-of-view, we will be able to say very much or nothing at all. 
+
+Let's review the case of $X, Y$ independent. We know that for independent random
+variables, their PDFs factorize as 
+
+$$f_{(X, Y)} = f_Xf_Y$$
+
+Using this, we can compute the product expectation $\E[XY]$ easily: 
+
+$$\begin{align*}
+\E[XY] &= \iint_{\R^2} (xy) * f_{(X, Y)}(x, y) \,\text{d}x\,\text{d}y \\
+&= \int_{\R} \int_{\R} (xy) * f_X(x)f_Y(y) \,\text{d}x\,\text{d}y \\
+&= \int_{\R} y * f_Y(y)\int_{\R} x * f_X(x) \,\text{d}x\,\text{d}y \\
+&= \int_{\R} y * f_Y(y)\E[X]\,\text{d}y \\
+&= \E[X]\int_{\R} y * f_Y(y)\,\text{d}y \\
+&= \E[X]\E[Y]
+\end{align*}$$
+
+so, for independent $(X, Y)$, expectation plays nicely with products!
+
+What can we say for _general_ (non-independent) $X, Y$? Not so much just yet. 
+
+
+### Variance of Sums of Independent Random Variables
+
+Next, let's recall how variance of sums behave for independent random variables:
+
+$$ \V[X + Y] = \V(X) + \V(Y) \text{ if } X, Y \text{ are independent} $$
+
+We can write this in terms of the standard deviation of $X, Y$ and $Z = X + Y$: 
+
+$\sigma_Z^2 = \sigma_X^2 + \sigma_Y^2 \text{ if } X \indep Y$ 
+
+Recall that $X \indep Y$ means $X, Y$ are independent. 
+
+Written this way, we see an obvious parallel with the Pythagorean theorem 
+($c^2 + a^2 + b^2$) in the result, but there's also a parallel in the assumptions.
+In the Pythagorean theorem, we get this nice "sum of squares" behavior from 
+right angleness; in probability, we seem to get it from independence. 
+
+This isn't a coincidence. 
+
+#### Variance of Sums of Non-Independent Random Variables
+
+Let's now look at what we can say about $\V[X + Y]$ when $X, Y$ are not assumed
+independent. 
+
+$$\begin{align*}
+\V[X + Y] &= \E[(X + Y)^2] - \E[X + Y]^2 \\
+&= \E[(X^2 + 2 X Y + Y^2)] - (\E[X] + \E[Y])^2 \\
+&= \E[X^2] + 2\E[XY] + \E[Y^2] - \left(\E[X]^2 + 2\E[X]\E[Y] + \E[Y]^2\right) \\
+&= \left(\E[X^2] - \E[X]^2\right) + 2\left(\E[XY] - \E[X]\E[Y]\right) + \left(\E[Y^2] - \E[Y]^2\right) \\
+&= \V[X] + 2\left(\E[XY] - \E[X]\E[Y]\right) + \V[Y]
+\end{align*}$$
+
+This middle term is new! From our discussion above, we know it is zero if $X, Y$
+are independent, but what can we say about it generally? 
+
+Not much! But we can name it. We *define* the covariance of two random variables
+$X, Y$ to be 
+
+$$\C[X, Y] = \E[XY] - \E[X]\E[Y]$$
+
+What can we say about *covariance*? First, we note that, like variance, it
+has an equivalent form: 
+
+$$\C[X, Y] = \E\left[(X - \E[X])(Y - \E[Y])\right]$$
+
+(You should be able to prove this is algebraically equivalent.)
+
+From here, we actually see that *variance* as we have understood it to date
+is a special case of *covariance*. Specifically, 
+
+$$\V[X] = \C[X, X]$$
+
+That is, the *variance* of a random variable is just a measure of how much
+it *covaries* with itself. Put another way, all the *covariance* is *variance*
+when a variable is compared to itself. 
+
+Covariance has many of the algebraic properties of variance: 
+
+- $\C[X + a, Y + b] = \C[X, Y]$
+- $\C[aX, bY] = ab \C[X, Y]$
+
+Unlike *variance*, *covariance* can be negative. Notably, 
+
+$$\C[X, -X] = -\C[X, X] = -\V[X]$$
+
+### Correlation
+
+On its own, covariance, like variance, is a bit tricky to understand because
+it's "product-ish" (recall variance is "squared-ish"). To understand variance,
+we took a square root and called it *standard deviation*. Unfortunately, that's
+not quite as safe for covariance since it can be negative. 
+
+We can do something similarly useful - note that:  
+
+$$\begin{align*}
+\C[X, Y] &= \E[(X - \E[X])(Y - \E[Y])] \\ 
+&\leq \E[|X - \E[X]| * |Y - \E[Y]|] 
+&\leq \E[|X - \E[X]|] \E[|Y - \E[Y]|] \\
+&\leq \sqrt{\E[(X - \E[X])^2]} \sqrt{\E[(Y - \E[Y])^2] \\
+&= \sqrt{\V[X]}\sqrt{\V[Y]} \\
+&= \sigma_X \sigma_Y
+\end{align*}$$
+
+so 
+
+$$ -\sigma_X\sigma_Y \leq \C[X, Y] \leq \sigma_X\sigma_Y $$
+
+(Note that the set of calculations above isn't a rigorous proof. We need to
+invoke the [Cauchy-Schwarz inequality](https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality)
+to make this formal.)
+
+This motivates us to look at the quantity
+
+$$\rho_{X,Y} = \frac{\C[X, Y]}{\sqrt{\V[X]}\sqrt{V[Y]}} = \frac{\C[X, Y]}{\sqrt{\C[X, X]}\sqrt{\C[Y, Y]}} = \frac{\C[X, Y]}{\sigma_X\sigma_Y}$$
+
+This unitless quantity is called the **correlation** of $X$ and $Y$. From our 
+analysis above, we have: 
+
+$$-1 \leq \rho_{X, Y} \leq 1$$
+
+so correlation is bounded between -1 and 1. 
+
+Let's turn back to $\V[Z] = \V[X + Y]$. From above, we have
+
+$$\V[Z] = \V[X] + \V[Y] + 2\C[X, Y]$$
+
+If we substitute in the definition of correlation, we have: 
+
+$$\sigma_Z^2 = \sigma_X^2 + \sigma_Y^2 + 2\sigma_X\sigma_Y \rho_{X, Y}$$
+
+If the independent-$X, Y$ formula reminded us of the Pythagorean theorem,
+this should look a lot like the [Law of
+Cosines](https://en.wikipedia.org/wiki/Law_of_cosines), with the correlation
+playing the role of the "cosine angle" between $X, Y$. 
+
+This isn't just an overly convoluted metaphor: it is "mathematically real". 
+Given two (non-random) vectors, we define the angle between them by:
+
+$$\cos \angle(\bx, \by) = \frac{\langle \bx, \by\rangle}{\|\bx\| \|\by\|} = \frac{\langle \bx, \by\rangle}{\sqrt{\langle \bx, \bx\rangle \langle, \by,\by\rangle}$$
+
+If we interpret $\langle \cdot, \cdot \rangle$ as vector equivalent
+of covariance, and vector norm as the equivalent of standard deviation, the pieces
+all fit together perfectly. 
+
+We know from trigonometry that $|\cos\theta| \leq 1$ for all angles $\theta$,
+with $\cos \theta = 1$, $\cos \theta = 0$, and $\cos \theta = -1$ being special
+values. But we've seen these already!
+
+- $\cos \theta = 0 \leftarrow \rho_{X, Y} = 0$. This is what we see for
+  independent random variables!
+- $\cos \theta = 1 \leftarrow \rho_{X, Y} = 1$. This is what we saw for
+  $\C[X, X] = \V[X]$. If the cosine of the angle is 1, that means the
+  angle is zero, so the two variables are "exactly" on top of each other. 
+  That's true for $X$ and $X$. 
+- $\cos \theta = -1 \leftarrow \rho_{X, Y} = -1$. We saw this above for $X$ and
+  $-X$ which go in "exactly opposite directions".
+  
+This connection between "right angles" and "zero correlation" is quite
+well-known and slips into the day-to-day conversation of data scientists. In
+particular, two vectors at right angles are called _orthogonal_ (from "ortho-"
+meaning "right") so it's very common to hear mathematical folks refer two
+two unrelated issues as "orthogonal". 
+
+## Zero Covariance vs Independence
+
+So far, we have seen that independence implies zero covariance. But is the
+opposite true? **NO**
+
+A simple example: let $X \sim \text{Uniform}([-1, 1])$ and let $Y = X^2$. We
+can see that $X$ and $Y$ have zero correlation, even though they are clearly
+not independent. 
+
+$$\begin{align*}
+\E[XY] &= \E[X^3]  \\
+       &= \int_{-1}^1 x^3 * f_X(x)\,\text{d}x \\
+       &= \int_{-1}^1 x^3 * \frac{1}{2}\,\text{d}x \\
+       &= \left.\frac{x^4}{2}\right|_{-1}^1 \\
+       &= \frac{(1)^4 - (-1)^4}{2} \\
+       &= 0 
+\end{align*}$$
+
+Similarly, $\E[X] = 0$, so $\C[X, Y] = \E[XY] - \E[X]\E[Y] = 0 - 0 * \E[Y] = 0$.
+
+- Independence as "not correlatable" 
+
+## Covariance of Random Vectors
+
+TODO - if time requires, we might start our discussion of the multivariate
+normal distribution with this. 

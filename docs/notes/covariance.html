@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STA 9715 - Notes – STA 9715</title>
+<title>Correlation and Covariance – STA 9715</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -67,6 +67,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -77,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">STA 9715</span>
     </a>
   </div>
@@ -88,19 +117,19 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="././syllabus.html"> 
+    <a class="nav-link" href=".././syllabus.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="././notes.html"> 
+    <a class="nav-link" href=".././notes.html"> 
 <span class="menu-text">Handouts and Additional Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="././resources.html"> 
+    <a class="nav-link" href=".././resources.html"> 
 <span class="menu-text">Additional Resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="././objectives.html"> 
+    <a class="nav-link" href=".././objectives.html"> 
 <span class="menu-text">Learning Objectives</span></a>
   </li>  
 </ul>
@@ -114,15 +143,28 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#covariance-of-random-variables" id="toc-covariance-of-random-variables" class="nav-link active" data-scroll-target="#covariance-of-random-variables">Covariance of Random Variables</a>
+  <ul class="collapse">
+  <li><a href="#product-expectation-of-independent-variates" id="toc-product-expectation-of-independent-variates" class="nav-link" data-scroll-target="#product-expectation-of-independent-variates">Product Expectation of Independent Variates</a></li>
+  <li><a href="#variance-of-sums-of-independent-random-variables" id="toc-variance-of-sums-of-independent-random-variables" class="nav-link" data-scroll-target="#variance-of-sums-of-independent-random-variables">Variance of Sums of Independent Random Variables</a></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation">Correlation</a></li>
+  </ul></li>
+  <li><a href="#zero-covariance-vs-independence" id="toc-zero-covariance-vs-independence" class="nav-link" data-scroll-target="#zero-covariance-vs-independence">Zero Covariance vs Independence</a></li>
+  <li><a href="#covariance-of-random-vectors" id="toc-covariance-of-random-vectors" class="nav-link" data-scroll-target="#covariance-of-random-vectors">Covariance of Random Vectors</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">STA 9715 - Notes</h1>
+<h1 class="title">Correlation and Covariance</h1>
 </div>
 
 
@@ -139,98 +181,125 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Supplemental course notes will be posted here.</p>
-<section id="week-1-foundations-of-probability" class="level4">
-<h4 class="anchored" data-anchor-id="week-1-foundations-of-probability">Week 1: Foundations of Probability</h4>
+<p><span class="math display">\[\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\R}{\mathbb{R}} \newcommand{\bx}{\mathbf{x}} \newcommand{\by}{\mathbf{y}} \newcommand{\bX}{\mathbf{X}} \newcommand{\bY}{\mathbf{Y}} \newcommand{\bZ}{\mathbf{Z}} \newcommand{\C}{\mathbb{C}} \newcommand{\indep}{\,\perp\!\!\!\!\perp\,} \]</span></p>
+<p>Having introduced random vectors last week, we are now ready to introduce the fundamental concepts of <em>covariance</em> and <em>correlation</em>. To date, we have mainly focused on manipulating <em>independent</em> random variables, establishing useful results like <span class="math inline">\(n^{-1/2}\)</span> convergence of averages, the law of large numbers, and tail bounds derived from Markov and Chebyshev’s inequalities. While we introduced these in the context of independence for mathematical convenience, they thankfully hold in more generality.</p>
+<p>That generality is a very good thing - real data is rarely uncorrelated and independent in the ways we’ve supposed so far. In our “big data” era, we work with data derived from thousands of sensors writing thousands upon thousands of records to massive hard drives. But we don’t deploy these sensors so easily. When we measure all these quantities, correlation is unavoidable. For example, when fleets of sensors are deployed to get high resolution temperature measurements all over NYC, these aren’t independent! An “above average” hot day in the East Village is almost certainly a day that is hot in the West Village as well! It may be slightly less hot out in Queens, but it would be shocking if Queens had a blizzard on the same day. This is perhaps the Monkey’s Paw of Big Data - we have so much more data, but it’s not clear whether we have truly gained <em>information</em>. Concepts of correlation and covariance will let us start untangling this thicket.</p>
+<section id="covariance-of-random-variables" class="level2">
+<h2 class="anchored" data-anchor-id="covariance-of-random-variables">Covariance of Random Variables</h2>
+<section id="product-expectation-of-independent-variates" class="level3">
+<h3 class="anchored" data-anchor-id="product-expectation-of-independent-variates">Product Expectation of Independent Variates</h3>
+<p>Before we take on the general case of vectors, let’s first develop the theory of covariance for a pair of random variables.</p>
+<p>To date, we have seen that expectations play well with sums:</p>
+<p><span class="math display">\[ \E[X + Y] = \E[X] + \E[Y] \]</span></p>
+<p>with no further assumptions on <span class="math inline">\(X, Y\)</span> or the relationship between them. What can we say about the relationship between expectations and products? Depending on your point-of-view, we will be able to say very much or nothing at all.</p>
+<p>Let’s review the case of <span class="math inline">\(X, Y\)</span> independent. We know that for independent random variables, their PDFs factorize as</p>
+<p><span class="math display">\[f_{(X, Y)} = f_Xf_Y\]</span></p>
+<p>Using this, we can compute the product expectation <span class="math inline">\(\E[XY]\)</span> easily:</p>
+<p><span class="math display">\[\begin{align*}
+\E[XY] &amp;= \iint_{\R^2} (xy) * f_{(X, Y)}(x, y) \,\text{d}x\,\text{d}y \\
+&amp;= \int_{\R} \int_{\R} (xy) * f_X(x)f_Y(y) \,\text{d}x\,\text{d}y \\
+&amp;= \int_{\R} y * f_Y(y)\int_{\R} x * f_X(x) \,\text{d}x\,\text{d}y \\
+&amp;= \int_{\R} y * f_Y(y)\E[X]\,\text{d}y \\
+&amp;= \E[X]\int_{\R} y * f_Y(y)\,\text{d}y \\
+&amp;= \E[X]\E[Y]
+\end{align*}\]</span></p>
+<p>so, for independent <span class="math inline">\((X, Y)\)</span>, expectation plays nicely with products!</p>
+<p>What can we say for <em>general</em> (non-independent) <span class="math inline">\(X, Y\)</span>? Not so much just yet.</p>
+</section>
+<section id="variance-of-sums-of-independent-random-variables" class="level3">
+<h3 class="anchored" data-anchor-id="variance-of-sums-of-independent-random-variables">Variance of Sums of Independent Random Variables</h3>
+<p>Next, let’s recall how variance of sums behave for independent random variables:</p>
+<p><span class="math display">\[ \V[X + Y] = \V(X) + \V(Y) \text{ if } X, Y \text{ are independent} \]</span></p>
+<p>We can write this in terms of the standard deviation of <span class="math inline">\(X, Y\)</span> and <span class="math inline">\(Z = X + Y\)</span>:</p>
+<p><span class="math inline">\(\sigma_Z^2 = \sigma_X^2 + \sigma_Y^2 \text{ if } X \indep Y\)</span></p>
+<p>Recall that <span class="math inline">\(X \indep Y\)</span> means <span class="math inline">\(X, Y\)</span> are independent.</p>
+<p>Written this way, we see an obvious parallel with the Pythagorean theorem (<span class="math inline">\(c^2 + a^2 + b^2\)</span>) in the result, but there’s also a parallel in the assumptions. In the Pythagorean theorem, we get this nice “sum of squares” behavior from right angleness; in probability, we seem to get it from independence.</p>
+<p>This isn’t a coincidence.</p>
+<section id="variance-of-sums-of-non-independent-random-variables" class="level4">
+<h4 class="anchored" data-anchor-id="variance-of-sums-of-non-independent-random-variables">Variance of Sums of Non-Independent Random Variables</h4>
+<p>Let’s now look at what we can say about <span class="math inline">\(\V[X + Y]\)</span> when <span class="math inline">\(X, Y\)</span> are not assumed independent.</p>
+<p><span class="math display">\[\begin{align*}
+\V[X + Y] &amp;= \E[(X + Y)^2] - \E[X + Y]^2 \\
+&amp;= \E[(X^2 + 2 X Y + Y^2)] - (\E[X] + \E[Y])^2 \\
+&amp;= \E[X^2] + 2\E[XY] + \E[Y^2] - \left(\E[X]^2 + 2\E[X]\E[Y] + \E[Y]^2\right) \\
+&amp;= \left(\E[X^2] - \E[X]^2\right) + 2\left(\E[XY] - \E[X]\E[Y]\right) + \left(\E[Y^2] - \E[Y]^2\right) \\
+&amp;= \V[X] + 2\left(\E[XY] - \E[X]\E[Y]\right) + \V[Y]
+\end{align*}\]</span></p>
+<p>This middle term is new! From our discussion above, we know it is zero if <span class="math inline">\(X, Y\)</span> are independent, but what can we say about it generally?</p>
+<p>Not much! But we can name it. We <em>define</em> the covariance of two random variables <span class="math inline">\(X, Y\)</span> to be</p>
+<p><span class="math display">\[\C[X, Y] = \E[XY] - \E[X]\E[Y]\]</span></p>
+<p>What can we say about <em>covariance</em>? First, we note that, like variance, it has an equivalent form:</p>
+<p><span class="math display">\[\C[X, Y] = \E\left[(X - \E[X])(Y - \E[Y])\right]\]</span></p>
+<p>(You should be able to prove this is algebraically equivalent.)</p>
+<p>From here, we actually see that <em>variance</em> as we have understood it to date is a special case of <em>covariance</em>. Specifically,</p>
+<p><span class="math display">\[\V[X] = \C[X, X]\]</span></p>
+<p>That is, the <em>variance</em> of a random variable is just a measure of how much it <em>covaries</em> with itself. Put another way, all the <em>covariance</em> is <em>variance</em> when a variable is compared to itself.</p>
+<p>Covariance has many of the algebraic properties of variance:</p>
 <ul>
-<li>Quanta Magazine: “<a href="https://www.quantamagazine.org/perplexing-the-web-one-probability-puzzle-at-a-time-20240829/">Perplexing the Web, One Probability Puzzle at a Time</a>”</li>
-<li>WIRED Magazine: “<a href="https://www.youtube.com/watch?v=QW3KRaz4aI4">Statistician Answers Stats Questions From Twitter | Tech Support</a>”
+<li><span class="math inline">\(\C[X + a, Y + b] = \C[X, Y]\)</span></li>
+<li><span class="math inline">\(\C[aX, bY] = ab \C[X, Y]\)</span></li>
+</ul>
+<p>Unlike <em>variance</em>, <em>covariance</em> can be negative. Notably,</p>
+<p><span class="math display">\[\C[X, -X] = -\C[X, X] = -\V[X]\]</span></p>
+</section>
+</section>
+<section id="correlation" class="level3">
+<h3 class="anchored" data-anchor-id="correlation">Correlation</h3>
+<p>On its own, covariance, like variance, is a bit tricky to understand because it’s “product-ish” (recall variance is “squared-ish”). To understand variance, we took a square root and called it <em>standard deviation</em>. Unfortunately, that’s not quite as safe for covariance since it can be negative.</p>
+<p>We can do something similarly useful - note that:</p>
+<p><span class="math display">\[\begin{align*}
+\C[X, Y] &amp;= \E[(X - \E[X])(Y - \E[Y])] \\
+&amp;\leq \E[|X - \E[X]| * |Y - \E[Y]|]
+&amp;\leq \E[|X - \E[X]|] \E[|Y - \E[Y]|] \\
+&amp;\leq \sqrt{\E[(X - \E[X])^2]} \sqrt{\E[(Y - \E[Y])^2] \\
+&amp;= \sqrt{\V[X]}\sqrt{\V[Y]} \\
+&amp;= \sigma_X \sigma_Y
+\end{align*}\]</span></p>
+<p>so</p>
+<p><span class="math display">\[ -\sigma_X\sigma_Y \leq \C[X, Y] \leq \sigma_X\sigma_Y \]</span></p>
+<p>(Note that the set of calculations above isn’t a rigorous proof. We need to invoke the <a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality">Cauchy-Schwarz inequality</a> to make this formal.)</p>
+<p>This motivates us to look at the quantity</p>
+<p><span class="math display">\[\rho_{X,Y} = \frac{\C[X, Y]}{\sqrt{\V[X]}\sqrt{V[Y]}} = \frac{\C[X, Y]}{\sqrt{\C[X, X]}\sqrt{\C[Y, Y]}} = \frac{\C[X, Y]}{\sigma_X\sigma_Y}\]</span></p>
+<p>This unitless quantity is called the <strong>correlation</strong> of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. From our analysis above, we have:</p>
+<p><span class="math display">\[-1 \leq \rho_{X, Y} \leq 1\]</span></p>
+<p>so correlation is bounded between -1 and 1.</p>
+<p>Let’s turn back to <span class="math inline">\(\V[Z] = \V[X + Y]\)</span>. From above, we have</p>
+<p><span class="math display">\[\V[Z] = \V[X] + \V[Y] + 2\C[X, Y]\]</span></p>
+<p>If we substitute in the definition of correlation, we have:</p>
+<p><span class="math display">\[\sigma_Z^2 = \sigma_X^2 + \sigma_Y^2 + 2\sigma_X\sigma_Y \rho_{X, Y}\]</span></p>
+<p>If the independent-<span class="math inline">\(X, Y\)</span> formula reminded us of the Pythagorean theorem, this should look a lot like the <a href="https://en.wikipedia.org/wiki/Law_of_cosines">Law of Cosines</a>, with the correlation playing the role of the “cosine angle” between <span class="math inline">\(X, Y\)</span>.</p>
+<p>This isn’t just an overly convoluted metaphor: it is “mathematically real”. Given two (non-random) vectors, we define the angle between them by:</p>
+<p><span class="math display">\[\cos \angle(\bx, \by) = \frac{\langle \bx, \by\rangle}{\|\bx\| \|\by\|} = \frac{\langle \bx, \by\rangle}{\sqrt{\langle \bx, \bx\rangle \langle, \by,\by\rangle}\]</span></p>
+<p>If we interpret <span class="math inline">\(\langle \cdot, \cdot \rangle\)</span> as vector equivalent of covariance, and vector norm as the equivalent of standard deviation, the pieces all fit together perfectly.</p>
+<p>We know from trigonometry that <span class="math inline">\(|\cos\theta| \leq 1\)</span> for all angles <span class="math inline">\(\theta\)</span>, with <span class="math inline">\(\cos \theta = 1\)</span>, <span class="math inline">\(\cos \theta = 0\)</span>, and <span class="math inline">\(\cos \theta = -1\)</span> being special values. But we’ve seen these already!</p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=GNX7cRhWVi0">More Jeff Rosenthal</a></li>
-</ul></li>
-<li><a href="https://www.youtube.com/playlist?list=PL2SOU6wwxB0uwwH80KTQ6ht66KWxbzTIo">Harvard STAT 110 Playlist</a>
+<li><span class="math inline">\(\cos \theta = 0 \leftarrow \rho_{X, Y} = 0\)</span>. This is what we see for independent random variables!</li>
+<li><span class="math inline">\(\cos \theta = 1 \leftarrow \rho_{X, Y} = 1\)</span>. This is what we saw for <span class="math inline">\(\C[X, X] = \V[X]\)</span>. If the cosine of the angle is 1, that means the angle is zero, so the two variables are “exactly” on top of each other. That’s true for <span class="math inline">\(X\)</span> and <span class="math inline">\(X\)</span>.</li>
+<li><span class="math inline">\(\cos \theta = -1 \leftarrow \rho_{X, Y} = -1\)</span>. We saw this above for <span class="math inline">\(X\)</span> and <span class="math inline">\(-X\)</span> which go in “exactly opposite directions”.</li>
+</ul>
+<p>This connection between “right angles” and “zero correlation” is quite well-known and slips into the day-to-day conversation of data scientists. In particular, two vectors at right angles are called <em>orthogonal</em> (from “ortho-” meaning “right”) so it’s very common to hear mathematical folks refer two two unrelated issues as “orthogonal”.</p>
+</section>
+</section>
+<section id="zero-covariance-vs-independence" class="level2">
+<h2 class="anchored" data-anchor-id="zero-covariance-vs-independence">Zero Covariance vs Independence</h2>
+<p>So far, we have seen that independence implies zero covariance. But is the opposite true? <strong>NO</strong></p>
+<p>A simple example: let <span class="math inline">\(X \sim \text{Uniform}([-1, 1])\)</span> and let <span class="math inline">\(Y = X^2\)</span>. We can see that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have zero correlation, even though they are clearly not independent.</p>
+<p><span class="math display">\[\begin{align*}
+\E[XY] &amp;= \E[X^3]  \\
+       &amp;= \int_{-1}^1 x^3 * f_X(x)\,\text{d}x \\
+       &amp;= \int_{-1}^1 x^3 * \frac{1}{2}\,\text{d}x \\
+       &amp;= \left.\frac{x^4}{2}\right|_{-1}^1 \\
+       &amp;= \frac{(1)^4 - (-1)^4}{2} \\
+       &amp;= 0
+\end{align*}\]</span></p>
+<p>Similarly, <span class="math inline">\(\E[X] = 0\)</span>, so <span class="math inline">\(\C[X, Y] = \E[XY] - \E[X]\E[Y] = 0 - 0 * \E[Y] = 0\)</span>.</p>
 <ul>
-<li>This is the course on which our textbook (BH) is based</li>
-</ul></li>
+<li>Independence as “not correlatable”</li>
 </ul>
 </section>
-<section id="week-2-conditionality-and-marginality" class="level4">
-<h4 class="anchored" data-anchor-id="week-2-conditionality-and-marginality">Week 2: Conditionality and Marginality</h4>
-<ul>
-<li>The YouTube channel <code>3blue1brown</code> makes excellent ‘explainers’ about a variety of mathematical topics. Check out his videos on Bayes’ rule:
-<ul>
-<li><a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">The Geometry of Changing Beliefs</a>
-<ul>
-<li>See also <a href="https://www.youtube.com/watch?v=U_85TaXbeIo">A Quick Proof of Bayes Theorem</a></li>
-</ul></li>
-<li><a href="https://www.youtube.com/watch?v=lG4VkPoG3ko&amp;">The Medical Test Paradox</a></li>
-</ul></li>
-<li><a href="https://www.youtube.com/watch?v=dzFf3r1yph8">Conditioning: The Soul of Statistics</a></li>
-<li><a href="./notes/expectations.html">Notes on Expectations</a></li>
-</ul>
-</section>
-<section id="week-3-discrete-probability" class="level4">
-<h4 class="anchored" data-anchor-id="week-3-discrete-probability">Week 3: Discrete Probability</h4>
-<ul>
-<li><a href="./notes/discrete_distributions.html">Notes on Discrete Distributions</a></li>
-</ul>
-</section>
-<section id="week-4-from-discrete-to-continuous-random-variables" class="level4">
-<h4 class="anchored" data-anchor-id="week-4-from-discrete-to-continuous-random-variables">Week 4: From Discrete to Continuous Random Variables</h4>
-<ul>
-<li><a href="./notes/continuous_rvs.html">Notes on Continuous Random Variables</a></li>
-</ul>
-</section>
-<section id="week-5-heavy-tails" class="level4">
-<h4 class="anchored" data-anchor-id="week-5-heavy-tails">Week 5: Heavy Tails</h4>
-<ul>
-<li><a href="./notes/tails.html">Notes on Tails of Distributions and Implications for Statistical Inference</a></li>
-</ul>
-</section>
-<section id="week-6-random-vectors" class="level4">
-<h4 class="anchored" data-anchor-id="week-6-random-vectors">Week 6: Random Vectors</h4>
-<ul>
-<li><a href="./notes/random_vectors.html">Notes on Vectors</a></li>
-<li><a href="https://www.quantamagazine.org/perplexing-the-web-one-probability-puzzle-at-a-time-20240829/">Quanta Article on Probability Puzzles</a></li>
-</ul>
-</section>
-<section id="week-7-covariance-and-correlation" class="level4">
-<h4 class="anchored" data-anchor-id="week-7-covariance-and-correlation">Week 7: Covariance and Correlation</h4>
-<ul>
-<li><a href="./notes/covariance.html">Notes on Covariance</a></li>
-</ul>
-</section>
-<section id="week-8-the-multivariate-normal-distribution-and-its-progeny" class="level4">
-<h4 class="anchored" data-anchor-id="week-8-the-multivariate-normal-distribution-and-its-progeny">Week 8: The Multivariate Normal Distribution and its Progeny</h4>
-</section>
-<section id="week-9-probability-polling-and-prediction" class="level4">
-<h4 class="anchored" data-anchor-id="week-9-probability-polling-and-prediction">Week 9: Probability, Polling, and Prediction</h4>
-</section>
-<section id="week-10-perils-and-paradoxes-in-expectations" class="level4">
-<h4 class="anchored" data-anchor-id="week-10-perils-and-paradoxes-in-expectations">Week 10: Perils and Paradoxes in Expectations</h4>
-</section>
-<section id="week-11-probability-inequalities-and-limit-theorems" class="level4">
-<h4 class="anchored" data-anchor-id="week-11-probability-inequalities-and-limit-theorems">Week 11: Probability Inequalities and Limit Theorems</h4>
-</section>
-<section id="week-12-distributional-limits-and-the-central-limit-theorem" class="level4">
-<h4 class="anchored" data-anchor-id="week-12-distributional-limits-and-the-central-limit-theorem">Week 12: Distributional Limits and the Central Limit Theorem</h4>
-</section>
-<section id="week-13-concentration-of-measure-generalized-limit-theory" class="level4">
-<h4 class="anchored" data-anchor-id="week-13-concentration-of-measure-generalized-limit-theory">Week 13: Concentration of Measure: Generalized Limit Theory</h4>
-</section>
-<section id="week-14-computing-with-randomness" class="level4">
-<h4 class="anchored" data-anchor-id="week-14-computing-with-randomness">Week 14: Computing with Randomness</h4>
-</section>
-<section id="exam-materials" class="level4">
-<h4 class="anchored" data-anchor-id="exam-materials">Exam Materials</h4>
-<ul>
-<li>Test 1:
-<ul>
-<li><a href="./notes/Test1/FormulaSheet.pdf">Formula Sheet</a></li>
-<li><a href="./notes/Test1/ExamPacket.pdf">Exam Packet</a></li>
-<li><a href="./notes/Test1/solutions.html">Solutions</a></li>
-</ul></li>
-</ul>
+<section id="covariance-of-random-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="covariance-of-random-vectors">Covariance of Random Vectors</h2>
+<p>TODO - if time requires, we might start our discussion of the multivariate normal distribution with this.</p>
 
 
 </section>
