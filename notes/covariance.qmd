@@ -138,9 +138,9 @@ We can do something similarly useful - note that:
 
 $$\begin{align*}
 \C[X, Y] &= \E[(X - \E[X])(Y - \E[Y])] \\ 
-&\leq \E[|X - \E[X]| * |Y - \E[Y]|] 
+& \leq \E[|X - \E[X]| * |Y - \E[Y]|] \\
 &\leq \E[|X - \E[X]|] \E[|Y - \E[Y]|] \\
-&\leq \sqrt{\E[(X - \E[X])^2]} \sqrt{\E[(Y - \E[Y])^2] \\
+&\leq \sqrt{\E[(X - \E[X])^2]} \sqrt{\E[(Y - \E[Y])^2]} \\
 &= \sqrt{\V[X]}\sqrt{\V[Y]} \\
 &= \sigma_X \sigma_Y
 \end{align*}$$
