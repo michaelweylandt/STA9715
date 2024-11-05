@@ -47,7 +47,12 @@ Supplemental course notes will be posted here.
 
 #### Week 8: The Multivariate Normal Distribution and its Progeny
 
+- [3Brown1Blue - "Why $pi$ is in the Normal Distribution"](https://www.youtube.com/watch?v=cy8r7WSuT1I)
+- [3Brown1Blue - "A Pretty Reason why Gaussian + Gaussian = Gaussian"](https://www.youtube.com/watch?v=d_qvLDhkg00)
+
 #### Week 9: Probability, Polling, and Prediction
+
+- [How the Washington Post Estimates Outstanding Votes for the 2020 Presidential Election](https://elex-models-prod.s3.amazonaws.com/2020-general/write-up/election_model_writeup.pdf)
 
 #### Week 10: Perils and Paradoxes in Expectations
 
