@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The Multivariate Normal Distribution – STA 9715</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">STA 9715</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href=".././syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././notes.html"> 
+<span class="menu-text">Handouts and Additional Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././resources.html"> 
+<span class="menu-text">Additional Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././objectives.html"> 
+<span class="menu-text">Learning Objectives</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#univariate-normal-distribution" id="toc-univariate-normal-distribution" class="nav-link active" data-scroll-target="#univariate-normal-distribution">Univariate Normal Distribution</a>
+  <ul class="collapse">
+  <li><a href="#related-distributions" id="toc-related-distributions" class="nav-link" data-scroll-target="#related-distributions">Related Distributions</a></li>
+  </ul></li>
+  <li><a href="#multivariate-normal-distribution" id="toc-multivariate-normal-distribution" class="nav-link" data-scroll-target="#multivariate-normal-distribution">Multivariate Normal Distribution</a></li>
+  <li><a href="#practice-problems" id="toc-practice-problems" class="nav-link" data-scroll-target="#practice-problems">Practice Problems</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Multivariate Normal Distribution</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><span class="math display">\[\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\R}{\mathbb{R}} \newcommand{\bx}{\mathbf{x}} \newcommand{\by}{\mathbf{y}} \newcommand{\bX}{\mathbf{X}} \newcommand{\bY}{\mathbf{Y}} \newcommand{\bZ}{\mathbf{Z}}
+\newcommand{\ba}{\mathbf{a}} \newcommand{\bA}{\mathbf{A}} \newcommand{\C}{\mathbb{C}}\]</span></p>
+<p>In this set of notes, we begin our study of the most important distribution for random <em>vectors</em>, the multivariate normal distribution. Before we dig into the <em>multivariate</em> normal, however, it’s worth briefly discussing the <em>univariate</em> normal and how the concepts of variance and covariance apply to vectors.</p>
+<section id="univariate-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="univariate-normal-distribution">Univariate Normal Distribution</h2>
+<p>The <em>univariate</em> normal distribution is a <em>continuous</em> random variable with support on <span class="math inline">\(\R\)</span>, that is, it takes all real-values. The <em>standard</em> normal distribution, almost universally called <span class="math inline">\(Z\)</span>, has PDF:</p>
+<p><span class="math display">\[f_Z(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}\]</span></p>
+<p>The “core” of this distribution is reasonably straight-forward, <span class="math inline">\(e^{-z^2/2}\)</span>. This passes the “sniff” test for a distribution - it goes to zero quite quickly as <span class="math inline">\(|z|\)</span> gets large, so it’s very believable that we have a finite integral. The “normalization constant” of <span class="math inline">\(1/\sqrt{2\pi}\)</span> is a bit freaky, but there are <a href="https://www.youtube.com/watch?v=cy8r7WSuT1I">deep reasons</a> for it.</p>
+<p>By definition, we can compute the mean and variance of <span class="math inline">\(Z\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+\E[Z] &amp;= \int z f_Z(z)\,\text{d}z \\
+      &amp;= \frac{1}{\sqrt{2\pi}} \int z e^{-z^2/2}\,\text{d}z \\
+      &amp;= \frac{1}{\sqrt{2\pi}} \int z e^{-z^2/2}\,\text{d}z \\
+      &amp;= \frac{1}{\sqrt{2\pi}}\left(e^{-z^2/2}\right)_{z=-\infty}^{\infty} \\
+      &amp;= \frac{1}{\sqrt{2\pi}}\left(e^{-\infty^2/2} - e^{-(-\infty)^2/2}\right) \\
+      &amp;= \frac{1}{\sqrt{2\pi}}(0 - 0) \\
+      &amp;= 0
+\end{align*}\]</span></p>
+<p>As we would expect for a distributoin with a PDF that is symmetric around 0.</p>
+<p>The variance is a bit trickier:</p>
+<p><span class="math display">\[\begin{align*}
+\V[Z] &amp;= \E[Z^2] - \E[Z]^2 \\
+&amp;= \E[Z^2] - 0 \\
+&amp;= \E[Z^2] \\
+&amp;= \int z^2 f_Z(z)\,\text{d}z \\
+&amp;= \dots
+&amp;= 1
+\end{align*}\]</span></p>
+<p>where the dots capture some <a href="https://www.wolframalpha.com/input?i=integrate+x%5E2+*+e%5E%28-x%5E2%2F2%29+%2F+sqrt%282+*+pi%29+from+-infty+to+infty">cumbersome, but standard algebra</a>.</p>
+<p>The <em>normal</em> distribution has a somewhat special property: it is a <em>stable</em> distribution, so if <span class="math inline">\(X\)</span> has a <em>normal</em> distribution, so does <span class="math inline">\(aX + b\)</span> for any scalars <span class="math inline">\(a, b \in \R\)</span>. We can use this fact to derive the distribution of any normal random variable.</p>
+<p>If <span class="math inline">\(X\)</span> has a normal distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, it can be shown that <span class="math inline">\(X \buildrel d\over= \mu + \sigma Z\)</span> for standard normal <span class="math inline">\(Z\)</span>. (The <span class="math inline">\(\buildrel d\over=\)</span> symbol means these two quantities have the same distribution. For these notes, it’s fine to interpret it as a standard equality.) Specifically, if <span class="math inline">\(X \buildrel d\over= a + bZ\)</span> we can find that these <em>must</em> be the values of <span class="math inline">\(a, b\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+\mu &amp;= \E[X] \\
+    &amp;= \E[a+bZ] \\
+    &amp;= a + b\E[Z] \\
+    &amp;= a + b * 0 \\
+    &amp;= a \\
+\implies a &amp;= \mu
+\end{align*}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\begin{align*}
+\sigma^2 &amp;= \V[X] \\
+         &amp;= \V[a + bZ] \\
+         &amp;= b^2 \V[Z] \\
+         &amp;= b^2 * 1 \\
+\implies b &amp;= \sigma
+\end{align*}\]</span></p>
+<p>We can use this relationship to find the PDF and CDF of <span class="math inline">\(X \sim \mathcal{N}(\mu,
+\sigma^2)\)</span>. For the CDF, note that:</p>
+<p><span class="math display">\[\begin{align*}
+F_X(x) &amp;= \P(X \leq x) \\
+&amp;= \P(\mu + \sigma Z \leq x) \\
+&amp;= \P\left(Z \leq \frac{x - \mu}{\sigma}\right) \\
+&amp;= \Phi\left(\frac{x - \mu}{\sigma}\right)
+\end{align*}\]</span></p>
+<p>where <span class="math inline">\(\Phi(\cdot)\)</span> is the CDF of the standard normal <span class="math inline">\(Z\)</span>. <span class="math inline">\(\Phi(\cdot)\)</span> is one of those functions that doesn’t have a “clean” formula in the usual sense, but it is so useful that basically all calculators and computers have it, or an equivalent function, built-in: <a href="https://en.cppreference.com/w/cpp/numeric/math/erf"><code>C++</code></a>, <a href="https://docs.python.org/3/library/math.html#math.erf"><code>Python</code></a>, <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal"><code>R</code></a> and <a href="https://mathjs.org/docs/reference/functions/erf.html"><code>javascript</code></a>. In that way, it is quite like the trig functions <span class="math inline">\(\sin(\cdot)\)</span>, <span class="math inline">\(\cos(\cdot)\)</span>, and <span class="math inline">\(\tan(\cdot)\)</span>.</p>
+<p>Note that, by construction,</p>
+<p><span class="math display">\[\Phi(z) = \P(Z \leq z) = \int_{-\infty}^z f_Z(z')\,\text{d}z' = \int_{-\infty}^z \frac{e^{-(z')^2/2}}{\sqrt{2\pi}}\,\text{d}z'\]</span></p>
+<p>With this in hand, we can get the PDF for <span class="math inline">\(X\)</span> as well:</p>
+<p><span class="math display">\[\begin{align*}
+f_X(x) &amp;= \frac{\text{d}}{\text{d}x}F_X(x) \\
+       &amp;= \frac{\text{d}}{\text{d}x}\Phi\left(\frac{x - \mu}{\sigma}\right) \\
+       &amp;= \Phi'\left(\frac{x - \mu}{\sigma}\right) * \frac{\text{d}}{\text{d}x}\left(\frac{x - \mu}{\sigma}\right) \\
+       &amp;= \phi\left(\frac{x - \mu}{\sigma}\right) * \frac{1}{\sigma} \\
+       &amp;= \left(\frac{\exp\left\{-\frac{\left(\frac{x-\mu}{\sigma}\right)^2}{2}\right\}}{\sqrt{2\pi}}\right)\frac{1}{\sigma} \\
+       &amp;= \frac{\exp\left\{-(x-\mu)^2/2\sigma^2\right\}}{\sqrt{2\pi\sigma^2}}
+\end{align*}\]</span></p>
+<p>Not so bad - and we don’t even have to compute the mean or variance since we started with those.</p>
+<p>We will have a lot more to say about the normal distribution as we proceed in this course.</p>
+<section id="related-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="related-distributions">Related Distributions</h3>
+<p>The normal distribution is so ubiquitous in statistics that many <em>functions</em> of standard normal random variables are well-understood distributions in their own right. Perhaps the most important is <span class="math inline">\(Z^2\)</span>, so let’s explore it now. As usual, it’s easy enough to think about the distribution from the CDF:</p>
+<p><span class="math display">\[\begin{align*}
+F_{Z^2}(x) &amp;= \P(Z^2 \leq x) \\
+&amp;= \P(-\sqrt{x} \leq Z \leq \sqrt{x}) \\
+&amp;= \P(Z \leq \sqrt{x}) - \P(Z \leq -\sqrt{x}) \\
+&amp;= \Phi(\sqrt{x}) - \Phi(-\sqrt{x})
+\end{align*}\]</span></p>
+<p>From this, we can even get the PDF easily by differentiation:</p>
+<p><span class="math display">\[\begin{align*}
+f_{Z^2}(x) &amp;= \frac{\text{d}}{\text{d}x}F_{Z^2}(x)\\
+&amp;= \Phi'(\sqrt{x}) * \frac{1}{2\sqrt{x}} - \Phi'(-\sqrt{x}) * \frac{-1}{2\sqrt{x}} \\
+&amp;= \Phi'(\sqrt{x}) * \frac{1}{2\sqrt{x}} + \Phi'(-\sqrt{x}) * \frac{+1}{2\sqrt{x}} \\
+&amp;= \frac{1}{2\sqrt{x}} * (\phi(\sqrt{x}) + \phi(-\sqrt{x})) \\
+&amp;= \frac{1}{2\sqrt{x}}\left(\frac{e^{-\sqrt{x}^2/2}}{\sqrt{2\pi}} + \frac{e^{-(-\sqrt{x})^2/2}}{\sqrt{2\pi}}\right) \\
+&amp;= \frac{1}{2\sqrt{x}}\left(2\frac{e^{-x/2}}{\sqrt{2\pi}}\right) \\
+&amp;= x^{-1/2}e^{-x/2} (2\pi)^{-1/2}
+\end{align*}\]</span> This is a special case of the <a href="https://en.wikipedia.org/wiki/Chi-squared_distribution"><span class="math inline">\(\chi^2\)</span>-squared</a>. Specifically, it is a <span class="math inline">\(\chi^2\)</span> PDF with <em>one</em> degree of freedom. To connect this to the standard form given on Wikipedia, <em>inter alia</em>, you need to know that <span class="math inline">\(\Gamma(1/2) = (-0.5)! = \sqrt{\pi}\)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The <span class="math inline">\(\chi^2\)</span> distribution is very important in statistical theory: the central limit theorem tells us that normal distributions (or something similar) appears almost anywhere, and <span class="math inline">\(\chi^2\)</span> variables appear whenever we start squaring normals. When we are interested in mean <em>squared</em> error, ordinary least <em>squares</em>, or normal log-likelihood, all of which contain “normal squared” terms, the <span class="math inline">\(\chi^2\)</span> is sure to follow.</p>
+<p>Suppose we have two <span class="math inline">\(\chi^2\)</span> random variables with <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> degrees of freedom. <em>If</em> we assume that their separate densities are given by the Wikipedia formula, we can get the density of their sum as well. (This is an <em>induction</em> argument.) We start from the individual PDFs:</p>
+<p><span class="math display">\[f_{X_j}(x) = \frac{1}{2^{n_j/2}\Gamma(n_j/2)}x^{n_j/2-1}e^{-x/2} \]</span></p>
+<p>We then get the PDF of their sum by <em>convolution</em>. Let <span class="math inline">\(Z = X_1 + X_2\)</span></p>
+<p><span class="math display">\[\begin{align*}
+f_Z(z) &amp;= \int f_{X_1}(x) f_{X_2}(z-x)\,\text{d}x
+\end{align*}\]</span></p>
+<p>To see this, note that we are essentially taking the (one-dimensional) integral over the set <span class="math inline">\(A = \{(x_1, x_2): x_1+x_2 = z\}\)</span>. Applying this formula, we get</p>
+<p><span class="math display">\[\begin{align*}
+f_Z(z) &amp;= \int_0^z f_{X_1}(x) f_{X_2}(z-x)\,\text{d}x \\
+       &amp;= \int_0^z \frac{1}{2^{n_1/2}\Gamma(n_1/2)}x^{n_1/2-1}e^{-x/2} * \frac{1}{2^{n_2/2}\Gamma(n_2/2)}(z-x)^{n_2/2-1}e^{-(z-x)/2} \,\text{d}z \\
+       &amp;= \int_0^z \frac{1}{2^{n_1/2}\Gamma(n_1/2)}x^{n_1/2-1}e^{-x/2} * \frac{1}{2^{n_2/2}\Gamma(n_2/2)}(z-x)^{n_2/2-1}e^{-(z-x)/2} \,\text{d}z \\
+       &amp;= \int_0^z e^{-z/2}x^{n_1/2-1}(z-x)^{n_2/2-1}\,\text{d}z \\
+       &amp;= \frac{1}{2^{(n_1+n_2)/2}\Gamma(n_1/2)\Gamma(n_2/2)} e^{-z/2} \int_0^z x^{n_1/2-1}(z-x)^{n_2/2-1} \text{d}x
+\end{align*}\]</span> At this point, we are at a bit of an impasse and have to rely on the work of the great mathematicians of the past, specifically Euler, Legendre, and Binet.</p>
+<p>The <strong>Beta</strong> function is <em>defined as</em>:</p>
+<p><span class="math display">\[B(z_1, z_2) = \int_0^1 t^{z_1}(1-t)^{z_2}\,\text{d}z\]</span></p>
+<p>which looks quite similar to our function above. We need a quick change of variables to make everything work. Specifically, we note that, by setting <span class="math inline">\(\alpha t = s \Leftrightarrow t = s/\alpha\)</span>, we have:</p>
+<p><span class="math display">\[\begin{align*}
+B(z_1, z_2) &amp;= \int_0^1 t^{z_1}(1-t)^{z_2}\,\text{d}z \\
+            &amp;= \int_0^{\alpha} (s/\alpha)^{z_1}(1-s/\alpha)^{z_2}\,\text{d}(s/\alpha) \\
+            &amp;= \int_0^{\alpha} \alpha^{-(z_1+1)} s^{z_1}(1-s/\alpha)^{z_2}\,\text{d}s \\
+            &amp;= \int_0^{\alpha} \alpha^{-(z_1+1)} s^{z_1}(\alpha \alpha^{-1}-\alpha s)^{z_2}\,\text{d}s \\
+            &amp;= \int_0^{\alpha} \alpha^{-(z_1+z_2+1)} s^{z_1}(\alpha-s)^{z_2}\,\text{d}s \\
+            &amp;= \alpha_{-(z_1+z_2+1)} \int_0^{\alpha}s^{z_1}(\alpha-s)^{z_2}\,\text{d}s \\
+\implies \int_0^{\alpha}s^{z_1}(\alpha-s)^{z_2}\,\text{d}s &amp;= \alpha^{(z_1+z_2+1)} B(z_1, z_2)
+\end{align*}\]</span></p>
+<p>We can apply this to our integral from above to find:</p>
+<p><span class="math display">\[\begin{align*}
+f_Z(z) &amp;= \frac{1}{2^{(n_1+n_2)/2}\Gamma(n_1/2)\Gamma(n_2/2)} e^{-z/2} \int_0^z x^{n_1/2-1}(z-x)^{n_2/2-1} \text{d}x \\
+       &amp;= \frac{1}{2^{(n_1+n_2)/2}\Gamma(n_1/2)\Gamma(n_2/2)} e^{-z/2} z^{(n_1+n_2+1)/2}B(n_1/2, n_2/2) \\
+       &amp;= \frac{1}{2^{(n_1+n_2)/2}\Gamma((n_1+n_2)/2)} z^{(n_1+n_2+1)/2} e^{-z/2} \\
+       &amp;= \frac{1}{2^{n'/2}\Gamma(n'/2)} z^{(n'+1)/2} e^{-z/2} \\
+\end{align*}\]</span></p>
+<p>where <span class="math inline">\(n' = n_1+n_2\)</span> is the total degrees of freedom of the sum. (In the next-to-last line, we used one of the standard relationships between the Gamma and Beta functions: <span class="math inline">\(B(z_1, z_2) = \Gamma(z_1)\Gamma(z_2)/\Gamma(z_1+z_2)\)</span>.) We recognize this as a <span class="math inline">\(\chi^2\)</span> PDF and complete our argument.</p>
+<p>Hence, we have:</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Sum of Independent $\chi^2$ Random Variables">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Sum of Independent <span class="math inline">\(\chi^2\)</span> Random Variables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(X_1 \sim \chi^2_{n_1}\)</span> and <span class="math inline">\(X_2 \sim \chi^2_{n_2}\)</span> are independent <span class="math inline">\(\chi^2\)</span> random variables with <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> degrees of freedom respectively, their sum <span class="math inline">\(X_1 + X_2 \sim \chi^2_{n_1+n_2}\)</span> is again a <span class="math inline">\(\chi^2\)</span> random variable, now with <span class="math inline">\(n_1+n_2\)</span> degrees of freedom.</p>
+</div>
+</div>
+<p>This fact is useful for all sorts of statistical inference and we’ll see a bit below. It was a lot of work to prove it, but if we recall that <span class="math inline">\(\chi^2\)</span> random variables are sums of squared standard normals, it’s pretty intuitive: if we add <span class="math inline">\(n_1\)</span> squared standard normals to <span class="math inline">\(n_2\)</span> squared standard normals, the sum is equal to the sum of <span class="math inline">\(n_1+n_2\)</span> squared standard normals.</p>
+<p>This sort of tedious algebra is somewhat obnoxious: we will see an easier way to prove this type of result, using the method of <em>moment generating functions</em> in a few weeks.</p>
+<p>You can extend this sort of analysis to develop the <em>Gamma</em> distribution, as a rescaled <span class="math inline">\(\chi^2\)</span>.</p>
+</section>
+</section>
+<section id="multivariate-normal-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="multivariate-normal-distribution">Multivariate Normal Distribution</h2>
+<p>To develop the multivariate normal distribution, we will use the following multivariate notion of stability. A random vector <span class="math inline">\(\bX\)</span> follows a (multivariate) normal distribution if <span class="math inline">\(\langle \ba, \bX \rangle = \sum a_i X_i\)</span> has a normal distribution <em>for all vectors <span class="math inline">\(\ba\)</span></em>. This is a strong claim, as it requires us to check an infinite number of inner products. In fact, this is essentially to strong for us to ever actually verify. We typically take multivariate normality as a refutable assumption.</p>
+<p>Let’s start exploring the ramifications of this definition for difference choices of <span class="math inline">\(\ba\)</span>:</p>
+<ul>
+<li><p>First we can take <span class="math inline">\(\ba\)</span> to be the <em>standard Euclidean basis vectors</em>, <span class="math inline">\(\mathbf{e}_i\)</span>. The basis vectors are vectors that are all zeros except for a 1 in the <span class="math inline">\(i\)</span>th location: <em>e.g.</em> <span class="math inline">\(\R^3 \ni \mathbf{e}_2 = (0, 1, 0)\)</span>. Clearly, <span class="math inline">\(\langle \mathbf{e}_i, \bX \rangle = X_i\)</span>. This tells us that the <em>marginal</em> distribution of each <span class="math inline">\(X_i\)</span>, that is, each component of <span class="math inline">\(\bX\)</span>, must be normal.</p>
+<p>In particular, we can let <span class="math inline">\(\E[\langle \mathbf{e}_i, \bX\rangle] = \mu_i\)</span>. From here, some linear algebra lets us see that</p>
+<p><span class="math display">\[\E[\bX] = \vec{\mu} = (\E[X_1], \E[X_2], \dots)\]</span></p>
+<p>That is, the mean vector of <span class="math inline">\(\bX\)</span> is just the individual means of each <span class="math inline">\(X_i\)</span> component.</p></li>
+<li><p>Now consider a general <span class="math inline">\(\ba\)</span>. What is <span class="math inline">\(\E[\langle \ba, \bX\rangle]\)</span>? We can work this out using the definition of the inner product and linearity of (scalar) expectation: <span class="math display">\[\begin{align*}
+\E[\langle \ba, \bX\rangle] &amp;= \E[\sum_i a_iX_i]  \\
+&amp;= \sum a_i \E[X_i] \\
+&amp;= \sum a_i \mu_i \\
+&amp;= \langle \ba, \vec{\mu} \rangle
+\end{align*}\]</span></p>
+<p>Variance is trickier:</p>
+<p><span class="math display">\[\begin{align*}
+\V[\langle \ba, \bX\rangle] &amp;= \V[\sum_i a_iX_i] \\
+&amp;= \sum_{i,j=1}^n \C[a_iX_i, a_jX_j] \\
+&amp;= \sum_{i,j=1}^n a_ia_j\C[X_i, X_j]
+\end{align*}\]</span></p>
+<p>Without any more assumptions, we are essentially stuck here statistically, but we can use some linear algebra to clean this up. Define a matrix <span class="math inline">\(\V[\bX]\)</span> by <span class="math display">\[\V[\bX]_{ij} = \C[X_i, X_j]\]</span> This matrix is called the variance (or co-variance) matrix of the random vector <span class="math inline">\(\bX\)</span>. (While <em>covariance</em> and <em>variance</em> are quite different in the random variable context, they are used essentially interchangeably in discussions of vectors.) With this variance matrix, we can write <span class="math display">\[\V[\langle \ba, \bX\rangle] = \langle \ba, \V[\bX]\ba \rangle = \ba^T\V[\bX]\ba\]</span> which is quite elegant indeed. Note that, like scalar variance, multiplication gets “squared”, but here we have to be a bit more precise about how both multiplications by <span class="math inline">\(\ba\)</span> are actually applied.</p></li>
+</ul>
+</section>
+<section id="practice-problems" class="level2">
+<h2 class="anchored" data-anchor-id="practice-problems">Practice Problems</h2>
+<ol type="1">
+<li><p>Suppose <span class="math inline">\(Z_1, Z_2\)</span> are independent standard normal random variables. What is the PDF of <span class="math inline">\(Z_1^2 + Z_2^2\)</span>? Does this distribution have another name?</p></li>
+<li><p>Let <span class="math inline">\(X \sim \mathcal{N}(5, 3^2)\)</span>. Show that the covariance of <span class="math inline">\(\bX\)</span> with a constant is 0.</p></li>
+<li><p>Let <span class="math inline">\(\bX\)</span> be a random 5-vector following a multivariate normal distribution, where each marginal has a <span class="math inline">\(\mathcal{N}(\mu, \sigma^2)\)</span> distribution. Suppose further that the correlation of <span class="math inline">\(X_i\)</span> and <span class="math inline">\(X_j\)</span> is given by <span class="math inline">\(\rho^{|i-j|}\)</span>. What is the variance of the average of the elements of <span class="math inline">\(\bX\)</span>?</p></li>
+<li><p>Let <span class="math inline">\(\bZ_1, \bZ_2\)</span> be independent standard normal 2-vectors. What is <span class="math inline">\(\E[\|\bZ_1 - \bZ_2\|^2]\)</span>, <em>i.e.</em>, the averaged squared distance between them.</p></li>
+<li><p>Let <span class="math inline">\(\bZ\)</span> be a standard normal 2-vector and let <span class="math inline">\(\theta_{\bZ}\)</span> be its angle to the positive part of the real axis. What is the distribution of <span class="math inline">\(\theta_{\bZ}\)</span>?</p></li>
+<li><p>Let <span class="math inline">\(X, Y\)</span> be independent <span class="math inline">\(\mathcal{N}(\mu, \sigma^2)\)</span> random variables. What is the joint PDF of <span class="math inline">\(X, Y\)</span>? What is the joint PDF of <span class="math inline">\(U = X - Y\)</span> and <span class="math inline">\(V = X + Y\)</span>? Show that <span class="math inline">\(U, V\)</span> are independent.</p>
+<p><em>Hint</em>: Express <span class="math inline">\(\binom{U}{V} = \bA \binom{X}{Y}\)</span> for some <span class="math inline">\(\bA\)</span> and use linear algebra to work out the relevant quantities. This probably shouldn’t require any calculus.</p></li>
+<li><p>Let <span class="math inline">\(X_1, \dots, X_k\)</span> be independent <span class="math inline">\(\mathcal{N}(\mu, \sigma^2)\)</span> random variables. What is <span class="math inline">\(\E[(\sum_i X_i)^2]\)</span>?</p></li>
+<li><p>Suppose <span class="math inline">\(X, Y\)</span> are jointly normal, each having (marginal) mean <span class="math inline">\(\mu\)</span> and marginal variance <span class="math inline">\(\sigma^2\)</span>. Suppose also that the correlation of <span class="math inline">\(X, Y\)</span> is <span class="math inline">\(\rho\)</span>. What is <span class="math inline">\(f_{(X, Y)}(x, y)\)</span>? What is its maximum value?</p></li>
+<li><p>Show that it is impossible to have three random variables, where each pairwise correlation is <span class="math inline">\(\rho_{ij} = -2/3\)</span> (<span class="math inline">\(i \neq j\)</span>).</p>
+<p><em>Hint: What would the variance matrix of these three random variables have to be? Is this a valid variance matrix?</em></p></li>
+<li><p>Let <span class="math inline">\(\bX\)</span> be a multivariate normal distribution with mean 0 and variance <span class="math inline">\(\Sigma\)</span>. What transformation <span class="math inline">\(\bA\)</span> can we apply to <span class="math inline">\(\bX\)</span> (what matrix multiplication) so that <span class="math inline">\(\bA\bX\)</span> has identity covariance? This is known as the <em>whitening</em> transform for <span class="math inline">\(\bX\)</span> as it turns (correlated) <span class="math inline">\(\bX\)</span> into “white noise”; it plays an important role in signal processing.</p></li>
+<li><p>Let <span class="math inline">\(\bX\)</span> and <span class="math inline">\(\by\)</span> be the design matrix and response vector for an OLS regression of the form <span class="math inline">\(y = \hat{\beta}_1x_1 + \hat{\beta}_2x_2\)</span>. What is the probability that <span class="math inline">\(\hat{\beta}_1 &gt; \hat{\beta}_2\)</span> in terms of the true values <span class="math inline">\((\beta_1^*, \beta_2^*)\)</span>, the design matrix <span class="math inline">\(\bX\)</span>, and the noise level <span class="math inline">\(\sigma^2\)</span>? You may assume each element of <span class="math inline">\(\by\)</span> satisfies: <span class="math inline">\(y_i = \beta_1^* x_{1i} + \beta_2^* x_{2i} + \epsilon_i\)</span> where each <span class="math inline">\(\epsilon_i\)</span> is IID <span class="math inline">\(\mathcal{N}(0, \sigma^2)\)</span>. *(Hint: compute the distribution of <span class="math inline">\(\hat{\beta} = (\bX^T\bX)^{-1}\bX^T\by\)</span> first.)</p></li>
+</ol>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>This is <em>profoundly</em> not obvious, so don’t worry about it.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/michael-weylandt\.com\/STA9715\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

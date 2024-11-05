@@ -1,0 +1,355 @@
+---
+title: "The Multivariate Normal Distribution"
+---
+
+$$\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\R}{\mathbb{R}} \newcommand{\bx}{\mathbf{x}} \newcommand{\by}{\mathbf{y}} \newcommand{\bX}{\mathbf{X}} \newcommand{\bY}{\mathbf{Y}} \newcommand{\bZ}{\mathbf{Z}}
+\newcommand{\ba}{\mathbf{a}} \newcommand{\bA}{\mathbf{A}} \newcommand{\C}{\mathbb{C}}$$
+
+In this set of notes, we begin our study of the most important distribution for
+random *vectors*, the multivariate normal distribution. Before we dig into
+the *multivariate* normal, however, it's worth briefly discussing the *univariate*
+normal and how the concepts of variance and covariance apply to vectors. 
+
+## Univariate Normal Distribution
+
+The _univariate_ normal distribution is a _continuous_ random variable with 
+support on $\R$, that is, it takes all real-values. The _standard_ normal distribution,
+almost universally called $Z$, has PDF: 
+
+$$f_Z(z) = \frac{1}{\sqrt{2\pi}} e^{-z^2/2}$$
+
+The "core" of this distribution is reasonably straight-forward, $e^{-z^2/2}$.
+This passes the "sniff" test for a distribution - it goes to zero quite quickly
+as $|z|$ gets large, so it's very believable that we have a finite integral.
+The "normalization constant" of $1/\sqrt{2\pi}$ is a bit freaky, but there are
+[deep reasons](https://www.youtube.com/watch?v=cy8r7WSuT1I) for it. 
+
+By definition, we can compute the mean and variance of $Z$: 
+
+$$\begin{align*}
+\E[Z] &= \int z f_Z(z)\,\text{d}z \\
+      &= \frac{1}{\sqrt{2\pi}} \int z e^{-z^2/2}\,\text{d}z \\
+      &= \frac{1}{\sqrt{2\pi}} \int z e^{-z^2/2}\,\text{d}z \\
+      &= \frac{1}{\sqrt{2\pi}}\left(e^{-z^2/2}\right)_{z=-\infty}^{\infty} \\
+      &= \frac{1}{\sqrt{2\pi}}\left(e^{-\infty^2/2} - e^{-(-\infty)^2/2}\right) \\
+      &= \frac{1}{\sqrt{2\pi}}(0 - 0) \\
+      &= 0
+\end{align*}$$
+
+As we would expect for a distributoin with a PDF that is symmetric around 0. 
+
+The variance is a bit trickier: 
+    
+$$\begin{align*}
+\V[Z] &= \E[Z^2] - \E[Z]^2 \\
+&= \E[Z^2] - 0 \\
+&= \E[Z^2] \\
+&= \int z^2 f_Z(z)\,\text{d}z \\
+&= \dots
+&= 1
+\end{align*}$$
+
+where the dots capture some [cumbersome, but standard algebra](https://www.wolframalpha.com/input?i=integrate+x%5E2+*+e%5E%28-x%5E2%2F2%29+%2F+sqrt%282+*+pi%29+from+-infty+to+infty).
+
+The _normal_ distribution has a somewhat special property: it is a _stable_
+distribution, so if $X$ has a _normal_ distribution, so does $aX + b$ for any
+scalars $a, b \in \R$. We can use this fact to derive the distribution of any
+normal random variable. 
+
+If $X$ has a normal distribution with mean $\mu$ and variance $\sigma^2$, it
+can be shown that $X \buildrel d\over= \mu + \sigma Z$ for standard normal $Z$.
+(The $\buildrel d\over=$ symbol means these two quantities have the same
+distribution. For these notes, it's fine to interpret it as a standard equality.)
+Specifically, if $X \buildrel d\over= a + bZ$ we can find that these _must_ be
+the values of $a, b$: 
+
+$$\begin{align*}
+\mu &= \E[X] \\
+    &= \E[a+bZ] \\
+    &= a + b\E[Z] \\
+    &= a + b * 0 \\
+    &= a \\
+\implies a &= \mu
+\end{align*}$$
+
+and 
+
+$$\begin{align*}
+\sigma^2 &= \V[X] \\
+         &= \V[a + bZ] \\
+         &= b^2 \V[Z] \\
+         &= b^2 * 1 \\
+\implies b &= \sigma
+\end{align*}$$
+
+We can use this relationship to find the PDF and CDF of $X \sim \mathcal{N}(\mu,
+\sigma^2)$. For the CDF, note that: 
+
+$$\begin{align*}
+F_X(x) &= \P(X \leq x) \\
+&= \P(\mu + \sigma Z \leq x) \\
+&= \P\left(Z \leq \frac{x - \mu}{\sigma}\right) \\
+&= \Phi\left(\frac{x - \mu}{\sigma}\right)
+\end{align*}$$
+
+where $\Phi(\cdot)$ is the CDF of the standard normal $Z$. $\Phi(\cdot)$ is one
+of those functions that doesn't have a "clean" formula in the usual sense, but
+it is so useful that basically all calculators and computers have it, or
+an equivalent function, built-in: [`C++`](https://en.cppreference.com/w/cpp/numeric/math/erf),
+[`Python`](https://docs.python.org/3/library/math.html#math.erf),
+[`R`](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/Normal)
+and [`javascript`](https://mathjs.org/docs/reference/functions/erf.html). In that
+way, it is quite like the trig functions $\sin(\cdot)$, $\cos(\cdot)$, and $\tan(\cdot)$.
+
+Note that, by construction, 
+
+$$\Phi(z) = \P(Z \leq z) = \int_{-\infty}^z f_Z(z')\,\text{d}z' = \int_{-\infty}^z \frac{e^{-(z')^2/2}}{\sqrt{2\pi}}\,\text{d}z'$$
+
+With this in hand, we can get the PDF for $X$ as well: 
+
+$$\begin{align*}
+f_X(x) &= \frac{\text{d}}{\text{d}x}F_X(x) \\
+       &= \frac{\text{d}}{\text{d}x}\Phi\left(\frac{x - \mu}{\sigma}\right) \\
+       &= \Phi'\left(\frac{x - \mu}{\sigma}\right) * \frac{\text{d}}{\text{d}x}\left(\frac{x - \mu}{\sigma}\right) \\
+       &= \phi\left(\frac{x - \mu}{\sigma}\right) * \frac{1}{\sigma} \\
+       &= \left(\frac{\exp\left\{-\frac{\left(\frac{x-\mu}{\sigma}\right)^2}{2}\right\}}{\sqrt{2\pi}}\right)\frac{1}{\sigma} \\
+       &= \frac{\exp\left\{-(x-\mu)^2/2\sigma^2\right\}}{\sqrt{2\pi\sigma^2}}
+\end{align*}$$
+
+Not so bad - and we don't even have to compute the mean or variance since we 
+started with those. 
+
+We will have a lot more to say about the normal distribution as we proceed
+in this course. 
+
+### Related Distributions
+
+The normal distribution is so ubiquitous in statistics that many _functions_ 
+of standard normal random variables are well-understood distributions in their
+own right. Perhaps the most important is $Z^2$, so let's explore it now. As usual,
+it's easy enough to think about the distribution from the CDF: 
+
+$$\begin{align*}
+F_{Z^2}(x) &= \P(Z^2 \leq x) \\
+&= \P(-\sqrt{x} \leq Z \leq \sqrt{x}) \\
+&= \P(Z \leq \sqrt{x}) - \P(Z \leq -\sqrt{x}) \\
+&= \Phi(\sqrt{x}) - \Phi(-\sqrt{x})
+\end{align*}$$
+
+From this, we can even get the PDF easily by differentiation: 
+
+$$\begin{align*}
+f_{Z^2}(x) &= \frac{\text{d}}{\text{d}x}F_{Z^2}(x)\\
+&= \Phi'(\sqrt{x}) * \frac{1}{2\sqrt{x}} - \Phi'(-\sqrt{x}) * \frac{-1}{2\sqrt{x}} \\
+&= \Phi'(\sqrt{x}) * \frac{1}{2\sqrt{x}} + \Phi'(-\sqrt{x}) * \frac{+1}{2\sqrt{x}} \\
+&= \frac{1}{2\sqrt{x}} * (\phi(\sqrt{x}) + \phi(-\sqrt{x})) \\
+&= \frac{1}{2\sqrt{x}}\left(\frac{e^{-\sqrt{x}^2/2}}{\sqrt{2\pi}} + \frac{e^{-(-\sqrt{x})^2/2}}{\sqrt{2\pi}}\right) \\
+&= \frac{1}{2\sqrt{x}}\left(2\frac{e^{-x/2}}{\sqrt{2\pi}}\right) \\
+&= x^{-1/2}e^{-x/2} (2\pi)^{-1/2}
+\end{align*}$$
+This is a special case of the [$\chi^2$-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution). 
+Specifically, it is a $\chi^2$ PDF with _one_ degree of freedom. To connect
+this to the standard form given on Wikipedia, *inter alia*, you need to know
+that $\Gamma(1/2) = (-0.5)! = \sqrt{\pi}$.[^1]
+
+The $\chi^2$ distribution is very important in statistical theory: the central
+limit theorem tells us that normal distributions (or something similar) appears
+almost anywhere, and $\chi^2$ variables appear whenever we start squaring normals.
+When we are interested in mean _squared_ error, ordinary least _squares_, or 
+normal log-likelihood, all of which contain "normal squared" terms, the $\chi^2$
+is sure to follow. 
+
+[^1]: This is _profoundly_ not obvious, so don't worry about it. 
+
+Suppose we have two $\chi^2$ random variables with $n_1$ and $n_2$ degrees of
+freedom. _If_ we assume that their separate densities are given by the Wikipedia
+formula, we can get the density of their sum as well. (This is an *induction*
+argument.) We start from the individual PDFs: 
+
+$$f_{X_j}(x) = \frac{1}{2^{n_j/2}\Gamma(n_j/2)}x^{n_j/2-1}e^{-x/2} $$
+
+We then get the PDF of their sum by _convolution_. Let $Z = X_1 + X_2$
+
+$$\begin{align*}
+f_Z(z) &= \int f_{X_1}(x) f_{X_2}(z-x)\,\text{d}x
+\end{align*}$$
+
+To see this, note that we are essentially taking the (one-dimensional) integral
+over the set $A = \{(x_1, x_2): x_1+x_2 = z\}$. Applying this formula, we get
+
+$$\begin{align*}
+f_Z(z) &= \int_0^z f_{X_1}(x) f_{X_2}(z-x)\,\text{d}x \\
+       &= \int_0^z \frac{1}{2^{n_1/2}\Gamma(n_1/2)}x^{n_1/2-1}e^{-x/2} * \frac{1}{2^{n_2/2}\Gamma(n_2/2)}(z-x)^{n_2/2-1}e^{-(z-x)/2} \,\text{d}z \\
+       &= \int_0^z \frac{1}{2^{n_1/2}\Gamma(n_1/2)}x^{n_1/2-1}e^{-x/2} * \frac{1}{2^{n_2/2}\Gamma(n_2/2)}(z-x)^{n_2/2-1}e^{-(z-x)/2} \,\text{d}z \\
+       &= \int_0^z e^{-z/2}x^{n_1/2-1}(z-x)^{n_2/2-1}\,\text{d}z \\
+       &= \frac{1}{2^{(n_1+n_2)/2}\Gamma(n_1/2)\Gamma(n_2/2)} e^{-z/2} \int_0^z x^{n_1/2-1}(z-x)^{n_2/2-1} \text{d}x
+\end{align*}$$
+At this point, we are at a bit of an impasse and have to rely on the work of 
+the great mathematicians of the past, specifically Euler, Legendre, and Binet. 
+
+The **Beta** function is _defined as_: 
+
+$$B(z_1, z_2) = \int_0^1 t^{z_1}(1-t)^{z_2}\,\text{d}z$$
+
+which looks quite similar to our function above. We need a quick change of 
+variables to make everything work. Specifically, we note that, by setting 
+$\alpha t = s \Leftrightarrow t = s/\alpha$, we have: 
+
+$$\begin{align*}
+B(z_1, z_2) &= \int_0^1 t^{z_1}(1-t)^{z_2}\,\text{d}z \\
+            &= \int_0^{\alpha} (s/\alpha)^{z_1}(1-s/\alpha)^{z_2}\,\text{d}(s/\alpha) \\
+            &= \int_0^{\alpha} \alpha^{-(z_1+1)} s^{z_1}(1-s/\alpha)^{z_2}\,\text{d}s \\
+            &= \int_0^{\alpha} \alpha^{-(z_1+1)} s^{z_1}(\alpha \alpha^{-1}-\alpha s)^{z_2}\,\text{d}s \\
+            &= \int_0^{\alpha} \alpha^{-(z_1+z_2+1)} s^{z_1}(\alpha-s)^{z_2}\,\text{d}s \\
+            &= \alpha_{-(z_1+z_2+1)} \int_0^{\alpha}s^{z_1}(\alpha-s)^{z_2}\,\text{d}s \\
+\implies \int_0^{\alpha}s^{z_1}(\alpha-s)^{z_2}\,\text{d}s &= \alpha^{(z_1+z_2+1)} B(z_1, z_2)
+\end{align*}$$
+
+We can apply this to our integral from above to find: 
+
+$$\begin{align*}
+f_Z(z) &= \frac{1}{2^{(n_1+n_2)/2}\Gamma(n_1/2)\Gamma(n_2/2)} e^{-z/2} \int_0^z x^{n_1/2-1}(z-x)^{n_2/2-1} \text{d}x \\
+       &= \frac{1}{2^{(n_1+n_2)/2}\Gamma(n_1/2)\Gamma(n_2/2)} e^{-z/2} z^{(n_1+n_2+1)/2}B(n_1/2, n_2/2) \\
+       &= \frac{1}{2^{(n_1+n_2)/2}\Gamma((n_1+n_2)/2)} z^{(n_1+n_2+1)/2} e^{-z/2} \\
+       &= \frac{1}{2^{n'/2}\Gamma(n'/2)} z^{(n'+1)/2} e^{-z/2} \\
+\end{align*}$$
+
+where $n' = n_1+n_2$ is the total degrees of freedom of the sum. (In the 
+next-to-last line, we used one of the standard relationships between the Gamma 
+and Beta functions: $B(z_1, z_2) = \Gamma(z_1)\Gamma(z_2)/\Gamma(z_1+z_2)$.) 
+We recognize this as a $\chi^2$ PDF and complete our argument.
+
+Hence, we have: 
+
+::: {.callout-tip title="Sum of Independent $\chi^2$ Random Variables"}
+
+If $X_1 \sim \chi^2_{n_1}$ and $X_2 \sim \chi^2_{n_2}$ are independent $\chi^2$
+random variables with $n_1$ and $n_2$ degrees of freedom respectively, their
+sum $X_1 + X_2 \sim \chi^2_{n_1+n_2}$ is again a $\chi^2$ random variable, 
+now with $n_1+n_2$ degrees of freedom. 
+
+:::
+
+This fact is useful for all sorts of statistical inference and we'll see a bit
+below. It was a lot of work to prove it, but if we recall that $\chi^2$ random
+variables are sums of squared standard normals, it's pretty intuitive: if we 
+add $n_1$ squared standard normals to $n_2$ squared standard normals, the sum
+is equal to the sum of $n_1+n_2$ squared standard normals.
+
+This sort of tedious algebra is somewhat obnoxious: we will see an easier
+way to prove this type of result, using the method of _moment generating functions_
+in a few weeks.
+
+You can extend this sort of analysis to develop the *Gamma* distribution, as a
+rescaled $\chi^2$.
+
+## Multivariate Normal Distribution
+
+To develop the multivariate normal distribution, we will use the following
+multivariate notion of stability. A random vector $\bX$ follows a (multivariate)
+normal distribution if $\langle \ba, \bX \rangle = \sum a_i X_i$ has a normal
+distribution _for all vectors $\ba$_. This is a strong claim, as it requires
+us to check an infinite number of inner products. In fact, this is essentially
+to strong for us to ever actually verify. We typically take multivariate normality
+as a refutable assumption. 
+
+Let's start exploring the ramifications of this definition for difference choices
+of $\ba$: 
+
+- First we can take $\ba$ to be the _standard Euclidean basis vectors_, $\mathbf{e}_i$.
+  The basis vectors are vectors that are all zeros except for a 1 in the $i$th
+  location: *e.g.* $\R^3 \ni \mathbf{e}_2 = (0, 1, 0)$. Clearly, 
+  $\langle \mathbf{e}_i, \bX \rangle = X_i$. This tells us that the _marginal_
+  distribution of each $X_i$, that is, each component of $\bX$, must be normal. 
+  
+  In particular, we can let $\E[\langle \mathbf{e}_i, \bX\rangle] = \mu_i$. From
+  here, some linear algebra lets us see that 
+  
+  $$\E[\bX] = \vec{\mu} = (\E[X_1], \E[X_2], \dots)$$
+  
+  That is, the mean vector of $\bX$ is just the individual means of each $X_i$ 
+  component. 
+- Now consider a general $\ba$. What is $\E[\langle \ba, \bX\rangle]$? We can
+  work this out using the definition of the inner product
+  and linearity of (scalar) expectation: 
+  $$\begin{align*}
+  \E[\langle \ba, \bX\rangle] &= \E[\sum_i a_iX_i]  \\
+  &= \sum a_i \E[X_i] \\
+  &= \sum a_i \mu_i \\
+  &= \langle \ba, \vec{\mu} \rangle
+  \end{align*}$$
+
+  Variance is trickier: 
+  
+  $$\begin{align*}
+  \V[\langle \ba, \bX\rangle] &= \V[\sum_i a_iX_i] \\
+  &= \sum_{i,j=1}^n \C[a_iX_i, a_jX_j] \\
+  &= \sum_{i,j=1}^n a_ia_j\C[X_i, X_j]
+  \end{align*}$$
+  
+  Without any more assumptions, we are essentially stuck here statistically, but
+  we can use some linear algebra to clean this up. Define a matrix $\V[\bX]$ by
+  $$\V[\bX]_{ij} = \C[X_i, X_j]$$
+  This matrix is called the variance (or co-variance) matrix of the random vector
+  $\bX$. (While _covariance_ and _variance_ are quite different in the random
+  variable context, they are used essentially interchangeably in discussions of
+  vectors.) With this variance matrix, we can write
+  $$\V[\langle \ba, \bX\rangle] = \langle \ba, \V[\bX]\ba \rangle = \ba^T\V[\bX]\ba$$
+  which is quite elegant indeed. Note that, like scalar variance, multiplication
+  gets "squared", but here we have to be a bit more precise about how both 
+  multiplications by $\ba$ are actually applied. 
+  
+## Practice Problems
+
+1. Suppose $Z_1, Z_2$ are independent standard normal random variables. What
+   is the PDF of $Z_1^2 + Z_2^2$? Does this distribution have another name? 
+   
+2. Let $X \sim \mathcal{N}(5, 3^2)$. Show that the covariance of $\bX$ with
+   a constant is 0. 
+
+3. Let $\bX$ be a random 5-vector following a multivariate normal distribution,
+   where each marginal has a $\mathcal{N}(\mu, \sigma^2)$ distribution. Suppose
+   further that the correlation of $X_i$ and $X_j$ is given by $\rho^{|i-j|}$. 
+   What is the variance of the average of the elements of $\bX$? 
+   
+4. Let $\bZ_1, \bZ_2$ be independent standard normal 2-vectors. 
+   What is $\E[\|\bZ_1 - \bZ_2\|^2]$, *i.e.*, the averaged squared distance
+   between them. 
+   
+5. Let $\bZ$ be a standard normal 2-vector and let $\theta_{\bZ}$ be its angle
+   to the positive part of the real axis. What is the distribution of $\theta_{\bZ}$?
+
+6. Let $X, Y$ be independent $\mathcal{N}(\mu, \sigma^2)$ random variables. 
+   What is the joint PDF of $X, Y$? What is the joint PDF of $U = X - Y$ and 
+   $V = X + Y$? Show that $U, V$ are independent. 
+
+   *Hint*: Express $\binom{U}{V} = \bA \binom{X}{Y}$ for some $\bA$ and use
+   linear algebra to work out the relevant quantities. This probably shouldn't
+   require any calculus.
+
+7. Let $X_1, \dots, X_k$ be independent $\mathcal{N}(\mu, \sigma^2)$ random variables.
+   What is $\E[(\sum_i X_i)^2]$?
+
+8. Suppose $X, Y$ are jointly normal, each having (marginal) mean $\mu$ and
+   marginal variance $\sigma^2$. Suppose also that the correlation of $X, Y$
+   is $\rho$. What is $f_{(X, Y)}(x, y)$? What is its maximum value?
+
+9. Show that it is impossible to have three random variables, where each pairwise
+   correlation is $\rho_{ij} = -2/3$ ($i \neq j$). 
+   
+   *Hint: What would the variance matrix of these three random variables have
+   to be? Is this a valid variance matrix?*
+
+10. Let $\bX$ be a multivariate normal distribution with mean 0 and
+    variance $\Sigma$. What transformation $\bA$ can we apply to $\bX$
+    (what matrix multiplication) so that $\bA\bX$ has identity covariance? 
+    This is known as the *whitening* transform for $\bX$ as it turns (correlated)
+    $\bX$ into "white noise"; it plays an important role in signal processing. 
+    
+11. Let $\bX$ and $\by$ be the design matrix and response vector for an OLS
+    regression of the form $y = \hat{\beta}_1x_1 + \hat{\beta}_2x_2$. What
+    is the probability that $\hat{\beta}_1 > \hat{\beta}_2$ in terms of 
+    the true values $(\beta_1^*, \beta_2^*)$, the design matrix $\bX$, and the
+    noise level $\sigma^2$? You may assume each element of $\by$ satisfies: $y_i = \beta_1^* x_{1i} + \beta_2^* x_{2i} + \epsilon_i$ where each $\epsilon_i$ is IID $\mathcal{N}(0, \sigma^2)$. *(Hint: compute the distribution of $\hat{\beta} = (\bX^T\bX)^{-1}\bX^T\by$ first.)
+    
+    
