@@ -1,2 +1,7 @@
 /.quarto/
 .Rproj.user
+.Rhistory
+
+**/*_cache/*
+
+notes/**/*_files/*
