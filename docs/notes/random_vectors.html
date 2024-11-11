@@ -348,7 +348,7 @@ window.Quarto = {
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>P_red <span class="ot">&lt;-</span> <span class="fu">mean</span>(in_red)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(P_red)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.785167</code></pre>
+<pre><code>[1] 0.785428</code></pre>
 </div>
 </div>
 <p>From this, we can actually ‘back out’ the value of <span class="math inline">\(\pi\)</span> as <span class="math inline">\(4 * \hat{\P}(\text{red})\)</span>:</p>
@@ -356,7 +356,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pi_approx <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">*</span> P_red</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pi_approx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.140668</code></pre>
+<pre><code>[1] 3.141712</code></pre>
 </div>
 </div>
 <p>Not terrible!</p>

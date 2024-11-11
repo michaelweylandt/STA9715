@@ -273,7 +273,7 @@ f_{X, Y, Z}(x, y, z) &amp;= f_{X}(x) * f_{Y|X=x}(y) f_{Z|X=x, Y=y}(z) \\
                      &amp;\propto \exp\left\{-\frac{x^2 - 6x + 9 + y^2 - 2xy + x^2 + z^2 - 2xz + z^2}{2}\right\} \\
                      &amp;\propto \exp\left\{-\frac{3x^2 + y^2 + z^2 - 6x- 2xy - 2xz + 9}{2}\right\} \\
                      &amp;\propto \exp\left\{-\frac{\langle (x, y, z) - (3, 3, 3), \begin{pmatrix} 3 &amp; -1 &amp; -1 \\ -1 &amp; 1 &amp; 0 \\ -1 &amp; 0 &amp; 1\end{pmatrix}(x, y, z) - (3, 3, 3)\rangle}{2}\right\}
-\end{align*}\]</span> From this, we see that <span class="math inline">\((X, Y, Z)\)</span> follows a multivariate normal distribution with mean <span class="math inline">\((0, 0, 0)\)</span> and variance</p>
+\end{align*}\]</span> From this, we see that <span class="math inline">\((X, Y, Z)\)</span> follows a multivariate normal distribution with mean <span class="math inline">\((3, 3, 3)\)</span> and variance</p>
 <p><span class="math display">\[\Sigma^{-1} = \begin{pmatrix} 3 &amp; -1 &amp; -1 \\ -1 &amp; 1 &amp; 0 \\ -1 &amp; 0 &amp; 1\end{pmatrix} \implies \Sigma = \begin{pmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp; 2 &amp; 1 \\ 1 &amp; 1 &amp; 2 \end{pmatrix}\]</span></p>
 <p>but this requires some rather advanced algebra and it is far easier to work from the basic principles of multivariate normal distributions under linear transformations.</p>
 </div>
@@ -354,7 +354,7 @@ z 1 1 2</code></pre>
 </section>
 <section id="question-3" class="level4">
 <h4 class="anchored" data-anchor-id="question-3">Question 3</h4>
-<p>What is the variance of a <span class="math inline">\(\chi^2\)</span> random variable with <span class="math inline">\(5\)</span> degrees of freedom. You may use the fact that the fourth moment of a standard normal random variable is <span class="math inline">\(\E[Z^4] = 3\)</span>.</p>
+<p>What is the variance of a <span class="math inline">\(\chi^2\)</span> random variable with <span class="math inline">\(5\)</span> degrees of freedom? You may use the fact that the fourth moment of a standard normal random variable is <span class="math inline">\(\E[Z^4] = 3\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Question History">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">

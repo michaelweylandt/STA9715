@@ -56,7 +56,7 @@ f_{X, Y, Z}(x, y, z) &= f_{X}(x) * f_{Y|X=x}(y) f_{Z|X=x, Y=y}(z) \\
                      &\propto \exp\left\{-\frac{x^2 - 6x + 9 + y^2 - 2xy + x^2 + z^2 - 2xz + z^2}{2}\right\} \\
                      &\propto \exp\left\{-\frac{3x^2 + y^2 + z^2 - 6x- 2xy - 2xz + 9}{2}\right\} \\
                      &\propto \exp\left\{-\frac{\langle (x, y, z) - (3, 3, 3), \begin{pmatrix} 3 & -1 & -1 \\ -1 & 1 & 0 \\ -1 & 0 & 1\end{pmatrix}(x, y, z) - (3, 3, 3)\rangle}{2}\right\}
-\end{align*}$$ From this, we see that $(X, Y, Z)$ follows a multivariate normal distribution with mean $(0, 0, 0)$ and variance
+\end{align*}$$ From this, we see that $(X, Y, Z)$ follows a multivariate normal distribution with mean $(3, 3, 3)$ and variance
 
 $$\Sigma^{-1} = \begin{pmatrix} 3 & -1 & -1 \\ -1 & 1 & 0 \\ -1 & 0 & 1\end{pmatrix} \implies \Sigma = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 2 & 1 \\ 1 & 1 & 2 \end{pmatrix}$$
 
@@ -110,7 +110,7 @@ Not too shabby! And far easier than approaching it analytically.
 
 #### Question 3
 
-What is the variance of a $\chi^2$ random variable with $5$ degrees of freedom. You may use the fact that the fourth moment of a standard normal random variable is $\E[Z^4] = 3$.
+What is the variance of a $\chi^2$ random variable with $5$ degrees of freedom? You may use the fact that the fourth moment of a standard normal random variable is $\E[Z^4] = 3$.
 
 ::: {.callout-note title="Question History" collapse="true"}
 This question is a new question, designed to test i) whether you know how to decompose a $\chi^2$ into simpler parts and ii) how effectively you work with independent standard normal distributions to avoid nasty calculations.
