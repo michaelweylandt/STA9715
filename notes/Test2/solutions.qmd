@@ -306,7 +306,7 @@ $$\begin{align*}
 
 We can put these together to get the correlation:
 
-$$\rho_{X_1, X_2} = \frac{\C[X_1, X_2]}{\sqrt{\V[X_1]\V[X_2]}} = \frac{-16}\sqrt{20 * 52} \approx -49.6\%$$
+$$\rho_{X_1, X_2} = \frac{\C[X_1, X_2]}{\sqrt{\V[X_1]\V[X_2]}} = \frac{-16}{\sqrt{20 * 52}} \approx -49.6\%$$
 
 This was a bit of a lift, so let's see how we might do it using `R`.
 
@@ -325,7 +325,7 @@ Alternatively, we can work analytically if we note that $(X_1, X_2)$ have a mult
 
 $$\begin{pmatrix} X_1 \\ X_2 \end{pmatrix} = \begin{pmatrix} 3 \\ 5 \end{pmatrix} + \begin{pmatrix} 2 & 4 \\ 4 & -6 \end{pmatrix} \begin{pmatrix} Z_1 \\ Z_2 \end{pmatrix}$$
 
-We then use the relationship $$\V[\bX] = \V[\bmu + \bA\bZ] = \bA\bV[\bZ]\bA^T = \bA\bI\bA^T = \bA\bA^T$$ to compute the covariance and then correlation directly:
+We then use the relationship $$\V[\bX] = \V[\mu + \bA\bZ] = \bA\bV[\bZ]\bA^T = \bA\bI\bA^T = \bA\bA^T$$ to compute the covariance and then correlation directly:
 
 ```{r echo=TRUE}
 A <- matrix(c(2, 4, 4, -6), nrow=2)
@@ -423,8 +423,8 @@ and
 $$\begin{align*}
 \E[(XY)^2] &= \E[X^2Y^2] \\
            &= \E[X^2]\E[Y^2] \\
-           &= (\V[X] + \E[X]^2)(\V[Y] + \E[Y]^2)
-           &= (5^2 + 3^2)(3^2 + (-5)^2)
+           &= (\V[X] + \E[X]^2)(\V[Y] + \E[Y]^2) \\
+           &= (5^2 + 3^2)(3^2 + (-5)^2) \\
            &= 1156
 \end{align*}$$
 
@@ -527,6 +527,53 @@ This is a new question, designed to test your use of uniform distributions.
 :::
 
 ::: {.callout-tip title="Solution" collapse="true"}
+It is useful to draw a picture here:
+
+```{r}
+#| code-fold: true
+plot(c(), type="n", 
+     xlim=c(-1.5, 1.5), ylim=c(-1.5, 1.5), 
+     asp=1, xlab="", ylab="", xaxt="n", yaxt="n")
+points(x=c(-1, 0, 1), 
+       y=c(-1, 1, -1), 
+       pch=16, cex=2, col="red4")
+segments(x0=c(-1, -1, 0), 
+         y0=c(-1, -1, 1),
+         x1=c(1, 0, 1), 
+         y1=c(-1, 1, -1))
+segments(x0=-4.5, 
+         x1=+4.5, 
+         y0=0, 
+         lty=2)
+segments(y0=-1.5, 
+         y1=+1.5, 
+         x0=0, 
+         lty=2)
+points(x=c(-1/2, 1/2), y=c(0, 0), col="blue4", pch=16, cex=1)
+label_point <- function(x, y, xoffset=0.25, yoffset=xoffset){
+    text(x=x + xoffset, y=y + yoffset, labels=paste0("(", x, ",", y, ")"))
+}
+
+polygon(x=c(0, 0, 1), 
+        y=c(-1, 1, -1), 
+        col=alpha("lightgreen", 0.5))
+label_point(0, 1)
+label_point(-1, -1, xoffset=-0.25)
+label_point(+1, -1)
+label_point(-1/2, 0, xoffset=-0.25, yoffset=0.25)
+label_point(+1/2, 0)
+```
+
+From this we see $\P(X > 0) = \frac{1}{2}$ by symmetry around the $y$-axis. 
+:::
+
+
+::: {.callout-tip title="Alternative Problem" collapse="true"}
+When I wrote this question, I meant to ask for $\P(Y > 0)$. Solution for 
+that problem follows below. 
+
+---
+
 It is useful to draw a picture here:
 
 ```{r}

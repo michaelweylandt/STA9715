@@ -667,7 +667,7 @@ Solution
              &amp;= -16
 \end{align*}\]</span></p>
 <p>We can put these together to get the correlation:</p>
-<p><span class="math display">\[\rho_{X_1, X_2} = \frac{\C[X_1, X_2]}{\sqrt{\V[X_1]\V[X_2]}} = \frac{-16}\sqrt{20 * 52} \approx -49.6\%\]</span></p>
+<p><span class="math display">\[\rho_{X_1, X_2} = \frac{\C[X_1, X_2]}{\sqrt{\V[X_1]\V[X_2]}} = \frac{-16}{\sqrt{20 * 52}} \approx -49.6\%\]</span></p>
 <p>This was a bit of a lift, so let’s see how we might do it using <code>R</code>.</p>
 <p>First, in simulation:</p>
 <div class="cell">
@@ -683,7 +683,7 @@ Solution
 </div>
 <p>Alternatively, we can work analytically if we note that <span class="math inline">\((X_1, X_2)\)</span> have a multivariate normal distribution given by:</p>
 <p><span class="math display">\[\begin{pmatrix} X_1 \\ X_2 \end{pmatrix} = \begin{pmatrix} 3 \\ 5 \end{pmatrix} + \begin{pmatrix} 2 &amp; 4 \\ 4 &amp; -6 \end{pmatrix} \begin{pmatrix} Z_1 \\ Z_2 \end{pmatrix}\]</span></p>
-<p>We then use the relationship <span class="math display">\[\V[\bX] = \V[\bmu + \bA\bZ] = \bA\bV[\bZ]\bA^T = \bA\bI\bA^T = \bA\bA^T\]</span> to compute the covariance and then correlation directly:</p>
+<p>We then use the relationship <span class="math display">\[\V[\bX] = \V[\mu + \bA\bZ] = \bA\bV[\bZ]\bA^T = \bA\bI\bA^T = \bA\bA^T\]</span> to compute the covariance and then correlation directly:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="sc">-</span><span class="dv">6</span>), <span class="at">nrow=</span><span class="dv">2</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">tcrossprod</span>(A)</span>
@@ -854,8 +854,8 @@ Solution
 <p><span class="math display">\[\begin{align*}
 \E[(XY)^2] &amp;= \E[X^2Y^2] \\
            &amp;= \E[X^2]\E[Y^2] \\
-           &amp;= (\V[X] + \E[X]^2)(\V[Y] + \E[Y]^2)
-           &amp;= (5^2 + 3^2)(3^2 + (-5)^2)
+           &amp;= (\V[X] + \E[X]^2)(\V[Y] + \E[Y]^2) \\
+           &amp;= (5^2 + 3^2)(3^2 + (-5)^2) \\
            &amp;= 1156
 \end{align*}\]</span></p>
 <p>Together, these give us:</p>
@@ -1034,8 +1034,8 @@ Solution
 <span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>x <span class="sc">+</span> xoffset, <span class="at">y=</span>y <span class="sc">+</span> yoffset, <span class="at">labels=</span><span class="fu">paste0</span>(<span class="st">"("</span>, x, <span class="st">","</span>, y, <span class="st">")"</span>))</span>
 <span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
 <span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">"lightgreen"</span>, <span class="fl">0.5</span>))</span>
 <span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="at">xoffset=</span><span class="sc">-</span><span class="fl">0.25</span>)</span>
@@ -1051,9 +1051,25 @@ Solution
 </div>
 </div>
 </div>
-<p>Since we are dealing with a uniform distribution, it suffices to compute the area of the big triangle and the area of the smaller (green) triangle and take their ratio:</p>
-<p><span class="math display">\[\P(\text{Upper Half-Plane}) = \frac{\text{Area}(\text{Green})}{\text{Area}(\Omega)} = \frac{\frac{1}{2}*1 *1}{\frac{1}{2}*2*2} = \frac{1}{4}\]</span></p>
-<p>If you prefer a visual argument, note that all four shaded triangles in the image have the same area.</p>
+<p>From this we see <span class="math inline">\(\P(X &gt; 0) = \frac{1}{2}\)</span> by symmetry around the <span class="math inline">\(y\)</span>-axis.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Alternative Problem">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Alternative Problem
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>When I wrote this question, I meant to ask for <span class="math inline">\(\P(Y &gt; 0)\)</span>. Solution for that problem follows below.</p>
+<hr>
+<p>It is useful to draw a picture here:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -1083,29 +1099,75 @@ Solution
 <span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
 <span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
 <span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">"lightgreen"</span>, <span class="fl">0.5</span>))</span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>), </span>
-<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
-<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">"lightblue"</span>, <span class="fl">0.5</span>))</span>
-<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
-<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>), </span>
-<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">"lightyellow"</span>, <span class="fl">0.5</span>))</span>
-<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">0</span>), </span>
-<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
-<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">"lightpink"</span>, <span class="fl">0.5</span>))</span>
-<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="at">xoffset=</span><span class="sc">-</span><span class="fl">0.25</span>)</span>
-<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">+</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="at">xoffset=</span><span class="sc">-</span><span class="fl">0.25</span>, <span class="at">yoffset=</span><span class="fl">0.25</span>)</span>
-<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="at">xoffset=</span><span class="sc">-</span><span class="fl">0.25</span>)</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">+</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="at">xoffset=</span><span class="sc">-</span><span class="fl">0.25</span>, <span class="at">yoffset=</span><span class="fl">0.25</span>)</span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="solutions_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Since we are dealing with a uniform distribution, it suffices to compute the area of the big triangle and the area of the smaller (green) triangle and take their ratio:</p>
+<p><span class="math display">\[\P(\text{Upper Half-Plane}) = \frac{\text{Area}(\text{Green})}{\text{Area}(\Omega)} = \frac{\frac{1}{2}*1 *1}{\frac{1}{2}*2*2} = \frac{1}{4}\]</span></p>
+<p>If you prefer a visual argument, note that all four shaded triangles in the image have the same area.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(), <span class="at">type=</span><span class="st">"n"</span>, </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">1.5</span>), </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">asp=</span><span class="dv">1</span>, <span class="at">xlab=</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">xaxt=</span><span class="st">"n"</span>, <span class="at">yaxt=</span><span class="st">"n"</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">"red4"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">y0=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">x1=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">y1=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">x0=</span><span class="sc">-</span><span class="fl">4.5</span>, </span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">x1=</span><span class="sc">+</span><span class="fl">4.5</span>, </span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">y0=</span><span class="dv">0</span>, </span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="fu">segments</span>(<span class="at">y0=</span><span class="sc">-</span><span class="fl">1.5</span>, </span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">y1=</span><span class="sc">+</span><span class="fl">1.5</span>, </span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">x0=</span><span class="dv">0</span>, </span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), <span class="at">y=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">col=</span><span class="st">"blue4"</span>, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">cex=</span><span class="dv">1</span>)</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>label_point <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">xoffset=</span><span class="fl">0.25</span>, <span class="at">yoffset=</span>xoffset){</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="at">x=</span>x <span class="sc">+</span> xoffset, <span class="at">y=</span>y <span class="sc">+</span> yoffset, <span class="at">labels=</span><span class="fu">paste0</span>(<span class="st">"("</span>, x, <span class="st">","</span>, y, <span class="st">")"</span>))</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">"lightgreen"</span>, <span class="fl">0.5</span>))</span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>), </span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">"lightblue"</span>, <span class="fl">0.5</span>))</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">0</span>, <span class="fl">0.5</span>), </span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">"lightyellow"</span>, <span class="fl">0.5</span>))</span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">0</span>), </span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), </span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">"lightpink"</span>, <span class="fl">0.5</span>))</span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="at">xoffset=</span><span class="sc">-</span><span class="fl">0.25</span>)</span>
+<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">+</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="at">xoffset=</span><span class="sc">-</span><span class="fl">0.25</span>, <span class="at">yoffset=</span><span class="fl">0.25</span>)</span>
+<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a><span class="fu">label_point</span>(<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="solutions_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1119,7 +1181,7 @@ Solution
 <h4 class="anchored" data-anchor-id="question-14">Question 14</h4>
 <p>Let <span class="math inline">\(\bZ\)</span> be a vector of 5 independent standard normal random variables. What is <span class="math inline">\(\E[\|\bZ\|^2]\)</span>?</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Question History">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1128,14 +1190,14 @@ Question History
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This is a simplified form of Question 4 from the Normal Distribution handout. Note that this complements Question 3 above as, taken together, these calculate the mean and variance of a <span class="math inline">\(\chi^2\)</span> distribution.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1144,7 +1206,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div id="callout-29" class="callout-29-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><span class="math display">\[\begin{align*}
 \E[\|\bZ\|^2] &amp;= \E\left[Z_1^2 + Z_2^2 + Z_3^2 + Z_4^2 + Z_5^2\right] \\
@@ -1160,7 +1222,7 @@ Solution
 <h4 class="anchored" data-anchor-id="question-15">Question 15</h4>
 <p>Let <span class="math inline">\((X, Y)\)</span> be bivariate normal with <span class="math inline">\(X \sim \mathcal{N}(0, 3^2)\)</span> and <span class="math inline">\(Y \sim \mathcal{N}(0, 4^2)\)</span> marginally and correlation <span class="math inline">\(\rho_{X, Y} = 50\%\)</span>. What is the value of <span class="math inline">\(c\)</span> such that <span class="math inline">\(Y - cX\)</span> is independent of <span class="math inline">\(X\)</span>?</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Question History">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1169,14 +1231,14 @@ Question History
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This is Question BH 7.8.77 with specific numbers.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1185,7 +1247,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Because <span class="math inline">\(X, Y\)</span> are multivariate normal, it suffices to show 0 covariance to show independence. We first compute the covariance of <span class="math inline">\(Y - cX\)</span> and <span class="math inline">\(X\)</span>:</p>
 <p><span class="math display">\[\begin{align*}
@@ -1198,18 +1260,18 @@ Solution
 <p>Setting <span class="math inline">\(c = 2/3\)</span> sets this to zero and achieves independence.</p>
 <p>We can verify this in simulation:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>sigma_X <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>sigma_Y <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>rho_XY  <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_X<span class="sc">^</span><span class="dv">2</span>, sigma_X <span class="sc">*</span> sigma_Y <span class="sc">*</span> rho_XY, </span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                  sigma_X <span class="sc">*</span> sigma_Y <span class="sc">*</span> rho_XY, sigma_Y<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>SAMPLES <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="fl">1e7</span>, mu, Sigma)</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> SAMPLES[,<span class="dv">1</span>]</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> SAMPLES[,<span class="dv">2</span>]</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(X, Y <span class="sc">-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">*</span> X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>sigma_X <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>sigma_Y <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>rho_XY  <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(sigma_X<span class="sc">^</span><span class="dv">2</span>, sigma_X <span class="sc">*</span> sigma_Y <span class="sc">*</span> rho_XY, </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>                  sigma_X <span class="sc">*</span> sigma_Y <span class="sc">*</span> rho_XY, sigma_Y<span class="sc">^</span><span class="dv">2</span>), <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>SAMPLES <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="fl">1e7</span>, mu, Sigma)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> SAMPLES[,<span class="dv">1</span>]</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> SAMPLES[,<span class="dv">2</span>]</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(X, Y <span class="sc">-</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">*</span> X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.0003848025</code></pre>
 </div>
@@ -1238,7 +1300,7 @@ Solution
 <h4 class="anchored" data-anchor-id="question-16">Question 16</h4>
 <p>Suppose <span class="math inline">\(X\)</span> has a Pareto distribution with parameter <span class="math inline">\(5\)</span> and a PDF given by <span class="math inline">\(f_X(x) = 5 / x^6\)</span> supported on <span class="math inline">\([1, \infty)\)</span>. What is the <em>median</em> of <span class="math inline">\(X\)</span>?</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Question History">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1247,14 +1309,14 @@ Question History
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This is Question BH 6.10.3.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1263,7 +1325,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We integrate the PDF to get the CDF:</p>
 <p><span class="math display">\[\begin{align*}
@@ -1276,7 +1338,7 @@ F_X(x) &amp;= \int_1^{x} \frac{5}{z^6} \,\text{d}z \\
 <p><span class="math display">\[ 0.5 = 1 - \frac{1}{m^5} \implies m = 2^{1/5} \approx 1.15\]</span></p>
 <p>As always, we can check this in simulation:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(<span class="fu">rpareto</span>(<span class="fl">1e7</span>, <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(<span class="fu">rpareto</span>(<span class="fl">1e7</span>, <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.148767</code></pre>
 </div>
@@ -1311,7 +1373,7 @@ F_X(x) &amp;= \int_1^{x} \frac{5}{z^6} \,\text{d}z \\
 </tbody>
 </table>
 <div class="callout callout-style-default callout-note callout-titled" title="Question History">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1320,14 +1382,14 @@ Question History
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This is essentially Question 1 from the Week 8 Quiz.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1336,7 +1398,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We first compute the marginal distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> by summing across columns and rows respectively:</p>
 <table class="caption-top table">
@@ -1383,7 +1445,7 @@ Solution
 <p>Let <span class="math inline">\((X, Y)\)</span> come from a multivariate normal distribution with mean <span class="math inline">\(\mu = (3, 4)\)</span> and variance matrix <span class="math display">\[\Sigma = \begin{pmatrix} 25 &amp; 9 \\ 9 &amp; 9
 \end{pmatrix}\]</span> What is the correlation of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>?</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Question History">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1392,14 +1454,14 @@ Question History
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div id="callout-36" class="callout-36-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This is a new question designed to test your ability to work with a given covariance matrix.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-36-contents" aria-controls="callout-36" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1408,16 +1470,16 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-36" class="callout-36-contents callout-collapse collapse">
+<div id="callout-37" class="callout-37-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Recall <span class="math display">\[\rho_{X, Y} = \frac{\C[X, Y]}{\sqrt{\V[X]\V[Y]}}.\]</span> We can read these numbers directly off <span class="math inline">\(\Sigma\)</span>: <span class="math display">\[\rho_{X, Y} = \frac{\C[X, Y]}{\sqrt{\V[X]\V[Y]}} = \frac{9}{\sqrt{25 * 9}} = \frac{9}{5 * 3} = \frac{9}{15} = 60\%\]</span></p>
 <p>In simulation:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">9</span>), <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="fl">1e7</span>, mu, Sigma)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">9</span>), <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="fl">1e7</span>, mu, Sigma)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         [,1]     [,2]
 [1,] 1.000000 0.600016
@@ -1434,7 +1496,7 @@ Solution
 <p>The <em>trace</em> of a matrix is the sum of the elements on its diagonal. Suppose <span class="math inline">\((X, Y)\)</span> is a random vector with variance matrix <span class="math inline">\(\Sigma = \begin{pmatrix} 25 &amp; 1 \\ 1 &amp; 4\end{pmatrix}\)</span>. What is the <em>trace</em> of the variance matrix of the vector <span class="math inline">\((Z, W) = (2X + 3Y, X - Y)\)</span>?</p>
 <p><em>Hint: Note that</em> <span class="math display">\[\begin{pmatrix} Z \\ W \end{pmatrix} = \begin{pmatrix} 2 &amp; 3 \\ 1 &amp; -1 \end{pmatrix}\begin{pmatrix}X \\ Y\end{pmatrix}.\]</span></p>
 <div class="callout callout-style-default callout-note callout-titled" title="Question History">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-37-contents" aria-controls="callout-37" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1443,14 +1505,14 @@ Question History
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-37" class="callout-37-contents callout-collapse collapse">
+<div id="callout-38" class="callout-38-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This is a new question, designed to encourage you to do matrix multiplication by hand (though strictly speaking, you don’t need to).</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-38-contents" aria-controls="callout-38" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1459,7 +1521,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-38" class="callout-38-contents callout-collapse collapse">
+<div id="callout-39" class="callout-39-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>As the hint suggests, we express</p>
 <p><span class="math display">\[\begin{align*}
@@ -1482,7 +1544,7 @@ Solution
 <p>Suppose <span class="math inline">\(X_1, \dots, X_{16}\)</span> are samples from a distribution with variance 25 and unknown mean. Using Chebyshev’s inequality, give an upper bound on the probability that the sample mean <span class="math inline">\(\overline{X} =
 \frac{1}{16}\sum_{i=1}^{16} X_i\)</span> is more than 3 units away from the true mean?</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Question History">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-39-contents" aria-controls="callout-39" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1491,14 +1553,14 @@ Question History
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-39" class="callout-39-contents callout-collapse collapse">
+<div id="callout-40" class="callout-40-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>This new question closely follows the discussion in the Heavy Tails notes.</p>
 </div>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-40-contents" aria-controls="callout-40" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-41-contents" aria-controls="callout-41" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1507,7 +1569,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-40" class="callout-40-contents callout-collapse collapse">
+<div id="callout-41" class="callout-41-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We first note that <span class="math display">\[\V[\overline{X}] = \V\left[\frac{1}{16}\sum_{i=1}^{16} X_i\right] = \frac{1}{16^2}\sum_{i=1}^{16}\V[X_i] = \frac{1}{16^2}\sum_{i=1}^{16}25 = \frac{25}{16}.\]</span></p>
 <p>Putting this in Chebyshev’s inequality we obtain:</p>
@@ -1516,30 +1578,30 @@ Solution
 <p><span class="math display">\[X = \begin{cases} -5 &amp; \text{ with probability } 0.5 \\ +5 &amp; \text{ with probability } 0.5 \end{cases}\]</span></p>
 <p>This distribution has <span class="math inline">\(\V[X] = 25\)</span> with <span class="math inline">\(\E[X] = 0\)</span>. By our calculation above, we have <span class="math inline">\(\V[\overline{X}] = 25/16\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(<span class="fu">replicate</span>(<span class="fl">1e7</span>, {</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">size=</span><span class="dv">16</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(X)</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>}))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(<span class="fu">replicate</span>(<span class="fl">1e7</span>, {</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="at">size=</span><span class="dv">16</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(X)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>}))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.563011</code></pre>
 </div>
 </div>
 <p>or more efficiently:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">rbinom</span>(<span class="fl">1e7</span> <span class="sc">*</span> <span class="dv">16</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">prob=</span><span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">5</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(X, <span class="at">ncol=</span><span class="dv">16</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>X_bar <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(X)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(X_bar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">rbinom</span>(<span class="fl">1e7</span> <span class="sc">*</span> <span class="dv">16</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">prob=</span><span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">5</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(X, <span class="at">ncol=</span><span class="dv">16</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>X_bar <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(X)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(X_bar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.562752</code></pre>
 </div>
 </div>
 <p>and we can verify the Chebyshev bound holds:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">rbinom</span>(<span class="fl">1e7</span> <span class="sc">*</span> <span class="dv">16</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">prob=</span><span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">5</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(X, <span class="at">ncol=</span><span class="dv">16</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>X_bar <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(X)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">abs</span>(X_bar <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">rbinom</span>(<span class="fl">1e7</span> <span class="sc">*</span> <span class="dv">16</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">prob=</span><span class="fl">0.5</span>) <span class="sc">-</span> <span class="dv">5</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(X, <span class="at">ncol=</span><span class="dv">16</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>X_bar <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(X)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">abs</span>(X_bar <span class="sc">-</span> <span class="dv">0</span>) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.021278</code></pre>
 </div>
