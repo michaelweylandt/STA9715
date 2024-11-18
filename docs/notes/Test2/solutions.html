@@ -202,7 +202,7 @@ window.Quarto = {
 </header>
 
 
-<p><span class="math display">\[\newcommand{\P}{\mathbb{P}}\newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\bX}{\mathbf{X}} \newcommand{\bA}{\mathbf{A}} \newcommand{\C}{\mathbb{C}} \newcommand{\R}{\mathbb{R}}  \newcommand{\bZ}{\mathbf{Z}}\]</span> The original exam packet can be found <a href="./ExamPacket.pdf">here</a>.</p>
+<p><span class="math display">\[\newcommand{\P}{\mathbb{P}}\newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\bX}{\mathbf{X}} \newcommand{\bA}{\mathbf{A}} \newcommand{\bI}{\mathbf{I}} \newcommand{\C}{\mathbb{C}} \newcommand{\R}{\mathbb{R}}  \newcommand{\bZ}{\mathbf{Z}}\]</span> The original exam packet can be found <a href="./ExamPacket.pdf">here</a>.</p>
 <section id="question-1" class="level4">
 <h4 class="anchored" data-anchor-id="question-1">Question 1</h4>
 <p>Let <span class="math inline">\(X \sim\mathcal{N}(3, 1)\)</span> be a Gaussian random variable. Additionally, conditional on <span class="math inline">\(X = x\)</span>, let <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span> be independent <span class="math inline">\(\mathcal{N}(x, 1)\)</span> random variables. What is <span class="math inline">\(\E[X + Y + Z]\)</span>?</p>
@@ -780,7 +780,7 @@ Solution
 <p>Let <span class="math inline">\(F, S\)</span> be the heights of the father and son respectively. We have</p>
 <p><span class="math display">\[\P(S &gt; F + 3) = \P(S - F &gt; 3)  = 1 - \P(S - F &lt; 3) = 1 - F_{S - F}(3)\]</span></p>
 <p>so we just need to compute the CDF of <span class="math inline">\(S - F\)</span>. Since <span class="math inline">\(S, F\)</span> are jointly normal, their difference is also normal. We thus only need to compute its mean and variance.</p>
-<p><span class="math display">\[\E[S - F] = \E[S] - \E[F] = 72 - 72 0\]</span></p>
+<p><span class="math display">\[\E[S - F] = \E[S] - \E[F] = 72 - 72 = 0\]</span></p>
 <p>and</p>
 <p><span class="math display">\[\V[S - F] = \V[S] - 2\C[S, F] + \V[F] = \sigma_S^2 - 2 \sigma_S\sigma_F\rho_{S, F} + \sigma_F^2 = 6^2 - 2 * 6 * 6 * \frac{1}{3} + 6^2 = 48\]</span></p>
 <p>Hence, standardization of <span class="math inline">\(S - F\)</span> gives us:</p>

@@ -5,7 +5,7 @@ execute:
   cache: true
 ---
 
-$$\newcommand{\P}{\mathbb{P}}\newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\bX}{\mathbf{X}} \newcommand{\bA}{\mathbf{A}} \newcommand{\C}{\mathbb{C}} \newcommand{\R}{\mathbb{R}}  \newcommand{\bZ}{\mathbf{Z}}$$ The original exam packet can be found [here](./ExamPacket.pdf).
+$$\newcommand{\P}{\mathbb{P}}\newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\bX}{\mathbf{X}} \newcommand{\bA}{\mathbf{A}} \newcommand{\bI}{\mathbf{I}} \newcommand{\C}{\mathbb{C}} \newcommand{\R}{\mathbb{R}}  \newcommand{\bZ}{\mathbf{Z}}$$ The original exam packet can be found [here](./ExamPacket.pdf).
 
 #### Question 1
 
@@ -375,7 +375,7 @@ $$\P(S > F + 3) = \P(S - F > 3)  = 1 - \P(S - F < 3) = 1 - F_{S - F}(3)$$
 
 so we just need to compute the CDF of $S - F$. Since $S, F$ are jointly normal, their difference is also normal. We thus only need to compute its mean and variance.
 
-$$\E[S - F] = \E[S] - \E[F] = 72 - 72 0$$
+$$\E[S - F] = \E[S] - \E[F] = 72 - 72 = 0$$
 
 and
 
