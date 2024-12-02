@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>On Limits of Collections of Random Variables – STA 9715</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">STA 9715</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href=".././syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././notes.html"> 
+<span class="menu-text">Handouts and Additional Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././resources.html"> 
+<span class="menu-text">Additional Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href=".././objectives.html"> 
+<span class="menu-text">Learning Objectives</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">On Limits of Collections of Random Variables</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><span class="math display">\[\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\M}{\mathbb{M}} \]</span></p>
+<p>In this set of notes, we consider the behavior of averages of large numbers of random variables. As we have seen in previous notes, tools like Markov’s Inequality, Chebyshev’s Inequality, and Chernoff bounds guarantee us that sample averages converge to the expectation. Recall that the <em>Law(s) of Large Numbers</em> tell us this happens <em>asymptotically</em> while the inequalities tell us quantitatively what will happen.</p>
+<p>While these results are powerful, we have seen that they are sometimes quite loose: for example, as we saw in Test 2, applying Chebyshev’s Inequality to a sample mean gave bounds that were about 80x too loose. Revising that analysis with Chernoff bounds yields a tighter bound, but today we take a different approach.</p>
+<div class="callout-info">
+<p>Given <span class="math inline">\(X_1, \dots, X_n\)</span> IID random variables, what can we say about the distribution of</p>
+<p><span class="math display">\[\overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i\]</span></p>
+</div>
+<p>Probability inequalities gave us results of the flavor “No matter the distribution of <span class="math inline">\(\overline{X}_n\)</span>, it is outside a given interval with some probability.” Here, the looseness (imprecision) of our analysis comes from the fact that we use tools based on “worst-case” bounds, while the distribution of <span class="math inline">\(\overline{X}_n\)</span> is far from pathelogical.</p>
+<p>The limit behaviors we consider today attempt to answer this question differently. They say “<span class="math inline">\(\overline{X}_n\)</span> has <em>approximately</em> some distribution and variables with that distribution fall outside a given interval with some probability.” If the distribution is nicely behaved (and it is!), the imprecision here comes from the fact we use an approximate distribution as input to a precise calculation. In general, because this type of analysis is based on a distribution, the results obtained are more precise, but not always guaranteed to be valid.</p>
+<p>Which approach is better: “worst-case” analysis or “approximate” analysis? Neither is strictly better - in sensitive settings, <em>e.g.</em>, we might prefer a worst case approach, while in a resource-constrained (expensive data) setting, we might prefer the more precise, if approximate, results of today’s approach.</p>
+<p>We state the “big result” of today up front and then develop the tools to fully understand, apply, and prove it:</p>
+<div class="callout-info" title="The Central Limit Theorem">
+<p>Suppose that <span class="math inline">\(X_1, \dots, X_n, \dots\)</span> are IID random variables each with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. Then the standardized sample average times <span class="math display">\[\overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i\]</span> <strong>converges in distribution</strong> to a standard normal random variable after scaling by <span class="math inline">\(\sqrt{n}\)</span>; that is, <span class="math display">\[\sqrt{n}\left(\frac{\overline{X}_n  - \mu}{\sigma}\right) \buildrel d \over \to \mathcal{N}(0, 1).\]</span></p>
+<p>Informally, this is often written</p>
+<p><span class="math display">\[\overline{X}_n \buildrel d \over \to \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right)\]</span></p>
+<p>but strictly speaking this is not a valid limit since the term on the right is not constant.</p>
+</div>
+<p>To unpack this statement, we need to to introduce several new concepts, first of which is <strong>convergence in distribution</strong>. Last week, we discussed <strong>convergence in probability</strong>, which stated that two random variables were (nearly) equal with high probability.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Suppose we have <span class="math inline">\(X_i \sim \text{Binom}(5, 0.5)\)</span>. Where does the normal distribution come from? Do we make up a normal distribution? If so, is it correlated with the <span class="math inline">\(X_i\)</span>? Do we even know how to do a correlated binomial-normal pair?</p>
+<p>Perhaps more abstractly, for any <span class="math inline">\(n\)</span>, <span class="math inline">\(\overline{X}_n\)</span> is still a discrete distribution. (In fact, it’s basically just a scaled binomial.) So how does it “become” a normal distribution? When does the PMF <em>transmogrify</em> into a PDF? We could answer this precisely - that’s what calculus is for! - but here we take a more pragmatic approach.</p>
+<div class="callout-info" title="Convergence in Distribution">
+<p>We define <em>convergence in distribution</em> as follows: a <em>sequence</em> of random variables <span class="math inline">\(Y_1, Y_2, Y_3, \dots\)</span> converges in distribution to a random variable <span class="math inline">\(Y_*\)</span>, denoted <span class="math inline">\(Y_n \buildrel d \over \to Y_*\)</span> if <span class="math display">\[\lim_{n\to\infty} \E[f(Y_n)] \to \E[f(Y_*)]\]</span> for all <em>reasonable</em> functions <span class="math inline">\(f\)</span>.</p>
+</div>
+<p>This gives us a practical definition: if we get the same answer for all questions (<em>i.e.</em>, same expectation for all reasonable functions <span class="math inline">\(f\)</span>), then <span class="math inline">\(Y_n\)</span> is <em>functionally</em> interchangeable with <span class="math inline">\(Y_*\)</span>.</p>
+<p>This is the sense in which the CLT works and in which it is applied. We don’t know (and don’t care) if <span class="math inline">\(\overline{X}_n\)</span> is <strong>really</strong> normally distributed; if we do any expectation using the true distribution of <span class="math inline">\(\overline{X}_n\)</span> vs a normal distribution, we get the same answer. If it walks like a duck, and quacks like a duck…</p>
+<p>We’re not going to define “reasonable” functions in this class, but it definitely includes:</p>
+<ul>
+<li>Indicator functions of intervals</li>
+<li>Bounded functions</li>
+<li>Smooth functions</li>
+</ul>
+<p>so as long as your <span class="math inline">\(f\)</span> isn’t too crazy, it probably works.</p>
+<p>Let’s see how this works in practice:</p>
+<p><em>Example</em> Let <span class="math inline">\(X_1, \dots, X_n, \dots\)</span> be IID Poisson random variables with mean <span class="math inline">\(\lambda = 3\)</span>. What is the probability that <span class="math inline">\(\overline{X}_{10}\)</span> is in the range <span class="math inline">\([2, 4]\)</span>.</p>
+<p>If we do the calculation exactly, we recall that independent Poisson variates add, so <span class="math inline">\(\sum_{i=1}^{10} X_i \sim \text{Poisson}(30)\)</span>. Then <span class="math display">\[\P(2 \leq \overline{X}_{10} \leq 4) = \P(20 \leq \text{Poisson}(30) \leq 40) = F_{\text{Poisson}(30)}(40) - F_{\text{Poisson}(30)}(20)\]</span> We can’t compute this exactly since the Poisson CDF has no elementary closed-form expression, but <code>R</code> helps us out:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">40</span>, <span class="at">lambda=</span><span class="dv">30</span>) <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">20</span>, <span class="at">lambda=</span><span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9324058</code></pre>
+</div>
+</div>
+<p>How does this work if we use the CLT instead? Well, each Poisson has mean 3 and variance 3 (recall the Poisson mean and variance are equal), so the distribution of <span class="math display">\[\overline{X}_n \buildrel d \over \to \mathcal{N}(3, \frac{3}{n}) \implies \overline{X}_{10} \buildrel d \over \approx \mathcal{N}(3, (\sqrt{0.3})^2)\]</span> If we do the normal distribution calculation instead, we see:</p>
+<p><span class="math display">\[\P(2 \leq \overline{X}_{10} \leq 4) = \Phi\left(\frac{4 - 3}{\sqrt{0.3}}\right) - \Phi\left(\frac{2 - 3}{\sqrt{0.3}}\right)\]</span></p>
+<p>Again, we have to turn to <code>R</code> to do the numerics for us:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="fl">0.3</span>)) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="fl">0.3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9321108</code></pre>
+</div>
+</div>
+<p>So it’s not <em>exactly</em> right, but it’s pretty darn close. And as we look at larger and larger samples, the approximation gets better and better.</p>
+<p>Does this actually help us? Well, we got pretty lucky here because Poisson random variables “add” nicely, so we could still do the math exactly. For other random variables, we aren’t so lucky:</p>
+<p>Let <span class="math inline">\(U_1, \dots\)</span> be IID Uniform(<span class="math inline">\([0, 1]\)</span>) random variables. What is the probability that <span class="math inline">\(\overline{U}_{20} &gt; 0.9\)</span>?</p>
+<p>If we try to approach this analytically, we can use the expression for the sum of two random variables:</p>
+<p><span class="math display">\[ f_{X + Y}(z) = \int f_{X}(w) f_{Y}(z-w) \,\text{d}w\]</span> Extending this to <span class="math inline">\(\overline{U}_{20}\)</span> would require doing 20 integrals (or perhaps one very complicated 20-dimensional integral) - a non-starter.</p>
+<p>But with the CLT, we can knock this out in a breeze. For each <span class="math inline">\(U_i\)</span>, <span class="math inline">\(\E[U_i] = 1/2\)</span> and <span class="math inline">\(\V[U_i] = 1/12\)</span>, so</p>
+<p><span class="math display">\[\overline{U}_{20} \buildrel d \over \approx \mathcal{N}\left(\frac{1}{2}, \frac{1/12}{20}\right) =  \mathcal{N}\left(\frac{1}{2}, \frac{1}{240}\right) \]</span></p>
+<p>Hence,</p>
+<p><span class="math display">\[\P(\overline{U}_{20} \geq 0.9) = 1 - \Phi(\frac{0.9 - 0.5}{\sqrt{1/240}})\]</span> with</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>((<span class="fl">0.9</span> <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">240</span>), <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.88162e-10</code></pre>
+</div>
+</div>
+<p>So it’s basically impossible.</p>
+<p>It is interesting to see how the CDF of averages of uniform distributions behaves:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow=</span><span class="dv">3</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="fl">1e7</span><span class="sc">*</span>i), <span class="at">ncol=</span>i)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(X)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(X, <span class="at">main=</span><span class="fu">paste</span>(<span class="st">"Sum of"</span>, i, <span class="st">"Uniform RVs"</span>), <span class="at">breaks=</span><span class="dv">100</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="limits_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As we add more RVs together, we get something that looks ever more like the normal distribution. If we standardize the sums and plot the standard normal CDF, the results are even clearer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow=</span><span class="dv">3</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>){</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="fl">1e7</span><span class="sc">*</span>i), <span class="at">ncol=</span>i)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(X)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    X_std <span class="ot">&lt;-</span> (X <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">12</span>) <span class="sc">*</span> <span class="fu">sqrt</span>(i)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hist</span>(X_std, <span class="at">main=</span><span class="fu">paste</span>(<span class="st">"Sum of"</span>, i, <span class="st">"Uniform RVs"</span>), </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">breaks=</span><span class="dv">100</span>, <span class="at">freq=</span><span class="cn">FALSE</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    xx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">length.out=</span><span class="dv">200</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(xx, <span class="fu">dnorm</span>(xx), <span class="at">col=</span><span class="st">"red4"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="limits_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>While there is a bit of daylight between the (empirical) PDF of 2 or 3 uniform RVs and the standard normal PDF, the curve is basically a perfect fit by the time we get to 9 RVs.</p>
+<p>We can also see this with the empirical CDFs:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fl">1e4</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(Z), <span class="at">main=</span><span class="st">"Empirical CDFs Converge Per CLT"</span>, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">"red4"</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>){</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="fl">1e3</span><span class="sc">*</span>i), <span class="at">ncol=</span>i)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    X <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(X)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    X_std <span class="ot">&lt;-</span> (X <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">12</span>) <span class="sc">*</span> <span class="fu">sqrt</span>(i)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    F_Xstd <span class="ot">&lt;-</span> <span class="fu">ecdf</span>(X_std)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    zz <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(Z), <span class="fu">max</span>(Z), <span class="at">length.out=</span><span class="dv">101</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(zz, <span class="fu">F_Xstd</span>(zz), <span class="at">col=</span>i)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>, </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="dv">1</span>, </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend=</span><span class="fu">paste</span>(<span class="st">"Scaled Average of"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="st">"Uniform RVs"</span>), </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">cex=</span><span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="limits_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this case, use of the CLT let us avoid nasty calculations and get a substantially correct answer. In fact, as the CDF plot shows, we’d get essentially the right answer for any probability interval question. (In the Bad Old Days, the CLT was also useful because mathematicians had tables of manually-computed values for the normal CDF but no other distributions; this is less important in the modern era.)</p>
+<p>So why would the CLT be true? Before proving it formally, let’s recall that the normal distribution has a <em>stability</em> property. If <span class="math inline">\(X, Y\)</span> are independent normal RVs, <span class="math inline">\(aX + bY\)</span> has a normal distribution as well for any scalars <span class="math inline">\(a, b\)</span>. Before we used this property to argue that the sum of normals must be normal, but we can use this as a hand-waving argument that averaging has to converge (in distribution) to a normal RV.</p>
+<p>Suppose this weren’t the case and consider <span class="math inline">\(Z_1, \dots, Z_n\)</span> independent standard normal random variables. By stability, <span class="math inline">\(\sum Z_i \sim \mathcal{N}(0, n)\)</span> so <span class="math inline">\(\overline{Z}_n \sim \mathcal{N}(0, 1)\)</span>. If the CLT applies and <span class="math inline">\(\overline{Z}_n \buildrel d \over \to Z_*\)</span>, for some other random variable <span class="math inline">\(Z_*\)</span>, then we have to have that <span class="math inline">\(Z_*\)</span> is a standard normal because <span class="math inline">\(\overline{Z}_n\)</span> is standard normal for all <span class="math inline">\(n\)</span>. Of course, this argument assumes that, no matter what we average, we have to get the same distribution. This is not obvious and in fact it is the heart of the CLT: not just that some distributions “normalize” as we take larger averages, but <em>all</em> distributions “normalize” in the exact same way!</p>
+<p>How could we prove such a thing? There’s an easy proof that depends only on a bit of calculus and a harder proof that gives more intuition. We’ll do the easy proof and then talk through the high points of the hard proof.</p>
+<p>Let <span class="math inline">\(X_i\)</span> be IID random variables, each with finite mean <span class="math inline">\(\mu\)</span>, finite variance <span class="math inline">\(\sigma^2\)</span>, and MGF <span class="math inline">\(\M_{X_i}(t)\)</span>. That means that <span class="math display">\[\M_{X_i}(t) = 1 + \mu t + \frac{(\mu + \sigma^2)}{2}t^2 + \mathcal{O}(t^3)\]</span> where <span class="math inline">\(\mathcal{O}(t^3)\)</span> means a small term proportional to <span class="math inline">\(t^3\)</span>. (This follows from Taylor’s theorem for the remainder of a power series.) What does this tell us about <span class="math display">\[\M_{\overline{X}_n}(t) = \M_{(X_1 + X_2 + \dots + X_n)/n}(t)?\]</span> We recall two facts about the MGF: first, <span class="math inline">\(\M_{X+Y}(t)=\M_X(t)\M_Y(t)\)</span>; secondly, <span class="math inline">\(\M_{aX}(t) = \E[e^{t(aX)}] = \E[e^{(ta)X}] = \M_{X}(at)\)</span>. Putting these together, we have:</p>
+<p><span class="math display">\[\begin{align*}
+\M_{\overline{X}_n}(t) &amp;= \M_{\sqrt{n}*(X_1 + X_2 + \dots + X_n)/n}(t) \\
+&amp;= \M_{X_1/\sqrt{n} + X_2/\sqrt{n} + \dots + X_n/\sqrt{n}}(t)\\
+&amp;= \M_{X_1/\sqrt{n}}(t) \M_{X_2/\sqrt{n}}(t) \dots \M_{X_n/\sqrt{n}}(t)\\
+&amp;= \M_{X_1}(t/\sqrt{n}) \M_{X_2}(t/ v) \dots \M_{X_n}(t/\sqrt{n})\\
+&amp;= \M_{X_1}(t/\sqrt{n})^n \\
+&amp;= \left(1+ \mu \frac{t}{\sqrt{n}} + \frac{\mu + \sigma^2}{2}\frac{t^2}{\sqrt{n}^2}\right)^n \\
+&amp;= \left(1+ \mu \frac{t}{\sqrt{n}} + \frac{\mu + \sigma^2}{2}\frac{t^2}{n}\right)^n
+\end{align*}\]</span></p>
+<p>Here, we have to recognize this as the exponential limit (<span class="math inline">\(\lim x_{\to\infty} (1 + t/x)^x = e^t\)</span>) to find</p>
+<p><span class="math display">\[\M_{\overline{X}_n}(t) \to M_Z(t)\]</span></p>
+<p>Hence, <span class="math inline">\(\sqrt{n}(\overline{X}_n - \mu)/\sigma \buildrel d \over \to \mathcal{N}(0, 1)\)</span> as desired.</p>
+<p>Extensions:</p>
+<ul>
+<li>Berry-Essen</li>
+<li>Delta Method</li>
+<li>Multiplicative CLT</li>
+</ul>
+
+
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>We mostly considered convergence in probability to a degenerate random variable, <em>i.e.</em> a constant, so this really only meant that the “random” one was concentrated around the “constant” one.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/michael-weylandt\.com\/STA9715\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

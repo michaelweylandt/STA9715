@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STA 9715 - Notes – STA 9715</title>
+<title>On Probability Limits and Inequalities – STA 9715</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +23,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -67,6 +67,7 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -105,7 +106,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">STA 9715</span>
     </a>
   </div>
@@ -116,19 +117,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="././syllabus.html"> 
+    <a class="nav-link" href=".././syllabus.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="././notes.html"> 
+    <a class="nav-link" href=".././notes.html"> 
 <span class="menu-text">Handouts and Additional Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="././resources.html"> 
+    <a class="nav-link" href=".././resources.html"> 
 <span class="menu-text">Additional Resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="././objectives.html"> 
+    <a class="nav-link" href=".././objectives.html"> 
 <span class="menu-text">Learning Objectives</span></a>
   </li>  
 </ul>
@@ -142,15 +143,21 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review-markov-and-chebyshev" id="toc-review-markov-and-chebyshev" class="nav-link active" data-scroll-target="#review-markov-and-chebyshev">Review: Markov and Chebyshev</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">STA 9715 - Notes</h1>
+<h1 class="title">On Probability Limits and Inequalities</h1>
 </div>
 
 
@@ -167,116 +174,85 @@ window.Quarto = {
 </header>
 
 
-<p>Supplemental course notes will be posted here.</p>
-<section id="week-1-foundations-of-probability" class="level4">
-<h4 class="anchored" data-anchor-id="week-1-foundations-of-probability">Week 1: Foundations of Probability</h4>
-<ul>
-<li>Quanta Magazine: “<a href="https://www.quantamagazine.org/perplexing-the-web-one-probability-puzzle-at-a-time-20240829/">Perplexing the Web, One Probability Puzzle at a Time</a>”</li>
-<li>WIRED Magazine: “<a href="https://www.youtube.com/watch?v=QW3KRaz4aI4">Statistician Answers Stats Questions From Twitter | Tech Support</a>”
-<ul>
-<li><a href="https://www.youtube.com/watch?v=GNX7cRhWVi0">More Jeff Rosenthal</a></li>
-</ul></li>
-<li><a href="https://www.youtube.com/playlist?list=PL2SOU6wwxB0uwwH80KTQ6ht66KWxbzTIo">Harvard STAT 110 Playlist</a>
-<ul>
-<li>This is the course on which our textbook (BH) is based</li>
-</ul></li>
-</ul>
-</section>
-<section id="week-2-conditionality-and-marginality" class="level4">
-<h4 class="anchored" data-anchor-id="week-2-conditionality-and-marginality">Week 2: Conditionality and Marginality</h4>
-<ul>
-<li>The YouTube channel <code>3blue1brown</code> makes excellent ‘explainers’ about a variety of mathematical topics. Check out his videos on Bayes’ rule:
-<ul>
-<li><a href="https://www.youtube.com/watch?v=HZGCoVF3YvM">The Geometry of Changing Beliefs</a>
-<ul>
-<li>See also <a href="https://www.youtube.com/watch?v=U_85TaXbeIo">A Quick Proof of Bayes Theorem</a></li>
-</ul></li>
-<li><a href="https://www.youtube.com/watch?v=lG4VkPoG3ko&amp;">The Medical Test Paradox</a></li>
-</ul></li>
-<li><a href="https://www.youtube.com/watch?v=dzFf3r1yph8">Conditioning: The Soul of Statistics</a></li>
-<li><a href="./notes/expectations.html">Notes on Expectations</a></li>
-</ul>
-</section>
-<section id="week-3-discrete-probability" class="level4">
-<h4 class="anchored" data-anchor-id="week-3-discrete-probability">Week 3: Discrete Probability</h4>
-<ul>
-<li><a href="./notes/discrete_distributions.html">Notes on Discrete Distributions</a></li>
-</ul>
-</section>
-<section id="week-4-from-discrete-to-continuous-random-variables" class="level4">
-<h4 class="anchored" data-anchor-id="week-4-from-discrete-to-continuous-random-variables">Week 4: From Discrete to Continuous Random Variables</h4>
-<ul>
-<li><a href="./notes/continuous_rvs.html">Notes on Continuous Random Variables</a></li>
-</ul>
-</section>
-<section id="week-5-heavy-tails" class="level4">
-<h4 class="anchored" data-anchor-id="week-5-heavy-tails">Week 5: Heavy Tails</h4>
-<ul>
-<li><a href="./notes/tails.html">Notes on Tails of Distributions and Implications for Statistical Inference</a></li>
-</ul>
-</section>
-<section id="week-6-random-vectors" class="level4">
-<h4 class="anchored" data-anchor-id="week-6-random-vectors">Week 6: Random Vectors</h4>
-<ul>
-<li><a href="./notes/random_vectors.html">Notes on Vectors</a></li>
-<li><a href="https://www.quantamagazine.org/perplexing-the-web-one-probability-puzzle-at-a-time-20240829/">Quanta Article on Probability Puzzles</a></li>
-</ul>
-</section>
-<section id="week-7-covariance-and-correlation" class="level4">
-<h4 class="anchored" data-anchor-id="week-7-covariance-and-correlation">Week 7: Covariance and Correlation</h4>
-<ul>
-<li><a href="./notes/covariance.html">Notes on Covariance</a></li>
-</ul>
-</section>
-<section id="week-8-the-multivariate-normal-distribution-and-its-progeny" class="level4">
-<h4 class="anchored" data-anchor-id="week-8-the-multivariate-normal-distribution-and-its-progeny">Week 8: The Multivariate Normal Distribution and its Progeny</h4>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=cy8r7WSuT1I">3Brown1Blue - “Why <span class="math inline">\(pi\)</span> is in the Normal Distribution”</a></li>
-<li><a href="https://www.youtube.com/watch?v=d_qvLDhkg00">3Brown1Blue - “A Pretty Reason why Gaussian + Gaussian = Gaussian”</a></li>
-<li><a href="./notes/normal.html">Multivariate Normal Distribution Notes</a></li>
-</ul>
-</section>
-<section id="week-9-probability-polling-and-prediction" class="level4">
-<h4 class="anchored" data-anchor-id="week-9-probability-polling-and-prediction">Week 9: Probability, Polling, and Prediction</h4>
-<ul>
-<li><a href="https://elex-models-prod.s3.amazonaws.com/2020-general/write-up/election_model_writeup.pdf">How the Washington Post Estimates Outstanding Votes for the 2020 Presidential Election</a></li>
-</ul>
-</section>
-<section id="week-10-perils-and-paradoxes-in-expectations" class="level4">
-<h4 class="anchored" data-anchor-id="week-10-perils-and-paradoxes-in-expectations">Week 10: Perils and Paradoxes in Expectations</h4>
-</section>
-<section id="week-11-probability-inequalities-and-limit-theorems" class="level4">
-<h4 class="anchored" data-anchor-id="week-11-probability-inequalities-and-limit-theorems">Week 11: Probability Inequalities and Limit Theorems</h4>
-</section>
-<section id="week-12-distributional-limits-and-the-central-limit-theorem" class="level4">
-<h4 class="anchored" data-anchor-id="week-12-distributional-limits-and-the-central-limit-theorem">Week 12: Distributional Limits and the Central Limit Theorem</h4>
-</section>
-<section id="week-13-concentration-of-measure-generalized-limit-theory" class="level4">
-<h4 class="anchored" data-anchor-id="week-13-concentration-of-measure-generalized-limit-theory">Week 13: Concentration of Measure: Generalized Limit Theory</h4>
-</section>
-<section id="week-14-computing-with-randomness" class="level4">
-<h4 class="anchored" data-anchor-id="week-14-computing-with-randomness">Week 14: Computing with Randomness</h4>
-</section>
-<section id="exam-materials" class="level4">
-<h4 class="anchored" data-anchor-id="exam-materials">Exam Materials</h4>
-<ul>
-<li>Test 1:
-<ul>
-<li><a href="./notes/Test1/FormulaSheet.pdf">Formula Sheet</a></li>
-<li><a href="./notes/Test1/ExamPacket.pdf">Exam Packet</a></li>
-<li><a href="./notes/Test1/solutions.html">Solutions</a></li>
-</ul></li>
-<li>Test 2:
-<ul>
-<li><a href="./notes/Test2/FormulaSheet.pdf">Formula Sheet</a></li>
-<li><a href="./notes/Test2/ExamPacket.pdf">Exam Packet</a></li>
-<li><a href="./notes/Test2/solutions.html">Solutions</a></li>
-</ul></li>
-<li>Test 3:
-<ul>
-<li><a href="./notes/Test3/FormulaSheet.pdf">Formula Sheet</a></li>
-</ul></li>
-</ul>
+<p><span class="math display">\[\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}}\]</span></p>
+<p>As we move to the third portion of this course, we want to make claims about <em>several</em> (many) random variables at once. We have already seen that the sample average is typically a “nicer” random variable than the individual variables of which we take an average. This is the key insight of statistics! And so we seek to generalize it in several ways:</p>
+<ol type="1">
+<li>Can we be more precise about what happens if we take averages of larger and larger data sets? (The Law of Large Numbers gives us one answer to this question; the Central Limit Theorem and the Glivenko-Cantelli Theorem will give us more precise answers.)</li>
+<li>What about other “nice” functions, <em>e.g.</em> variances or medians? Are they asymptotically nice in the same manner as the sample average?</li>
+</ol>
+<p>We will explore this topic in two ways:</p>
+<ol type="1">
+<li><p>We will develop a theory of <em>limits</em> of random variables.</p></li>
+<li><p>We will develop <em>probability inequalities</em>, also called concentration bounds, for functions of many random variables.</p></li>
+</ol>
+<p>Limits are, by definition asymptotic results, only “exactly” correct for infinite collections of random variables, but they tell us where things “are headed.” Probability inequalities hold for any (finite) <span class="math inline">\(n\)</span>, but are necessarily only approximations to true values. Both of these are useful in different techniques. We can never quite be sure when the asymptotic behaviors implied by limits “kick in”, while probability inequalities are never quite tight. They are both useful tools in the toolbox however.</p>
+<p>There is one other important “axis” along which we divide results:</p>
+<ol type="1">
+<li>Point limits</li>
+<li>Distribution limits</li>
+</ol>
+<p>Certain results are “point limits”, telling us a specific value to which a sequence of random variables converges, <em>e.g.</em>, the LLN tells us that the sample average converges to the true expectation. Distribution limits, on the other hand, tell us <em>how</em> we approach that point limit; the LLN tells us where the sample average is tending, but it doesn’t tell us how large the fluctuations we expect along the way will be. We know that the sample average has a distribution with mean given by true expectation and variance decreasing as <span class="math inline">\(1/\sqrt{n}\)</span>, but what else can we say about it (even approximately)?</p>
+<p>This week, we will primarily focus on point limits - generalizations of the Law of Large Numbers and the Markov / Chebyshev inequalities. Next week, we will focus on distribution limits.</p>
+<section id="review-markov-and-chebyshev" class="level2">
+<h2 class="anchored" data-anchor-id="review-markov-and-chebyshev">Review: Markov and Chebyshev</h2>
+<p>We begin our study with the Markov and Chebyshev inequalities. We have seen these before, but they are so useful that we should review them again.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Markov's Inequality">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Markov’s Inequality
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If <span class="math inline">\(X\)</span> is a random variable with non-negative support, <em>i.e.</em>, <span class="math inline">\(\P(X \geq 0) = 1\)</span>, then</p>
+<p><span class="math display">\[\P(X &gt; k) \leq \frac{\E[X]}{k}\]</span></p>
+<p>for any <span class="math inline">\(k\)</span>.</p>
+<p><strong>Proof:</strong> Condition <span class="math inline">\(X\)</span> on the events <span class="math inline">\(X &gt; k\)</span> and <span class="math inline">\(X \leq k\)</span>. The law of total expectation then gives us</p>
+<p><span class="math display">\[\begin{align*}
+\E[X] &amp;= \P(X \geq k) * \E[X | X \geq k] + \P(X &lt; k) * \E[X | X &lt; k] \\
+      &amp;\geq \P(X \geq k) * k + \P(X &lt; k) * 0 \\
+      &amp;= \P(X \geq k) k \\
+\implies \P(X \geq k) &amp; \leq \frac{\E[X]}{k}
+\end{align*}\]</span></p>
+</div>
+</div>
+<p>Setting <span class="math inline">\(k = s \E[X]\)</span>, we get an equivalent form of Markov’s inequality:</p>
+<p><span class="math display">\[\P(X \geq s \E[X]) \leq \frac{1}{s} \]</span></p>
+<p>This bounds the <em>upper tail</em> of <span class="math inline">\(X\)</span>; while <span class="math inline">\(X\)</span> can be greater than its expectation, it cannot be <em>too much</em> greater <em>too often</em>.</p>
+<p>Markov’s inequality appears rather basic - all we have worked with is a very rough bound on <span class="math inline">\(\E[X | X &gt; k]\)</span> and the assumption <span class="math inline">\(X \geq 0\)</span>. But there are world’s of possibility hidden within!</p>
+<p>Markov’s inequality essentially formalizes our intuition: taking <span class="math inline">\(s = 2\)</span>, it says that no more than half the members of a population can be twice the average. In fact, Markov’s inequality can be seen to be tight for a (scaled) Bernoulli distribution:</p>
+<p>Let <span class="math inline">\(\E[X] = \mu\)</span>. Then the random variable <span class="math inline">\(X = \mu/s * \text{Bernoulli}(1/s)\)</span> makes Markov’s inequality tight for any <span class="math inline">\(s\)</span>. For instance, taking <span class="math inline">\(s = 3\)</span> and <span class="math inline">\(\mu = 10\)</span>, we define</p>
+<p><span class="math display">\[X = \begin{cases} \mu/s &amp; \text{ with probability } 1/s \\ 0 &amp; \text{ otherwise} \end{cases} = \begin{cases} 30 &amp; \text{ with probability } 1/3 \\ 0 &amp; \text{ otherwise} \end{cases}\]</span></p>
+<p>It is clear that <span class="math inline">\(\P(X \geq s \E[X]) = \P(X \geq 3 * 10) = s = \frac{1}{3}\)</span> holds tightly.</p>
+<p>We might think that Markov’s inequality is a bit hard to use: after all, we aren’t always guaranteed that a quantity is positive, <em>e.g.</em>, estimation error. But we have many tricks for creating positive random variables!</p>
+<p>Our most common trick for making positive random variables is to look at <em>squared</em> error: that is, instead of looking at <span class="math inline">\(X - \E[X]\)</span>, we look at <span class="math inline">\((X - \E[X])^2\)</span>, which is non-negative.</p>
+<p>Let <span class="math inline">\(Y = (X - \E[X])^2\)</span> and apply Markov’s inequality to <span class="math inline">\(Y\)</span>. We first note that <span class="math inline">\(\E[Y] = \sigma_X^2 = \V[X]\)</span>, so Markov’s inequality becomes:</p>
+<p><span class="math display">\[\begin{align*}
+\P(Y \geq s \E[Y]) &amp;\leq \frac{1}{s} \\
+\P((X - \E[X])^2 \geq s \sigma_X^2) &amp;\leq \frac{1}{s} \\
+\P(\sqrt{(X - \E[X])^2} \geq \sqrt{s \sigma_X^2}) &amp;\leq \frac{1}{s} \\
+\P(|X - \E[X]| \geq \sqrt{s} \sigma_X) &amp;\leq \frac{1}{s} \\
+\implies \P(|X - \E[X]| \geq t \sigma_X) &amp;\leq \frac{1}{t^2}
+\end{align*}\]</span></p>
+<p>This is Chebyshev’s Inequality:</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Chebyshev's Inequality">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Chebyshev’s Inequality
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\P(|X - \E[X]| \geq t \sigma_X) \leq \frac{1}{t^2}\]</span></p>
+<p>If we set <span class="math inline">\(t = s/\sigma_X\)</span>, we get an equivalent form:</p>
+<p><span class="math display">\[\P(|X - \E[X]| \geq s) \leq \frac{\sigma_X^2}{s^2} = \frac{\V[X]}{s^2}\]</span></p>
+</div>
+</div>
+<p>Comparing Chebyshev’s inequality to Markov’s, it can be applied a little less broadly (it assumes <span class="math inline">\(X\)</span> has finite variance), but it gives us stronger results: we now can say “<span class="math inline">\(X\)</span> is near <span class="math inline">\(\E[X]\)</span>” as opposed to “<span class="math inline">\(X\)</span> is not too big”.</p>
 
 
 </section>

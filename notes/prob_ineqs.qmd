@@ -1,0 +1,136 @@
+---
+title: "On Probability Limits and Inequalities"
+---
+
+$$\newcommand{\P}{\mathbb{P}} \newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}}$$
+
+As we move to the third portion of this course, we want to make claims
+about _several_ (many) random variables at once. We have already seen 
+that the sample average is typically a "nicer" random variable than the
+individual variables of which we take an average. This is the key insight
+of statistics! And so we seek to generalize it in several ways: 
+
+1) Can we be more precise about what happens if we take averages of larger
+   and larger data sets? (The Law of Large Numbers gives us one answer to
+   this question; the Central Limit Theorem and the Glivenko-Cantelli Theorem
+   will give us more precise answers.)
+2) What about other "nice" functions, *e.g.* variances or medians? Are they
+   asymptotically nice in the same manner as the sample average? 
+   
+We will explore this topic in two ways: 
+
+1) We will develop a theory of _limits_ of random variables. 
+
+2) We will develop _probability inequalities_, also called concentration
+   bounds, for functions of many random variables. 
+   
+Limits are, by definition asymptotic results, only "exactly" correct
+for infinite collections of random variables, but they tell us where
+things "are headed." Probability inequalities hold for any (finite) $n$,
+but are necessarily only approximations to true values. Both of these are
+useful in different techniques. We can never quite be sure when the asymptotic
+behaviors implied by limits "kick in", while probability inequalities are
+never quite tight. They are both useful tools in the toolbox however. 
+
+There is one other important "axis" along which we divide results: 
+
+1) Point limits
+2) Distribution limits
+
+Certain results are "point limits", telling us a specific value to which
+a sequence of random variables converges, *e.g.*, the LLN tells us that
+the sample average converges to the true expectation. Distribution limits,
+on the other hand, tell us _how_ we approach that point limit; the LLN tells
+us where the sample average is tending, but it doesn't tell us how large
+the fluctuations we expect along the way will be. We know that the sample
+average has a distribution with mean given by true expectation and variance
+decreasing as $1/\sqrt{n}$, but what else can we say about it (even approximately)? 
+
+This week, we will primarily focus on point limits - generalizations of
+the Law of Large Numbers and the Markov / Chebyshev inequalities. Next week,
+we will focus on distribution limits. 
+
+## Review: Markov and Chebyshev
+
+We begin our study with the Markov and Chebyshev inequalities. We have seen
+these before, but they are so useful that we should review them again. 
+
+::: {.callout-note title="Markov's Inequality"}
+
+If $X$ is a random variable with non-negative support, *i.e.*, $\P(X \geq 0) = 1$, then 
+
+$$\P(X > k) \leq \frac{\E[X]}{k}$$ 
+
+for any $k$. 
+
+**Proof:** Condition $X$ on the events $X > k$ and $X \leq k$. The law of
+total expectation then gives us
+
+$$\begin{align*}
+\E[X] &= \P(X \geq k) * \E[X | X \geq k] + \P(X < k) * \E[X | X < k] \\
+      &\geq \P(X \geq k) * k + \P(X < k) * 0 \\
+      &= \P(X \geq k) k \\
+\implies \P(X \geq k) & \leq \frac{\E[X]}{k}
+\end{align*}$$
+
+:::
+
+Setting $k = s \E[X]$, we get an equivalent form of Markov's inequality: 
+
+$$\P(X \geq s \E[X]) \leq \frac{1}{s} $$
+
+This bounds the _upper tail_ of $X$; while $X$ can be greater than its
+expectation, it cannot be _too much_ greater _too often_. 
+
+Markov's inequality appears rather basic - all we have worked with 
+is a very rough bound on $\E[X | X > k]$ and the assumption $X \geq 0$. But
+there are world's of possibility hidden within!
+
+Markov's inequality essentially formalizes our intuition: taking $s = 2$, 
+it says that no more than half the members of a population can be twice
+the average. In fact, Markov's inequality can be seen to be tight for a
+(scaled) Bernoulli distribution:
+
+Let $\E[X] = \mu$. Then the random variable $X = \mu/s * \text{Bernoulli}(1/s)$
+makes Markov's inequality tight for any $s$. For instance, taking $s = 3$ 
+and $\mu = 10$, we define 
+
+$$X = \begin{cases} \mu/s & \text{ with probability } 1/s \\ 0 & \text{ otherwise} \end{cases} = \begin{cases} 30 & \text{ with probability } 1/3 \\ 0 & \text{ otherwise} \end{cases}$$
+
+It is clear that $\P(X \geq s \E[X]) = \P(X \geq 3 * 10) = s = \frac{1}{3}$
+holds tightly. 
+
+We might think that Markov's inequality is a bit hard to use: after all,
+we aren't always guaranteed that a quantity is positive, *e.g.*, estimation
+error. But we have many tricks for creating positive random variables!
+
+Our most common trick for making positive random variables is to look
+at _squared_ error: that is, instead of looking at $X - \E[X]$, we look 
+at $(X - \E[X])^2$, which is non-negative. 
+
+Let $Y = (X - \E[X])^2$ and apply Markov's inequality to $Y$. We first
+note that $\E[Y] = \sigma_X^2 = \V[X]$, so Markov's inequality becomes:
+
+$$\begin{align*}
+\P(Y \geq s \E[Y]) &\leq \frac{1}{s} \\
+\P((X - \E[X])^2 \geq s \sigma_X^2) &\leq \frac{1}{s} \\
+\P(\sqrt{(X - \E[X])^2} \geq \sqrt{s \sigma_X^2}) &\leq \frac{1}{s} \\
+\P(|X - \E[X]| \geq \sqrt{s} \sigma_X) &\leq \frac{1}{s} \\
+\implies \P(|X - \E[X]| \geq t \sigma_X) &\leq \frac{1}{t^2}
+\end{align*}$$
+
+This is Chebyshev's Inequality: 
+
+:::  {.callout-note title="Chebyshev's Inequality"}
+$$\P(|X - \E[X]| \geq t \sigma_X) \leq \frac{1}{t^2}$$
+
+If we set $t = s/\sigma_X$, we get an equivalent form: 
+
+$$\P(|X - \E[X]| \geq s) \leq \frac{\sigma_X^2}{s^2} = \frac{\V[X]}{s^2}$$
+
+:::
+
+Comparing Chebyshev's inequality to Markov's, it can be applied a little
+less broadly (it assumes $X$ has finite variance), but it gives us stronger
+results: we now can say "$X$ is near $\E[X]$" as opposed to 
+"$X$ is not too big". 
