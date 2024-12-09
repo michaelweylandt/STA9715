@@ -1,0 +1,856 @@
+---
+title: "STA 9715: Test 3 (Fall 2024) -- Solutions"
+execute:
+  echo: true
+  cache: true
+---
+
+$$\newcommand{\P}{\mathbb{P}}\newcommand{\E}{\mathbb{E}} \newcommand{\V}{\mathbb{V}} \newcommand{\bX}{\mathbf{X}} \newcommand{\bA}{\mathbf{A}} \newcommand{\bI}{\mathbf{I}} \newcommand{\C}{\mathbb{C}} \newcommand{\M}{\mathbb{M}} \newcommand{\R}{\mathbb{R}}  \newcommand{\bZ}{\mathbf{Z}}$$ The original exam packet can be found [here](./ExamPacket.pdf).
+
+#### Question 1
+
+Let $X$ be a Geometric random variable with PMF $\P(X = x) = p(1-p)^{x-1}$. 
+What is the MGF of $X$, $\M_X(t)$? 
+    
+*Hint: You may use the fact that $$\sum_{k=1}^{\infty} q^k = q/(1-q)$$ for 
+**any** $q < 1$. Specifically, $q$ **does not** have to be the success 
+probability.*
+
+::: {.callout-note title="Question History" collapse="true"}
+This is essentially Question 1 from the Week 12 In-Class Mini-Quiz, with the 
+binomial distribution replaced by the geometric. 
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+We recall the definition of the MGF: 
+
+$$\M_X(t) = \E[e^{tX}]$$
+
+Substituting the geometric distribution into the law of the unconscious 
+statistician, we get: 
+
+$$\begin{align*}
+\E[e^{tX}] &= \sum_{x=1}^{\infty} e^{tx} p(1-p)^{x-1} \\
+           &= p \sum_{x=1}^{\infty} e^{tx}(1-p)^{x-1}\\
+           &= \frac{p}{1-p} \sum_{x=1}^{\infty} e^{tx}(1-p)^{x}\\
+           &= \frac{p}{1-p} \sum_{x=1}^{\infty} [e^t(1-p)]^x \\
+           &= \frac{p}{1-p} \frac{e^t(1-p)}{1-e^t(1-p)} \\
+           &= \frac{pe^t}{1-e^t(1-p)}
+\end{align*}$$
+
+Technically, the MGF only is defined for values of the sum where $e^t(1-p) < 1$, 
+*i.e.*, $t < -\log(1-p)$, but we don't concern ourselves with that detail. For
+everything in this course, it suffices for the CDF to be defined "near" $t=0$.
+           
+:::
+
+
+#### Question 2
+
+Let $Z_1, Z_2, Z_3$ be three IID standard normal random variables.
+What is the CDF of $Z_* = \min\{Z_1, Z_2, Z_3\}$? You may leave your answer 
+in terms of the standard normal CDF, $\Phi(z)$.
+    
+*Hint: It may be easier to first derive the complementary CDF of 
+$Z_*$, $\P(Z_* >  z)$.*
+
+::: {.callout-note title="Question History" collapse="true"}
+This is Question 2 from the Week 11 In-Class Mini-Quiz, with the $\max$ replaced
+by the $\min$.
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+Following the hint, we look at 
+
+$$\begin{align*}
+\P(Z_* > z) &= \P(\min\{Z_1, Z_2, Z_3\} > z) \\
+              &= \P([Z_1 > z] \text{ and } [Z_2 > z] \text{ and } [Z_3 > z]) \\
+              &= \P(Z_1 > z)\P(Z_2 > z)\P(Z_3 > z) \\
+              &= (1-\P(Z_1 \leq z)) (1 - \P(Z_2 \leq z)) (1 - \P(Z_3 \leq z)) \\
+              &= (1-\Phi(z))^3 \\
+\implies \P(Z_* < z) &= 1 - (1-\Phi(z))^3 
+\end{align*}$$
+
+We can verify this in simulation by comparing the sample CDF with the expression
+we derived: 
+
+```{r}
+n  <- 1e5
+Z1 <- rnorm(n)
+Z2 <- rnorm(n)
+Z3 <- rnorm(n)
+
+Z_star <- pmin(Z1, Z2, Z3)
+
+CDF_Z_star <- ecdf(Z_star)
+
+z <- seq(min(Z_star), max(Z_star), length.out=401)
+
+CDF_theoretical <- 1 - (1-pnorm(z))^3
+
+plot(CDF_Z_star, lwd=2, col="black", 
+     main="CDF of The Minimum of 3 IID Standard Gaussians")
+lines(z, CDF_theoretical, lwd=2, col="red4")
+legend("topleft", col=c("black", "red4"), lwd=2, 
+       legend=c("Sample CDF", "Theoretical CDF"))
+```
+
+Very nice!
+:::
+
+#### Question 3
+
+Let $X = Y/n$ where $Y \sim \text{Binom}(n, p)$; that is, $X$ is a 
+rescaled binomial distribution. What is the MGF of $X$? 
+    
+*Hint: Compute the MGF of a Bernoulli and then use MGF manipulation rules.*
+
+::: {.callout-note title="Question History" collapse="true"}
+This is essentially Question 1 from the Week 12 In-Class Mini-Quiz, with the
+addition of scaling by the $n^{-1}$ term.
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+From the in-class quiz, we recall: 
+
+$$\M_{\text{Bern}(p)}(t) = (1-p) * e^{t * 0} + p * e^{t * 1} = 1-p + pe^t$$
+so 
+
+$$\M_{\text{Binom}(n, p)}(t) = \M_{\text{Bern}(p)}(t)^n = (1-p + pe^t)^n$$
+
+With this, we recall $\M_{bX}(t) = \M_{X}(bt)$, so we have
+
+$$\M_{\text{Binom}(n, p)/n}(t) = (1-p + pe^{t/n})^n.$$
+:::
+
+#### Question 4
+
+Let $X_1, \dots, X_{100}$ be a set of IID Poisson random variables with mean 
+10. Using the CLT, what is the approximate distribution of their mean,
+$\overline{X}_{100}$? 
+
+::: {.callout-note title="Question History" collapse="true"}
+This is a essentially Question 2 from the Week 13 In-Class Mini-Quiz, with the
+Poisson instead of another distribution.
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+From the CLT, we have 
+$$\overline{X}_n\buildrel d \over \approx \mathcal{N}\left(\mu, \frac{\sigma^2}{n}\right).$$ 
+Here, we recall that the Poisson has the same mean and variance (both 10), so 
+this becomes 
+
+$$\overline{X}_{100}\buildrel d \over \approx\mathcal{N}\left(10, \frac{10}{100}\right) = \mathcal{N}\left(10, 0.1\right)$$
+
+We can compare this approximation with the "true" density estimated by a histogram: 
+
+```{r}
+R <- replicate(1e5, {
+    X <- rpois(100, 10)
+    mean(X)
+})
+
+hist(R, breaks=50, probability = TRUE, 
+     main="CLT Approximation to Poisson Mean")
+
+rr <- seq(min(R), max(R), length.out=401)
+lines(rr, dnorm(rr, mean=10, sd=sqrt(0.1)), col="red4")
+```
+:::
+
+#### Question 5
+
+Suppose it takes a student 2 minutes on average to answer a question on an 
+exam. Assuming the exam has 40 questions total and that the time taken on 
+each question is IID, use Markov's inequality to given an upper 
+bound on the probability that it takes more two hours to finish the exam.  
+    
+*Hint: Construct a random variable $T = \sum_{i=1}^{40} T_i$ for the total 
+amount of time taken and apply Markov's inequality.*
+
+::: {.callout-note title="Question History" collapse="true"}
+This is similar to many Markov's inequality questions asked previously. It
+is mainly included to set up the next question. 
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+As suggested by the hint, we let $T_i$ be the time necessary to answer each
+question. Hence, $$\E[T] = \E[\sum_{i=1}^{40}T_i] = \sum_{i=1}^{40}\E[T_i] = 40 * 2 = 80.$$
+Because the amount of time needed to answer a question can't be negative, 
+each $T_i \geq 0$ and hence $T \geq 0$, so we can apply Markov's inequality: 
+
+$$\P(T > 120) \leq \frac{\E[T]}{120} = \frac{80}{120} = \frac{2}{3} \approx 66.7\%$$
+
+:::
+
+
+#### Question 6
+
+Suppose it takes a student 2 minutes on average to answer a question on an 
+exam. Furthermore, assume that it never takes the student less than 1 minute
+or more than 5 minutes to answer a single question. 
+Assuming the exam has 40 questions total and that the time taken on each 
+question is IID, use the Chernoff inequality for *means of bounded random 
+variables* to give an upper bound on the probability that it takes more 
+than two hours to finish the exam.  
+
+::: {.callout-note title="Question History" collapse="true"}
+This is a new question, focusing on a variant of the Chernoff 
+inequality suitable for means of bounded random variables.
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+We apply the Chernoff bound for means of bounded random variables. Here, we
+take the variables to fall in the range $[1, 5]$, each with mean 2. For the
+student to take more than 2 hours to finish the exam, the average time per
+question must be greater than $3$ minutes. We put these numbers into the
+Chernoff bound to get: 
+
+$$\P(\overline{T}_{40} > E[\overline{T}_{40}] + 1) \leq e^{-2n t^2/(b-a)^2} = e^{-40 * 1^2/4^2} \approx 0.67\%$$
+Here we see that by taking advantage of the *mean* structure of $T$ (or
+equivalently, the IID sum structure), we are able to get a **significantly 
+tighter** bound on the probability of the student not being able to finish the
+exam in the permitted 2 hour time. 
+
+As an aside, this is why it's important to efficiently use the time made 
+available for an exam and to limit the amount of time you spend on any one
+question. Limiting the time spent on a single question limits any "long tail" 
+of unproductive time. 
+
+:::
+
+#### Question 7
+
+Let $X$ be a random variable with a $\mathcal{N}(5, 1)$ distribution. 
+Using the Delta Method, what is the approximate distribution of $1/X$?
+
+::: {.callout-note title="Question History" collapse="true"}
+This is essentially Question 3 from the Week 13 In-Class Mini-Quiz, with a 
+simpler transformation (inverse instead of odds).
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+Recall that the delta method proceeds by Taylor expanding the transform
+around the mean of the distribution, so we have: 
+
+$$g(x) = 1/x \implies g'(x) = -\frac{1}{x^2} \implies g(x) \approx g(\mu) - \frac{(x - \mu)}{\mu^2}$$
+
+This gives us: 
+
+$$\frac{1}{X} \approx \frac{1}{5} - \frac{(X - 5)}{5^2} = \frac{1}{5} - \frac{(X-5)}{25}$$
+
+Taking means and expectations, we get: 
+
+$$\E[1/X] \approx \E\left[\frac{1}{5} - \frac{(X-5)}{25}\right] = \frac{1}{5}-\frac{1}{25}\E[X-5] = \frac{1}{5}$$
+
+and 
+
+$$\V[1/X] \approx \V\left[\frac{1}{5} - \frac{(X-5)}{25}\right] = \frac{1}{25^2}\V[X-5] = \frac{1}{625}\V[X] = \frac{1}{625}$$
+We can compare this to the result of a simulation, but the result will only be
+somewhat accurate due to the limitations of a one term Taylor series.[^2]
+
+```{r}
+n <- 1e7
+X <- rnorm(n, 5, 1)
+
+mean(1/X)
+
+var(1/X)
+```
+so the Delta method mean is pretty close (off by about 5%) while the variance
+is off by about half.
+
+[^2]: Recall that when we apply the Delta method to a series of random variables
+with decreasing variance, the random variable stays "nearer" to the mean, *i.e.*,
+the center of the Taylor approximation, so the Taylor method becomes more accurate.
+
+:::
+
+
+#### Question 8
+
+The $\text{BetaBinomial}(n, \alpha, \beta)$ distribution is the sum of 
+$n$ independent Bernoulli random variables, with \emph{different} probabilities,
+each sampled IID from a $\text{Beta}(\alpha, \beta)$ distribution. 
+What is the expected value of $X\sim\text{BetaBinomial}(10, 2, 5)$? 
+
+::: {.callout-note title="Question History" collapse="true"}
+This is a new question designed to test i) your use of the beta distribution
+and ii) your use of the law of total expectation (in the form known as 
+"Adam's Law" in the textbook).
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+From the construction of the beta-binomial, we have
+
+$$\begin{align*}
+\E[X] &= \E[\sum_{i=1}^{10} \text{Bernoulli}(\text{Beta}(2, 5))] \\
+      &= \sum_{i=1}^{10}\E[ \text{Bernoulli}(\text{Beta}(2, 5))] \\
+      &= 10 \E[ \text{Bernoulli}(\text{Beta}(2, 5))]
+\end{align*}$$
+
+To compute this expectation, we need to temporarily condition on the value
+of $P \sim \text{Beta}(2, 5)$: 
+
+$$\E[ \text{Bernoulli}(\text{Beta}(2, 5))] = \E_{P\sim\text{Beta}(2, 5)}[\E[\text{Bernoulli}(P)|P]] = \E_{P\sim\text{Beta}(2, 5)}[P] = \frac{2}{2+5} = \frac{2}{7}$$
+
+where we used the fact that the mean of a $\text{Beta}(\alpha, \beta)$ distribution
+is $\alpha/(\alpha + \beta)$. 
+
+Hence, 
+
+$$\E[X] = 10 * \frac{2}{7} = \frac{20}{7} \approx 2.857$$
+
+In simulation: 
+
+```{r}
+R <- replicate(1e6, {
+    p <- rbeta(10, 2, 5)
+    sum(rbinom(10, size=1, prob=p))
+})
+
+mean(R)
+```
+:::
+
+
+#### Question 9
+
+Suppose $X$ has MGF $\M_X(t) = (1-3t)^{-5}$. What is the expected value 
+of $X$?
+
+::: {.callout-note title="Question History" collapse="true"}
+This is a new question, which can be answered in two ways, each of which uses
+an important topic from this unit of the course: 
+
+i) Use of important named distributions, here the Gamma distribution; or
+ii) Direct use of Moment Generating Functions to compute moments
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+As noted above, we can answer this in two ways: 
+
+i) We recognize $\M_X(t) = (1-3t)^{-5}$ as the MGF of a $\text{Gamma}(5, 3)$ 
+   distribution, so $\E[X] = 5 * 3 = 15$. 
+ii) We can use the MGF to compute a moment directly: specifically, we note that
+$$\begin{align*}
+  \M_X'(t) &= \frac{\text{d}}{\text{d}t}(1-3t)^{-5} \\
+           &= (-5)(1-3t)^{-6} * (-3) \\
+           &= \frac{15}{(1-3t)^6}
+\end{align*}$$
+   From the properties of MGFs, we know that 
+    
+   $$\E[X] = \M_X'(0) = \frac{15}{(1-3 * 0)^6} = 15$$
+    
+   as desired. 
+   
+As expected, both approaches give the same value, so it's a matter of personal
+taste which is to be preferred. 
+:::
+
+
+#### Question 10
+
+Let $U_1, \dots, U_{50}$ be IID $\text{ContinuousUniform}([0, 1])$ random 
+variables. Using the CLT, approximate the probability that 
+$\P(\sum_{i=1}^{50} U_i > 27.5)$.  
+
+::: {.callout-note title="Question History" collapse="true"}
+This is essentially Question BH 10.7.22(b) from the textbook, with an 
+additional hint suggesting use of the CLT. 
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+Per the hint, we note that $\E[U_i] = 0.5$ and $\V[U_i] = \frac{1}{12}$, so
+
+$$\overline{U}_{50} \buildrel d \over \approx \mathcal{N}\left(\frac{1}{2}, \frac{1}{600})$$
+
+Hence, we have
+
+$$\begin{align*}
+\P(\sum_{i=1}^{50} U_i > 27.5) &= \P\left(\overline{U}_{50} > \frac{27.5}{50}\right) \\
+                               &= \P(\overline{U}_{50} > 0.55)
+\end{align*}$$
+
+We apply the CLT to approximate this as: 
+
+$$\begin{align*}
+\P(\sum_{i=1}^{50} U_i > 27.5) &= \P(\overline{U}_{50} > 0.55) \\
+                               &\approx \P\left(0.5 + 600^{-1/2}Z > 0.55\right) \\
+                               &= \P\left(600^{-1/2}Z > 0.05\right) \\
+                               &= \P\left(Z > 0.05 * \sqrt{600}\right) \\
+                               &= 1 - \Phi(0.05 * \sqrt{600})
+                               &\approx 11\%
+\end{align*}$$
+
+We can verify this in simulation: 
+
+```{r}
+R <- replicate(5e5, {
+    U <- runif(50)
+    sum(U)
+})
+
+mean(R > 27.5)
+```
+                               
+:::
+
+#### Question 11
+
+Let $X_1, X_2, \dots$ be IID random variables with mean $\mu$ and 
+variance $\sigma^2$. Find a value of $n$ (an integer) such that the sample 
+mean $\overline{X}_n$ is within 2 standard deviations of the mean with 
+probability 99\% or greater. 
+
+*Hint: Chebyshev*
+
+::: {.callout-note title="Question History" collapse="true"}
+This is Question BH 10.7.2 from the textbook, basically unchanged. 
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+We recall Chebyshev's inequality as follows: 
+
+$$\P(|X - \mu| > k\sigma) \leq \frac{1}{k^2}$$
+
+or equivalently, 
+
+$$\P(|X - \mu| < k\sigma) \geq 1 - \frac{1}{k^2}$$
+
+Here, we are applying Chebyshev to a sample mean, so we scale the standard deviation
+by $1/\sqrt{n}$ to obtain: 
+
+$$\P(|\overline{X}_n - \mu| < k\sigma / \sqrt{n}) \geq 1 - \frac{1}{k^2}$$
+
+If we want the right hand side to be 99% (so that we are within the bounds), we
+clearly have $k = 10$ and we need $k/\sqrt{n} = 2$, giving a minimum sample size
+of $$\frac{10}{\sqrt{n}} = 2 \implies n = 25$$
+
+This is remarkable! For _any_ (finite-variance) random variable, the sample 
+mean of 25 IID realizations will be within two standard deviations of the mean
+with 99% probability (or higher). 
+
+:::
+
+***CHECKME***
+
+
+#### Question 12
+
+A fair 6-sided die is rolled once. What is the expected number of 
+additional rolls to needed to obtain a value *at least as large* as the 
+initial roll?
+
+::: {.callout-note title="Question History" collapse="true"}
+This is Question BH 9.9.13 from the textbook, basically unchanged. 
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+This would be easier _if_ we knew the value of the first role, 
+so let's condition on it, using the law of total expectation. 
+
+Let $N$ be the number of additional rolls needed and let $R$ be the 
+value of  the first roll.  Clearly, if the first roll is $r$, the 
+probability of getting a follow-up that is greater than or equal to $r$
+is $\frac{6-r+1}{6} = \frac{7-r}{6}$ and $N \sim \text{Geom}(\frac{7-r}{6})$.
+This implies that, conditional on $R = r$, we need
+$\E[N | R = r] = \frac{1}{\frac{7-r}{6}} = \frac{6}{7-r}$ additional rolls. 
+
+By total expectation, we thus have: 
+
+$$\E[N] = \E_R\E_N[N | R] = \E_R[\frac{6}{7-R}] = \sum_{r=1}^6 \frac{1}{6} * \frac{6}{7-R} = \sum_{r=1}^6 \frac{1}{7-R} = 2.45$$
+
+We can verify this in simulation: 
+
+```{r}
+library(dplyr)
+SAMPLES <- replicate(1e6, {
+    R <- sample(1:6, 1)
+    additional_rolls <- sample(1:6, 100, replace=TRUE)
+    c(R = R, N = min(which(additional_rolls >= R)))
+})
+
+data.frame(t(SAMPLES)) |>
+    group_by(R) |>
+    summarize(sample_mean = mean(N), 
+              count = n()) |>
+    mutate(theoretical_mean = 6/(7-R), 
+           prob = count / sum(count))
+```
+
+and hence
+
+```{r}
+data.frame(t(SAMPLES)) |>
+    summarize(mean(N)) |> 
+    pull(1)
+```
+:::
+
+
+#### Question 13
+
+Let $X \sim \text{Beta}(3, 5)$. What is the expected value of $1 - X$?
+
+::: {.callout-note title="Question History" collapse="true"}
+This is a simplified version of Question BH 8.9.28 from the textbook, here
+asking only for the mean instead of the full distribution. Because the question
+only asks for the mean, you don't actually need to work through the reflection
+property of the beta distribution to solve it. 
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+We first recall that 
+$$B \sim \text{Beta}(\alpha, \beta) \implies \E[B] = \frac{\alpha}{\alpha+\beta}.$$ 
+
+We can either apply this directly: 
+
+$$\E[1-X] = 1 - \E[X] = 1 - \frac{3}{3+5} = 1 - \frac{3}{8} = \frac{5}{8}$$
+
+Or we can recall the "reflection" property of the beta distribution from BH 8.9.28: 
+
+$$B \sim \text{Beta}(\alpha, \beta) \implies 1 - B \sim \text{Beta}(\beta, \alpha)$$
+
+so $1-X \sim \text{Beta}(5, 3)$ with expectation $\frac{5}{5 + 3} = \frac{5}{8}$
+as before. 
+
+As always, in simulation: 
+
+```{r}
+n <- 1e7
+X <- rbeta(n, 3, 5)
+mean(1 - X)
+```
+:::
+
+#### Question 14
+
+A $\text{Wiebull}(3, 5)$ distribution has CDF 
+$F_Y(y) = 1-e^{-(y/3)^5}$. Suppose you have a source of uniform random 
+variables $U$. Find a transformation of $U$, $h(\cdot)$, 
+such that $h(U) \sim \text{Wiebull}(3, 5)$. 
+    
+*Hint: Apply the probability integral transform.*
+
+::: {.callout-note title="Question History" collapse="true"}
+This is a new question, designed to test your use of the PIT to 
+create PRNGs for new distributions.
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+As noted in the formula sheet, it suffices to compute $F_Y^{-1}(U)$, so
+we need to determine $F_Y^{-1}$. 
+
+$$\begin{align*}
+u &= F_Y(y) \\
+  &= 1 - e^{-(y/3)^5} \\
+e^{-(y/3)^5} &= 1-u \\
+-(y/3)^5 &= \log(1-u) \\
+(y/3)^5 &= -\log(1-u) \\
+y/3 &= \sqrt[5]{-\log(1-u)}
+y &= 3\sqrt[5]{-\log(1-u)}
+\end{align*}$$
+
+As usual, we note that $1-U \buildrel d \over = U$,[^1] so we can implement
+this as: 
+
+```{r}
+rWiebull <- function(n, k, theta){
+    U <- runif(n)
+    k * (-log(U))^(1/theta)
+}
+```
+
+We can verify that the sample CDF matches our desired CDF: 
+
+```{r}
+X <- rWiebull(1e5, 3, 5)
+X_cdf <- ecdf(X)
+
+plot(X_cdf, main="Wiebull CDF", lwd=2)
+
+x <- seq(0, max(X), length.out=401)
+W_cdf <- 1-exp(-(x/3)^5)
+
+lines(x, W_cdf, col="red4")
+legend("topleft", 
+       col=c("black", "red4"), 
+       lwd = 2, 
+       legend=c("PRNG CDF", "Theoretical CDF"))
+```
+
+Numerically, 
+
+```{r}
+#| warning: false
+pWiebull <- function(x) 1 - exp(-(x/3)^5)
+ks.test(X, pWiebull)
+```
+A great match!
+
+[^1]: Recalling that $\mathcal{U}([0, 1]) \buildrel d \over = \text{Beta}(1,1)$, 
+this is the symmetry of the beta distribution referenced elsehwere.
+
+:::
+
+
+#### Question 15
+
+Let $X$ be a *log-normal* random variable such that 
+$\log X \sim \mathcal{N}(5, 3^2)$. (Note this is the natural "base-$e$" 
+logarithm.). What is $\V[X]$?
+
+*Hint: Recall $(e^{x})^2 = e^{2x}$. You can answer this 
+question using only MGFs.*
+
+::: {.callout-note title="Question History" collapse="true"}
+This is essentially question 2 from the Week 2 In-Class Mini-Quiz,
+now asking for the variance instead of the mean.
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+Per the hint and our standard practice of standardizing 
+normal distributions, we note that 
+$$\begin{align*}
+\V[X] &= \V[e^{5 + 3Z}] \\
+      &= (e^5)^2 \V[e^{3Z}] \\
+      &= e^{10} \left(\E[(e^{3Z})^2] - \E[e^{3Z}]^2\right) \\
+      &= e^{10} \left(\E[(e^{6Z})] - \E[e^{3Z}]^2\right) \\
+      &= e^{10}(\M_Z(6) - \M_Z(3)^2)
+\end{align*}$$
+
+Recalling that $\M_Z(t) = e^{t^2/2}$, we thus have: 
+
+$$\V[X] = e^{10}(e^{(6^2)/2} - (e^{3^2/2})^2) = e^{10}(e^{18} - (e^{4.5})^2) = e^{10}(e^{18} - e^9) = e^{28} - e^{19}$$
+This feels like the kind of calculation where it is easy to make 
+a mistake, so we can try to verify in simulation: 
+
+```{r}
+#| cache: true
+n <- 1e7
+X <- rlnorm(n, meanlog=5, sdlog=3)
+var(X)
+```
+```{r}
+exp(28) - exp(19)
+```
+
+```{r}
+var(X) / (exp(28) - exp(19))
+```
+
+Interestingly, this doesn't look all that close! The issue is that, even
+with our very large number of samples, the *variance of the variance* is 
+still too high to get a good convergence. We note that: 
+
+```{r}
+#| cache: true
+sample_variance <- replicate(100, {
+    n <- 1e7
+    X <- rlnorm(n, meanlog=5, sdlog=3)
+    var(X)
+})
+
+## Relative Range
+max(sample_variance) / min(sample_variance)
+
+## Coefficient of Variation
+sd(sample_variance) / mean(sample_variance)
+```
+We see here that the range of "realized" sample variances, even with 10 million
+samples, is multiple orders of magnitude and that the standard deviation
+of the variances is larger than the quantity we are trying to estimate!
+
+Specifically, it can be shown that
+the *variance* of the *sample variance* is roughly proportional to 
+$\E[(X - \mu)^4]/n$. For the lognormal, $\E[(X-\mu)^4]$ will be proportional
+to $\M_Z(24) = e^{288}$, so even with ten billion samples, the standard deviation
+of the sample variance is still on the order of $e^{144}/10^5 \approx e^{132.5}$,
+which is much larger than the actual quantity we are trying to estimate here. 
+
+While the *lognormal* distribution is not as heavy-tailed as the Cauchy, it
+is still rather heavy-tailed and highly skewed. This makes estimating its
+parameters via Monte Carlo quite difficult. 
+
+When using Monte Carlo approaches, it is important to assess the uncertainty
+in your estimates using techniques such as these. If that uncertainty
+is insurmountably high, you might have to fall back on mathematical analysis
+of the form we performed above. Extreme skewness, like that exhibited by the
+log-normal, is quite challenging and typically requires more advanced techniques
+than used here. 
+
+:::
+
+#### Question 16
+
+Let $X_1, X_2, \dots$ be independent random variables each with mean 
+$\mu$ and variance $\sigma^2$. What (non-random) quantity does 
+$\frac{1}{n} \sum_{i=1}^n (X_i)^2$ converge to as $n \to \infty$? 
+
+::: {.callout-note title="Question History" collapse="true"}
+This is a new question designed to test your fluency with the Law of Large Numbers.
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+By the law of large numbers, this average will converge to its expectation,
+$\E[X_i^2]$. To compute the second moment, we recall that $$\V[X] = \E[X^2] - \E[X]^2 \implies \E[X^2] = \E[X]^2 + \V[X]$$, so here, we have
+$$\E[X_i^2] = \E[X_i]^2 + \V[X_i] = \mu^2 + \sigma^2.$$
+
+We can again verify this for a $\mathcal{N}(5, 3^2)$ distribution: 
+
+```{r}
+n <- 1e7
+X <- rnorm(n, mean=5, sd=3)
+mean(X^2)
+
+5^2 + 3^2
+```
+:::
+
+
+#### Question 17
+
+Suppose $X$ is a continuous random variable with PDF proportional 
+to $x^3e^{-x/2}$ and support on $\R_{\geq 0}$. What is $\E[X]$? 
+
+::: {.callout-note title="Question History" collapse="true"}
+This is a new question, designed to test your ability to recognize and "pattern
+match" on important distributions, including the gamma distribution.
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+We recognize $X$ as having a **Gamma(4, 2)** distribution, with full PDF: 
+
+$$f_X(x) = \frac{1}{\Gamma(4)2^4}x^{4-1}e^{-x/2}$$
+
+As such, it has an expected value of $\E[X] = 4 * 2 = 8$. 
+
+:::
+
+
+#### Question 18
+
+Suppose grades on a certain exam are normally distributed with mean 75 and 
+standard deviation 5. Using the Gaussian Chernoff bound, approximate the 
+probability that a given student gets a grade of 90 or higher.
+
+::: {.callout-note title="Question History" collapse="true"}
+This is essentially Question 1 from the Week 13 In-Class Mini-Quiz. 
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+As always, we standardize our variables to perform this type of calculation:
+
+$$\begin{align*}
+\P(\text{Grade} \geq 90) &= \P(75 + 5Z \geq 90) \\
+                         &= \P(5Z \geq 15) \\
+                         &= \P(Z \geq 3)
+\end{align*}$$
+
+Here, we apply the Chernoff bound to have 
+
+$$\P(Z \geq 3) \leq e^{-3^2/2} = 0.011$$
+
+This isn't particularly tight as compared to the true value: 
+
+```{r}
+exp(-(3^2)/2)
+
+pnorm(3, lower.tail=FALSE)
+```
+
+but things get tighter as we move into the tails. 
+
+```{r}
+z <- seq(0, 10, length.out=201)
+chernoff <- exp(-z^2/2)
+cdf <- pnorm(z, lower.tail=FALSE)
+
+plot(z, chernoff, lwd=2, log="y", type="l", 
+     xlab="Standard Deviations from Mean", 
+     ylab="Tail Probability")
+lines(z, cdf, col="red4", lwd=2)
+
+legend("topright", col=c("black", "red4"), lwd=2, 
+       legend=c("Chernoff Upper Bound", "Complementary CDF"))
+```
+:::
+
+
+#### Question 19
+
+Let $Z_1, Z_2, \dots$ be a series of IID standard Gaussians and let 
+$V_1, V_2, \dots$ be a series of IID $\chi^2_{6}$ random variables. 
+Let $$\widetilde{X}_n = \frac{1}{n} \sum_{i=1}^n \left(\frac{Z_i}{\sqrt{V_i/6}}\right)^2.$$ 
+
+What is the limiting value of $\widetilde{X}_n$ as $n \to \infty$? 
+
+*Hint: What is the distribution of each term $Z_i/\sqrt{V_i/6}$?*
+
+::: {.callout-note title="Question History" collapse="true"}
+This is a new question, designed to test your ability to use the Student's-$t$
+distribution and the law of large numbers. 
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+Per the hint, we recognize each term $T_i = Z_i/\sqrt{V_i/6}$ as having a 
+Student's-$t$ distribution with 6 degrees of freedom. From here, the LLN tells
+us that $\widetilde{X}_n$ will converge to $\E[T_i^2]$. Since the $t$-distribution
+has mean 0, this is simply $\V[T_i]$, which is $6/(6-4)$ or $1.5$. 
+
+We can verify this in simulation: 
+
+```{r}
+n <- 1e6
+Z <- rnorm(n)
+V <- rchisq(n, df=6)
+
+StudentT <- Z / sqrt(V / 6)
+mean(StudentT^2)
+```
+
+:::
+
+
+#### Question 20
+
+Let $X, Y$ be standard normal random variables and let 
+$R^2 = X^2 + Y^2$. What is the covariance of $R^2$ and $X$, 
+*i.e.* $\C[R^2, X]$?
+    
+
+::: {.callout-note title="Question History" collapse="true"}
+This is Question BH 10.7.36(d) from the textbook. 
+:::
+
+::: {.callout-tip title="Solution" collapse="true"}
+We can apply the definition of covariance directly: 
+
+$$\begin{align*}
+\C[R^2, X] &= \C[X^2 + Y^2, X]  \\
+           &= \C[X^2, X] + \C[Y^2, X]
+\end{align*}$$
+
+The second term is 0 by independence of $X, Y$. The first term requires us
+to use the definition of covariance. 
+
+$$\begin{align*}
+\C[X^2, X] &= \E[(X^2) * X] - \E[X^2]\E[X] \\
+           &= \E[X^3] - \E[X^2]\E[X] \\
+           &= 0 - 1 * 0 \\
+           &= 0
+\end{align*}$$
+
+Hence, $$\C[R^2, X] = 0.$$
+
+We can demonstrate this in simulation: 
+
+```{r}
+n <- 5e6
+X <- rnorm(n)
+Y <- rnorm(n)
+R2 <- X^2 + Y^2
+cov(R2, X)
+```
+:::
