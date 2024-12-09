@@ -418,8 +418,8 @@ or equivalently,
 
 $$\P(|X - \mu| < k\sigma) \geq 1 - \frac{1}{k^2}$$
 
-Here, we are applying Chebyshev to a sample mean, so we scale the standard deviation
-by $1/\sqrt{n}$ to obtain: 
+Here, we are applying Chebyshev to a sample mean, so we scale the 
+standard deviation by $1/\sqrt{n}$ to obtain: 
 
 $$\P(|\overline{X}_n - \mu| < k\sigma / \sqrt{n}) \geq 1 - \frac{1}{k^2}$$
 
