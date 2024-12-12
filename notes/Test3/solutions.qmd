@@ -363,7 +363,7 @@ additional hint suggesting use of the CLT.
 ::: {.callout-tip title="Solution" collapse="true"}
 Per the hint, we note that $\E[U_i] = 0.5$ and $\V[U_i] = \frac{1}{12}$, so
 
-$$\overline{U}_{50} \buildrel d \over \approx \mathcal{N}\left(\frac{1}{2}, \frac{1}{600})$$
+$$\overline{U}_{50} \buildrel d \over \approx \mathcal{N}\left(\frac{1}{2}, \frac{1}{600}\right)$$
 
 Hence, we have
 
@@ -379,7 +379,7 @@ $$\begin{align*}
                                &\approx \P\left(0.5 + 600^{-1/2}Z > 0.55\right) \\
                                &= \P\left(600^{-1/2}Z > 0.05\right) \\
                                &= \P\left(Z > 0.05 * \sqrt{600}\right) \\
-                               &= 1 - \Phi(0.05 * \sqrt{600})
+                               &= 1 - \Phi(0.05 * \sqrt{600}) \\
                                &\approx 11\%
 \end{align*}$$
 
@@ -393,7 +393,8 @@ R <- replicate(5e5, {
 
 mean(R > 27.5)
 ```
-                               
+
+
 :::
 
 #### Question 11
@@ -432,8 +433,6 @@ mean of 25 IID realizations will be within two standard deviations of the mean
 with 99% probability (or higher). 
 
 :::
-
-***CHECKME***
 
 
 #### Question 12

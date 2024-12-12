@@ -697,7 +697,7 @@ Solution
 <div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Per the hint, we note that <span class="math inline">\(\E[U_i] = 0.5\)</span> and <span class="math inline">\(\V[U_i] = \frac{1}{12}\)</span>, so</p>
-<p><span class="math display">\[\overline{U}_{50} \buildrel d \over \approx \mathcal{N}\left(\frac{1}{2}, \frac{1}{600})\]</span></p>
+<p><span class="math display">\[\overline{U}_{50} \buildrel d \over \approx \mathcal{N}\left(\frac{1}{2}, \frac{1}{600}\right)\]</span></p>
 <p>Hence, we have</p>
 <p><span class="math display">\[\begin{align*}
 \P(\sum_{i=1}^{50} U_i &gt; 27.5) &amp;= \P\left(\overline{U}_{50} &gt; \frac{27.5}{50}\right) \\
@@ -709,7 +709,7 @@ Solution
                                &amp;\approx \P\left(0.5 + 600^{-1/2}Z &gt; 0.55\right) \\
                                &amp;= \P\left(600^{-1/2}Z &gt; 0.05\right) \\
                                &amp;= \P\left(Z &gt; 0.05 * \sqrt{600}\right) \\
-                               &amp;= 1 - \Phi(0.05 * \sqrt{600})
+                               &amp;= 1 - \Phi(0.05 * \sqrt{600}) \\
                                &amp;\approx 11\%
 \end{align*}\]</span></p>
 <p>We can verify this in simulation:</p>
@@ -771,7 +771,6 @@ Solution
 </div>
 </div>
 </div>
-<p><strong><em>CHECKME</em></strong></p>
 </section>
 <section id="question-12" class="level4">
 <h4 class="anchored" data-anchor-id="question-12">Question 12</h4>
