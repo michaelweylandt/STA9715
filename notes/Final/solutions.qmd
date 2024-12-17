@@ -342,7 +342,7 @@ us $$\overline{P}_{40} \buildrel d \over \approx \mathcal{N}\left(2,
 \frac{2}{40}\right) = \mathcal{N}\left(2, 0.05\right).$$ We then note that
 
 $$\begin{align*}
-\P\left(\sum_{i=1}^40 P_i > 100\right) &= \P\left(\overline{P} > 2.5\right)  \\
+\P\left(\sum_{i=1}^{40} P_i > 100\right) &= \P\left(\overline{P} > 2.5\right)  \\
 &= \approx \P(2 + \sqrt{0.05}Z > 2.5) \\
 &= \P(\sqrt{0.05}Z > 0.5) \\
 &= \P(Z > 0.5/\sqrt{0.05}) \\
@@ -358,6 +358,37 @@ mean(replicate(1e6, {
     sum(rpois(40, lambda=2)) > 100
 }))
 ```
+:::
+
+
+::: {.callout-tip title="Alternate Solution" collapse="true"}
+**A typo on the version of the exam given to students indicated that
+50 variables could be used instead. Full marks are given for a correct
+answer for either form of the problem.**
+
+We first note that each $P_i$ has $\E[P_i] = \V[P_i] = 2$ by standard properties
+of the Poisson, so if we let $\overline{P}_{50}$ be their average, the CLT gives
+us $$\overline{P}_{50} \buildrel d \over \approx \mathcal{N}\left(2,
+\frac{2}{50}\right) = \mathcal{N}\left(2, 0.04\right).$$ We then note that
+
+$$\begin{align*}
+\P\left(\sum_{i=1}^{50} P_i > 100\right) &= \P\left(\overline{P} > 2\right)  \\
+&= \approx \P(2 + \sqrt{0.04}Z > 2) \\
+&= \P(\sqrt{0.04}Z > 0) \\
+&= \P(Z > 0) \\
+&\approx 50\%
+\end{align*}$$
+
+In simulation:
+
+```{r}
+mean(replicate(1e6, {
+    sum(rpois(50, lambda=2)) >= 100
+}))
+```
+So there is some discrepancy here - and it's not entirely clear how
+we should handle any "continuity correction" - but the approximation is
+still rather accurate. 
 :::
 
 #### Question 12
@@ -754,7 +785,7 @@ Suppose that grades in a given course are distributed as follows:
 | Fraction of Class | 25\% | 40\% | 25\% | 5\% | 5\% |
 
 Given that a student did not receive an A, what is the probability 
-they a D or an F in the course?
+they receieved a D or an F in the course?
 
 
 ::: {.callout-note title="Question History" collapse="true"}
