@@ -1554,13 +1554,88 @@ Solution
 <div id="callout-51" class="callout-51-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We first determine the distribution of Player A’s combined score:</p>
-<div class="line-block"><span class="math inline">\(\P(A = 1)\)</span> | <span class="math inline">\(\P(A = 2)\)</span> | <span class="math inline">\(\P(A = 3)\)</span> | <span class="math inline">\(\P(A = 4)\)</span> | <span class="math inline">\(\P(A = 5)\)</span> | <span class="math inline">\(\P(A = 6)\)</span> |<br>
-<span class="math inline">\(1/36\)</span> | <span class="math inline">\(3/36 = 1/9\)</span> | <span class="math inline">\(5/36\)</span> | <span class="math inline">\(7/36\)</span> | <span class="math inline">\(9/36 = 1/4\)</span> | <span class="math inline">\(11/36\)</span> |</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 17%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 17%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\P(A = 1)\)</span></th>
+<th><span class="math inline">\(\P(A = 2)\)</span></th>
+<th><span class="math inline">\(\P(A = 3)\)</span></th>
+<th><span class="math inline">\(\P(A = 4)\)</span></th>
+<th><span class="math inline">\(\P(A = 5)\)</span></th>
+<th><span class="math inline">\(\P(A = 6)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(1/36\)</span></td>
+<td><span class="math inline">\(3/36 = 1/9\)</span></td>
+<td><span class="math inline">\(5/36\)</span></td>
+<td><span class="math inline">\(7/36\)</span></td>
+<td><span class="math inline">\(9/36 = 1/4\)</span></td>
+<td><span class="math inline">\(11/36\)</span></td>
+</tr>
+</tbody>
+</table>
 <p>Next, we compute the probability of B winning or tying for each of A’s scores:</p>
-<div class="line-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="math inline">\(A = 1\)</span> | <span class="math inline">\(A = 2\)</span> | <span class="math inline">\(A = 3\)</span> | <span class="math inline">\(A = 4\)</span> | <span class="math inline">\(A = 5\)</span> | <span class="math inline">\(A = 6\)</span> |<br>
-<span class="math inline">\(\P(B &gt; A | A = a)\)</span> | <span class="math inline">\(5/6\)</span> | <span class="math inline">\(4/6 = 2/3\)</span>| <span class="math inline">\(3/6 = 1/2\)</span> | <span class="math inline">\(2/6 = 1/3\)</span> | <span class="math inline">\(1/6\)</span> | 0 |<br>
-<span class="math inline">\(\P(B = A | A = a)\)</span> | <span class="math inline">\(1/6\)</span> | <span class="math inline">\(1/6\)</span> | <span class="math inline">\(1/6\)</span> | <span class="math inline">\(1/6\)</span> | <span class="math inline">\(1/6\)</span> | <span class="math inline">\(1/6\)</span> |<br>
-<span class="math inline">\(\P(\text{B wins} | A = a)\)</span> | <span class="math inline">\(1\)</span> | <span class="math inline">\(5/6\)</span> | <span class="math inline">\(4/6 = 2/3\)</span> | <span class="math inline">\(3/6 = 1/2\)</span> | <span class="math inline">\(2/6 = 1/3\)</span>| <span class="math inline">\(1/6\)</span></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 9%">
+<col style="width: 12%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(A = 1\)</span></th>
+<th><span class="math inline">\(A = 2\)</span></th>
+<th><span class="math inline">\(A = 3\)</span></th>
+<th><span class="math inline">\(A = 4\)</span></th>
+<th><span class="math inline">\(A = 5\)</span></th>
+<th><span class="math inline">\(A = 6\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\P(B &gt; A | A = a)\)</span></td>
+<td><span class="math inline">\(5/6\)</span></td>
+<td><span class="math inline">\(4/6 = 2/3\)</span></td>
+<td><span class="math inline">\(3/6 = 1/2\)</span></td>
+<td><span class="math inline">\(2/6 = 1/3\)</span></td>
+<td><span class="math inline">\(1/6\)</span></td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\P(B = A | A = a)\)</span></td>
+<td><span class="math inline">\(1/6\)</span></td>
+<td><span class="math inline">\(1/6\)</span></td>
+<td><span class="math inline">\(1/6\)</span></td>
+<td><span class="math inline">\(1/6\)</span></td>
+<td><span class="math inline">\(1/6\)</span></td>
+<td><span class="math inline">\(1/6\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\P(\text{B wins} | A = a)\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(5/6\)</span></td>
+<td><span class="math inline">\(4/6 = 2/3\)</span></td>
+<td><span class="math inline">\(3/6 = 1/2\)</span></td>
+<td><span class="math inline">\(2/6 = 1/3\)</span></td>
+<td><span class="math inline">\(1/6\)</span></td>
+</tr>
+</tbody>
+</table>
 <p>We can thus compute probabilities;</p>
 <p><span class="math display">\[\P(\text{B wins}) = \sum_{a=1}^6 \P(\text{B wins} | A = a) \P(A = a) = \sum_{a=1}^6 \frac{7-a}{6} * \frac{2a-1}{36} = \frac{91}{216} \approx 42.1\%\]</span> So A’s “advantage” is not as significant as it may seem.</p>
 <p>In simulation:</p>
@@ -1746,7 +1821,7 @@ Solution
 <div id="callout-57" class="callout-57-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Under the delta method, we take</p>
-<p><span class="math display">\[g(X)  \buildrel d\over \approx \mathcal{N}\left(g(\mu), g'(\mu)^2 \sigma^2\right) \]</span> Since here <span class="math inline">\(\Var[X] \propto 1/n\)</span>, we can instead write this as:</p>
+<p><span class="math display">\[g(X)  \buildrel d\over \approx \mathcal{N}\left(g(\mu), g'(\mu)^2 \sigma^2\right) \]</span> Since here <span class="math inline">\(\V[X] \propto 1/n\)</span>, we can instead write this as:</p>
 <p><span class="math display">\[g(X)  \buildrel d\over \approx \mathcal{N}\left(g(\mu), g'(\mu)^2 \sigma^2/n\right) \]</span></p>
 <p>For us, <span class="math inline">\(g(x) = \sqrt{x}\)</span>, so <span class="math inline">\(g(\mu) = \sqrt{16} = 4\)</span> and <span class="math display">\[\begin{align*}
 g'(x) &amp;= \frac{1}{2\sqrt{x}} \\
