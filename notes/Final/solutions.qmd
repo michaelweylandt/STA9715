@@ -16,7 +16,24 @@ This is similar to a question from Test 3, but here you need to pattern match on
 :::
 
 ::: {.callout-tip title="Solution" collapse="true"}
-We recognize this as the PDF of a $\text{Beta}(2, 5)$ distribution, hence it has $$\E[X] = \frac{\alpha}{\alpha + \beta} = \frac{2}{7} \approx 28.57\%$$
+We recognize this as the PDF of a $\text{Beta}(3, 6)$ distribution, hence it has $$\E[X] = \frac{\alpha}{\alpha + \beta} = \frac{3}{3+6} = \frac{1}{3} \approx 33.3\%$$. 
+
+We can verify that samples from this distribution have the 
+right "shape":
+
+```{r}
+X <- rbeta(1e6, 3, 6)
+x <- seq(0, 1, length.out=401)
+
+hist(X, probability=TRUE)
+lines(x, x^2*(1-x)^5 / beta(3, 6), lwd=2, col="red4")
+```
+Here we're cheating a bit however since we assumed / knew the
+normalizing constant ($1/B(3, 6)$) to make the curves match up. It is
+possible, albeit a bit slower, to get samples from a distribution 
+with unknown normalizing constant (and unknown distribution ID) using
+a technique called "rejection sampling." See discussion 
+[on Cross-Validated](https://stats.stackexchange.com/a/182526).
 :::
 
 #### Question 2
