@@ -206,7 +206,7 @@ student to take more than 2 hours to finish the exam, the average time per
 question must be greater than $3$ minutes. We put these numbers into the
 Chernoff bound to get: 
 
-$$\P(\overline{T}_{40} > E[\overline{T}_{40}] + 1) \leq e^{-2n t^2/(b-a)^2} = e^{-40 * 1^2/4^2} \approx 0.67\%$$
+$$\P(\overline{T}_{40} > E[\overline{T}_{40}] + 1) \leq e^{-2n t^2/(b-a)^2} = e^{-80 * 1^2/4^2} = e^{-5} \approx 0.67\%$$
 Here we see that by taking advantage of the *mean* structure of $T$ (or
 equivalently, the IID sum structure), we are able to get a **significantly 
 tighter** bound on the probability of the student not being able to finish the

@@ -493,7 +493,7 @@ Solution
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We apply the Chernoff bound for means of bounded random variables. Here, we take the variables to fall in the range <span class="math inline">\([1, 5]\)</span>, each with mean 2. For the student to take more than 2 hours to finish the exam, the average time per question must be greater than <span class="math inline">\(3\)</span> minutes. We put these numbers into the Chernoff bound to get:</p>
-<p><span class="math display">\[\P(\overline{T}_{40} &gt; E[\overline{T}_{40}] + 1) \leq e^{-2n t^2/(b-a)^2} = e^{-40 * 1^2/4^2} \approx 0.67\%\]</span> Here we see that by taking advantage of the <em>mean</em> structure of <span class="math inline">\(T\)</span> (or equivalently, the IID sum structure), we are able to get a <strong>significantly tighter</strong> bound on the probability of the student not being able to finish the exam in the permitted 2 hour time.</p>
+<p><span class="math display">\[\P(\overline{T}_{40} &gt; E[\overline{T}_{40}] + 1) \leq e^{-2n t^2/(b-a)^2} = e^{-80 * 1^2/4^2} = e^{-5} \approx 0.67\%\]</span> Here we see that by taking advantage of the <em>mean</em> structure of <span class="math inline">\(T\)</span> (or equivalently, the IID sum structure), we are able to get a <strong>significantly tighter</strong> bound on the probability of the student not being able to finish the exam in the permitted 2 hour time.</p>
 <p>As an aside, this is why it’s important to efficiently use the time made available for an exam and to limit the amount of time you spend on any one question. Limiting the time spent on a single question limits any “long tail” of unproductive time.</p>
 </div>
 </div>

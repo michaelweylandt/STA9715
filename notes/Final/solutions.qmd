@@ -220,7 +220,7 @@ We can solve this in two ways:
               &= 41
     \end{align*}$$
 
-    Hence, $$\V[X] = \E[X]^2 - \E[X]^2 = M''_X(0) - M'_X(0)^2 = 41 - 5^2 = 16$$ which gives a standard deviation of 4 for $X$. $X$
+    Hence, $$\V[X] = \E[X]^2 - \E[X]^2 = M''_X(0) - M'_X(0)^2 = 41 - 5^2 = 16$$ which gives a standard deviation of 4 for $X$.
 :::
 
 #### Question 8
@@ -700,7 +700,9 @@ $$\begin{align*}
 \P(\text{Red}|\text{Spoiled}) &= \frac{\P(\text{Spoiled}|\text{Red}) * \P(\text{Red})}{\P(\text{Spoiled})} \\
 &= \frac{\P(\text{Spoiled}|\text{Red}) * \P(\text{Red})}{\P(\text{Spoiled}|\text{Red}) * \P(\text{Red})+\P(\text{Spoiled}|\text{White}) * \P(\text{White})} \\
 &= \frac{0.2 * 0.25}{0.2 * 0.25 + 0.1 * 0.75} \\
-&= 40\%
+&= 40\% \\
+\implies \P(\text{White} | \text{Spoiled}) &= 1 - \P(\text{Red} | \text{Spoiled}) \\
+&= 60\%
 \end{align*}$$
 
 Hence
@@ -851,6 +853,12 @@ Next, we compute the probability of B winning or tying for each of A's scores:
 We can thus compute probabilities; 
 
 $$\P(\text{B wins}) = \sum_{a=1}^6 \P(\text{B wins} | A = a) \P(A = a) = \sum_{a=1}^6 \frac{7-a}{6} * \frac{2a-1}{36} = \frac{91}{216} \approx 42.1\%$$
+
+and 
+
+$$\P(\text{A wins}) = 1 - \P(\text{B wins}) = \frac{125}{216} = 57.87\%$$
+
+
 So A's "advantage" is not as significant as it may seem. 
 
 In simulation: 
@@ -861,8 +869,10 @@ data.frame(A1 = sample(1:6, n, replace=TRUE),
            A2 = sample(1:6, n, replace=TRUE),
            B  = sample(1:6, n, replace=TRUE)) |>
     mutate(A = pmax(A1, A2)) |>
-    mutate(B_wins = B >= A)  |>
-    summarize(P_B_wins = mean(B_wins))
+    mutate(A_wins = A > B,
+           B_wins = B >= A)  |>
+    summarize(P_A_wins = mean(A_wins),
+              P_B_wins = mean(B_wins))
 ```
 If we roll dice with more sides, *e.g.* 20, the advantage to A becomes more
 pronounced: 
@@ -873,8 +883,10 @@ data.frame(A1 = sample(1:20, n, replace=TRUE),
            A2 = sample(1:20, n, replace=TRUE),
            B  = sample(1:20, n, replace=TRUE)) |>
     mutate(A = pmax(A1, A2)) |>
-    mutate(B_wins = B >= A)  |>
-    summarize(P_B_wins = mean(B_wins))
+    mutate(A_wins = A > B,
+           B_wins = B >= A)  |>
+    summarize(P_A_wins = mean(A_wins),
+              P_B_wins = mean(B_wins))
 ```
 As the number of faces increases, the probability of B winning converges to 1/3. 
 (Can you see why?)
@@ -1102,7 +1114,7 @@ student to take more than 2 hours to finish the exam, the average time per
 question must be greater than $3$ minutes. We put these numbers into the
 Chernoff bound to get: 
 
-$$\P(\overline{T}_{40} > E[\overline{T}_{40}] + 1) \leq e^{-2n t^2/(b-a)^2} = e^{-40 * 1^2/4^2} \approx 0.67\%$$
+$$\P(\overline{T}_{40} > E[\overline{T}_{40}] + 1) \leq e^{-2n t^2/(b-a)^2} = e^{-2 * 40 * 1^2 / (5-1)^2} = e^{-80/16} = e^{-5} \approx 0.67\%$$
 Here we see that by taking advantage of the *mean* structure of $T$ (or
 equivalently, the IID sum structure), we are able to get a **very tight** 
 bound on the probability of the student not being able to finish the
@@ -1158,22 +1170,22 @@ and
 
 $$\V[M - D] = \V[M] - 2\C[M, D] + \V[D] = 
 \sigma_M^2 - 2 \sigma_M\sigma_D\rho_{M, D} + \sigma_F^2 
-= 6^2 - 2 * 6 * 6 * \frac{1}{4} + 6^2 = 54$$
+= 4^2 - 2 * 4 * 4 * \frac{1}{4} + 4^2 = 24$$
 
 Hence, standardization of $S - F$ gives us:
 
-$$\P(M > D + 4) = 1 - F_{M-D}(4) = 1 - \Phi\left(\frac{4 - 0}{\sqrt{54}}\right) \approx 29.3\%$$
+$$\P(M > D + 4) = 1 - F_{M-D}(4) = 1 - \Phi\left(\frac{4 - 0}{\sqrt{24}}\right) \approx 20.7\%$$
 
 Again, we can verify this in simulation. We need to be able to generate 
 correlated variables and most multivariate normal samplers take the 
 variance matrix as the input:
 
-$$\V[(M, D)] = \begin{pmatrix} 6^2 & 6 * 6 * \frac{1}{4} \\ 6 * 6 * \frac{1}{4} & 6^2 \end{pmatrix} = \begin{pmatrix} 36 & 9 \\ 9 & 36 \end{pmatrix}$$ Next, we use `MASS::mvrnorm` to generate our samples:
+$$\V[(M, D)] = \begin{pmatrix} 4^2 & 4 * 4 * \frac{1}{4} \\ 4 * 4 * \frac{1}{4} & 4^2 \end{pmatrix} = \begin{pmatrix} 16 & 4 \\ 4 & 16 \end{pmatrix}$$ Next, we use `MASS::mvrnorm` to generate our samples:
 
 ```{r echo=TRUE}
 library(MASS)
-mu <- c(72, 72)
-Sigma <- matrix(c(36, 9, 9, 36), nrow=2)
+mu <- c(66, 66)
+Sigma <- matrix(c(16, 4, 4, 16), nrow=2)
 X <- mvrnorm(1e7, mu, Sigma)
 MOM_HT <- X[,1]
 DAU_HT <- X[,2]
@@ -1328,6 +1340,9 @@ $$\begin{align*}
 
 where we use the fact that $\E[E] = \lambda$ and $\V[E] = \lambda^2$.
 
+For the version of this question appearing on the exam, I set $\lambda=3$, so
+$\E[L] = 0$ and $\V[L] = 18$. 
+
 We can verify this in simulation: 
 
 ```{r}
@@ -1368,7 +1383,7 @@ we simply need the "upper tail" of the $\text{Binom}(7, 0.5)$ distribution.
 $$\sum_{k=4}^7 \binom{7}{k} 0.5^k (1-0.5)^{7-k} = \sum_{k=4}^7 \binom{7}{k} 0.5^7 = 0.5^7 \sum_{k=4}^y \binom{7}{k} = \frac{35 + 21 + 7 + 1}{2^7} = 0.5$$
 
 In retrospect, we can also see that this follows from the symmetry of the standard
-normal around 0$. 
+normal around $0$. 
 
 In simulation, 
 
