@@ -346,7 +346,7 @@ Tip
 <section id="geometric" class="level2">
 <h2 class="anchored" data-anchor-id="geometric">Geometric</h2>
 <p>So far, we have considered distributions that count the number of times “success” happens out of a fixed number of trials. We now turn to distributions with a fixed number of successes, but a random number of total trials. In these models, the random variable of interest is the total number of trials.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<p>Our basic model is the <em>geometric</em> distribution. The total number of coin flips until we get our first heads (inclusive. If we denote this variable as <span class="math inline">\(X\)</span>, we can easily see that the PMF is given by:</p>
+<p>Our basic model is the <em>geometric</em> distribution. The total number of coin flips until we get our first heads (inclusive). If we denote this variable as <span class="math inline">\(X\)</span>, we can easily see that the PMF is given by:</p>
 <p><span class="math display">\[\P(X = x) = p(1-p)^{x-1} \text{ for } x \in \{1, 2, \dots\}\]</span></p>
 <p>This PMF arises because we don’t need to account for order: we know the last flip is a success with probability <span class="math inline">\(p\)</span> and the previous <span class="math inline">\(x-1\)</span> flips are each failures, occurring with probability <span class="math inline">\(q = 1-p\)</span>. By independence, these probabilities can be combined with simple multiplication, giving the resulting PMF.</p>
 <p>Mean and variance can be computed in many ways. Here, we’ll show a general approach that uses differentiation and geometric series creatively to compute several useful quantities in the same manner.</p>

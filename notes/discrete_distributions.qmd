@@ -288,8 +288,8 @@ trials. In these models, the random variable of interest is the total number
 of trials.[^2]
 
 Our basic model is the _geometric_ distribution. The total number of 
-coin flips until we get our first heads (inclusive. If we denote this variable as $X$, 
-we can easily see that the PMF is given by: 
+coin flips until we get our first heads (inclusive). If we denote this 
+variable as $X$, we can easily see that the PMF is given by: 
 
 $$\P(X = x) = p(1-p)^{x-1} \text{ for } x \in \{1, 2, \dots\}$$
 

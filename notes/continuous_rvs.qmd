@@ -17,7 +17,7 @@ Regardless, we begin by recalling our discussion of "events" in probability.
 
 ## Events and Sigma Algebras
 
-Recall that in our earlies discussion of probability, we studiously avoided
+Recall that in our earliest discussion of probability, we studiously avoided
 asking the probability of an _outcome_; we instead insisted on only assigning
 probabilities to _events_. At the time, I argued that events are easier to
 generalize: it is easier to have one uniform set of rules for events than to
